@@ -11,7 +11,7 @@
     "commit": "cz",
     "dev:browser": "turbo run dev --filter=browser",
     "dev:mobile": "turbo run dev --filter=mobile",
-    "dev:server": "turbo run dev --filter=server",
+    "dev:www": "turbo run dev --filter=www",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "test": "turbo run test",
