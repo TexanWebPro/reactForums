@@ -51,7 +51,7 @@
       },
       "body": {
         "$value": {
-          "fontFamily": "{text.fonts.serif}",
+          "fontFamily": "{text.fonts.sans}",
           "fontWeight": "{text.weights.regular}",
           "fontSize": "{text.sizes.body}",
           "lineHeight": "{text.lineHeights.normal}"
