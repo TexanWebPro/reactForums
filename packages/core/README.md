@@ -7,14 +7,21 @@ This package contains the domain logic, models, services, and abstractions that 
 ## Features
 
 - <b>Shared Domain Models</b>
+
   Canonical TypeScript types and enums for posts, forums, users, roles, permissions, and more.
+
 - <b>Service Clients</b>
+
   Lightweight API clients that wrap fetch calls, enabling UI apps (browser, mobile, desktop) to communicate with the backend consistently.
+
 - <b>Repositories</b>
+
   Standardized interfaces for database access (e.g., `PostRepository`, `UserRepository`).
   - Keeps the domain layer database agnostic.
   - Can be implemented with Postgres or MySQL, Prisma or Drizzle.
+
 - <b>Adapters</b>
+
   Pluggable integrations for external systems:
   - Database: Postgres, MySQL, SQLite, Prisma, TypeORM.
   - Auth: Clerk, OAuth, SSO, JWT, custom providers.
@@ -23,7 +30,9 @@ This package contains the domain logic, models, services, and abstractions that 
   - Notifications: Email (SMTP/SES), push.
   - Search: Elasticsearch, Algolia.
   - Analytics: Segment, Amplitude.
+
 - <b>Authorization Utilities</b>
+
   Role/permission-based access control with fine-grained checks (ABAD-ready). Example:
 
   ```ts
@@ -31,6 +40,7 @@ This package contains the domain logic, models, services, and abstractions that 
   ```
 
 - <b>In-memory Mocks</b>
+
   Drop-in test-friendly repositories, storage, and event busses. Great for unit testing without external dependencies.
 
 <hr>
