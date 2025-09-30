@@ -1,15 +1,27 @@
 {
-  "name": "core",
+  "name": "@reactforums/core",
   "version": "0.1.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js"
+    }
+  },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsup",
+    "dev": "tsup src/index.ts --watch",
     "test": "vitest"
   },
   "peerDependencies": {
     "zod": "^4"
   },
-  "packageManager": "pnpm@10.15.0"
+  "packageManager": "pnpm@10.15.0",
+  "devDependencies": {
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2"
+  }
 }
