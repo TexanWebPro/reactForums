@@ -1,3 +1,41 @@
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  password: string;
+  role: "admin" | "mod" | "user" | "banned";
+  avatar: string;
+  userTitle: string;
+  website: string;
+  birthday: string;
+  signature: string;
+  postCount: string;
+  reputation: number;
+  warningPoints: number;
+  primaryUserGroup: string;
+  registrationDate: Date;
+  lastactive: Date;
+  lastVisit: Date;
+  lastPost: Date;
+  allowMessages: boolean;
+  allowMessagesFromBuddiesOnly: boolean;
+  showBirthday: boolean;
+  showSignatures: boolean;
+  showAvatars: boolean;
+  showQuickReply: boolean;
+  isAway: boolean;
+  awayReason: string;
+  postsPerPage: number;
+  threadsPerPage: number;
+  timezone: string;
+  language: string;
+  totalTimeOnline: number;
+  registrationIP: string;
+  lastIP: string;
+  failedLogins: number;
+  updatedDate: Date;
+}
+
 export interface ForumStats {
   threadCount: number;
   postCount: number;
