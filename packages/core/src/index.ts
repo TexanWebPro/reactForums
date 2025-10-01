@@ -4,3 +4,4 @@ export * from "./domain/models";
 export * from "./services/forumService";
 export * from "./services/statsService";
 export * from "./services/userService";
+export * from "./services/settingsService";
