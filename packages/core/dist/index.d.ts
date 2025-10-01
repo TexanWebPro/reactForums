@@ -1,12 +1,9 @@
-interface Thread {
-    id: number;
-    title: string;
-    slug: string;
-    authorId: string;
-    createdAt: Date;
-    updatedAt?: Date;
-    pinned?: boolean;
-    locked?: boolean;
+interface ForumStats {
+    threadCount: number;
+    postCount: number;
+    memberCount: number;
+    mostOnlineAtOnce: number;
+    mostOnlineAtOnceDate: Date;
 }
 interface Forum {
     id: number;
@@ -36,10 +33,13 @@ interface Forum {
     mustReviewAttachments: boolean;
     canModsEdit: boolean;
 }
+interface ForumTreeNode extends Forum {
+    children?: ForumTreeNode[];
+}
 
 declare class ForumService {
     constructor(baseUrl: string);
-    listAllForums(): Forum[];
+    listAllForumsByCategory(): ForumTreeNode[];
 }
 
-export { type Forum, ForumService, type Thread };
+export { type Forum, ForumService, type ForumStats, type ForumTreeNode };

@@ -1,12 +1,9 @@
-export interface Thread {
-  id: number;
-  title: string;
-  slug: string;
-  authorId: string;
-  createdAt: Date;
-  updatedAt?: Date;
-  pinned?: boolean;
-  locked?: boolean;
+export interface ForumStats {
+  threadCount: number;
+  postCount: number;
+  memberCount: number;
+  mostOnlineAtOnce: number;
+  mostOnlineAtOnceDate: Date;
 }
 
 export interface Forum {

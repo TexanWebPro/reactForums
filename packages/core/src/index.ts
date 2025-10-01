@@ -2,3 +2,4 @@
 export * from "./domain/models";
 // export services
 export * from "./services/forumService";
+export * from "./services/statsService";
