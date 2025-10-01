@@ -1,4 +1,4 @@
-import { statsService } from "@/api/client";
+import { statsService, userService } from "@/api/client";
 import { Link } from "@tanstack/react-router";
 import { ForumStats } from "@reactforums/core";
 import { ForumStatsView } from "@reactforums/common/models";
@@ -6,6 +6,7 @@ import { formatNumber } from "@reactforums/common/utils/numbers";
 
 export function Stats() {
   const unformattedStats = statsService.getGlobalStats();
+  const latestUser = userService.latestUser();
 
   function formatStats(stats: ForumStats): ForumStatsView {
     return {
@@ -35,7 +36,7 @@ export function Stats() {
           <p>
             Please welcome our newest member,{" "}
             <Link to="/" className="text-sky-700 font-bold">
-              Elegant Totality
+              {latestUser.username}
             </Link>
           </p>
           <p>
