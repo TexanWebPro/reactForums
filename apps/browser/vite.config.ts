@@ -25,6 +25,7 @@ export default defineConfig({
             __dirname,
             "../../packages/core/src"
           ),
+          "@reactforums/common": path.resolve(__dirname, "../common"),
         },
   },
 });

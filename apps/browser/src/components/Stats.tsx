@@ -1,6 +1,24 @@
+import { statsService } from "@/api/client";
 import { Link } from "@tanstack/react-router";
+import { ForumStats } from "@reactforums/core";
+import { ForumStatsView } from "@reactforums/common/models";
+import { formatNumber } from "@reactforums/common/utils/numbers";
 
 export function Stats() {
+  const unformattedStats = statsService.getGlobalStats();
+
+  function formatStats(stats: ForumStats): ForumStatsView {
+    return {
+      postCount: formatNumber(stats.postCount),
+      threadCount: formatNumber(stats.threadCount),
+      memberCount: formatNumber(stats.memberCount),
+      mostOnlineAtOnce: formatNumber(stats.mostOnlineAtOnce),
+      mostOnlineAtOnceDate: stats.mostOnlineAtOnceDate,
+    };
+  }
+
+  const boardStats = formatStats(unformattedStats);
+
   return (
     <>
       <div className="w-full bg-stone-200 flex flex-col rounded-lg">
@@ -10,10 +28,10 @@ export function Stats() {
 
         <div className="p-4 border-2 border-stone-300 rounded-b-lg flex flex-col items-start justify-between text-sm gap-2">
           <p>
-            Our members have made a total of 1,243,148 replies in 177,547
-            topics.
+            Our members have made a total of {boardStats.postCount} posts in{" "}
+            {boardStats.threadCount} threads.
           </p>
-          <p>We currently have 4,136,121 members registered.</p>
+          <p>We currently have {boardStats.memberCount} members registered.</p>
           <p>
             Please welcome our newest member,{" "}
             <Link to="/" className="text-sky-700 font-bold">
@@ -21,7 +39,8 @@ export function Stats() {
             </Link>
           </p>
           <p>
-            The most users online at one time was 42,749 on 2025-01-22 at 05:27
+            The most users online at one time was {boardStats.mostOnlineAtOnce}{" "}
+            on {boardStats.mostOnlineAtOnceDate.toString()}
             PM
           </p>
         </div>

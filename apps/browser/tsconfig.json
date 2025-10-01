@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@reactforums/core": ["../../packages/core/src"]
+      "@reactforums/core": ["../../packages/core/src"],
+      "@reactforums/common/*": ["../common/*"]
     },
     "noEmit": true
   }
