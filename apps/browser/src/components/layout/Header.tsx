@@ -1,14 +1,24 @@
 import { Link } from "@tanstack/react-router";
 import Edges from "./Edges";
+import { settingsService } from "@/api/client";
+import { SettingKey } from "@reactforums/core";
 
 export default function Header() {
+  const boardName = settingsService.getByName(SettingKey.BoardName);
+  const boardDescription = settingsService.getByName(
+    SettingKey.BoardDescription
+  );
+
   return (
     <header className="flex flex-col bg-sky-700 text-neutral-50 justify-between">
       <nav className="text-2xl">
         <Edges className="flex flex-row gap-4 py-8 items-center justify-between">
-          <Link className="hover:underline" to="/">
-            reactForums
-          </Link>
+          <span>
+            <Link className="hover:underline" to="/">
+              {String(boardName?.value)}
+            </Link>
+            <p className="text-lg">{String(boardDescription?.value)}</p>
+          </span>
         </Edges>
       </nav>
 

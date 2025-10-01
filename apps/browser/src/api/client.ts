@@ -1,4 +1,9 @@
-import { ForumService, StatsService, UserService } from "@reactforums/core";
+import {
+  ForumService,
+  SettingsService,
+  StatsService,
+  UserService,
+} from "@reactforums/core";
 
 const baseUrl = "localhost:9999";
 
@@ -6,3 +11,4 @@ const baseUrl = "localhost:9999";
 export const forumService = new ForumService(baseUrl);
 export const statsService = new StatsService(baseUrl);
 export const userService = new UserService(baseUrl);
+export const settingsService = new SettingsService(baseUrl);
