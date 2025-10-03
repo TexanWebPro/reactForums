@@ -17,7 +17,6 @@ function App() {
         <span className="text-sm font-bold">rF Community Forums</span>
 
         <div className="mt-4 w-full flex flex-col items-start justify-center gap-4">
-          <Banners />
           {allForums.map((forum) => {
             return (
               <>

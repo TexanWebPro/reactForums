@@ -45,10 +45,10 @@ export function Category(props: {
                     : i === forums.length - 1
                       ? "rounded-b-lg border-t-0" // border rounded for last entry
                       : "" // border for all others
-                } p-4 border-2 border-stone-300 flex flex-row items-center justify-between text-sm`}
+                } p-4 border-2 border-stone-300 grid grid-cols-4 items-center justify-between text-sm`}
                 key={`${board.name}-${i}`}
               >
-                <span className="flex flex-col items-start justify-between w-5/7">
+                <span className="flex flex-col col-span-2 items-start justify-between">
                   <span className="flex flex-row items-center justify-between gap-4">
                     {board.isLocked ? (
                       <img
@@ -73,7 +73,7 @@ export function Category(props: {
                         />
                       </>
                     )}
-                    <span>
+                    <span className="flex flex-col">
                       <span className="font-bold">
                         <Link
                           to="/"
@@ -83,6 +83,46 @@ export function Category(props: {
                         </Link>
                       </span>
                       <span>{board.description}</span>
+                      <span className="flex flex-row gap-4 flex-wrap items-center justify-between">
+                        {board.children ? (
+                          board.children.map((childBoard) => {
+                            return (
+                              <>
+                                <span className="flex flex-row gap-1 text-xs mt-2 font-bold">
+                                  {childBoard.isLocked ? (
+                                    <img
+                                      src="/images/icons/lock-closed.svg"
+                                      alt="Locked Forum"
+                                      className="w-3"
+                                    />
+                                  ) : (
+                                    // ) : childBoard.newReplies ? (
+                                    //   <>
+                                    //     <img
+                                    //       src="/images/icons/dot-filled-icon.svg"
+                                    //       alt="New Replies"
+                                    //       className="w-3"
+                                    //     />
+                                    //   </>
+                                    <>
+                                      <img
+                                        src="/images/icons/dot-filled-icon-white.svg"
+                                        alt="No New Replies"
+                                        className="w-3"
+                                      />
+                                    </>
+                                  )}
+                                  <Link to="/" className="hover:underline">
+                                    {childBoard.name}
+                                  </Link>
+                                </span>
+                              </>
+                            );
+                          })
+                        ) : (
+                          <></>
+                        )}
+                      </span>
                     </span>
                   </span>
                 </span>
