@@ -22,6 +22,7 @@ function App() {
               <>
                 {forum.isCategory && forum.children ? (
                   <Category
+                    categoryId={forum.id}
                     categoryName={forum.name}
                     categoryDescription={forum.description}
                     forums={forum.children}

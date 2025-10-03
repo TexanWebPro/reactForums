@@ -20,16 +20,21 @@ type ForumForDisplay = {
 };
 
 export function Category(props: {
+  categoryId: number;
   categoryName: string;
   categoryDescription: string;
   forums: ForumTreeNode[];
 }) {
-  const { categoryName, categoryDescription, forums } = props;
+  const { categoryId, categoryName, categoryDescription, forums } = props;
   return (
     <>
       <div className="w-full bg-stone-200 flex flex-col rounded-lg text-sm">
         <span className="bg-sky-600 w-full p-4 py-2 font-bold text-stone-50 border-2 border-sky-800 rounded-t-lg flex flex-row items-center justify-start gap-2">
-          <Link to="/" className="hover:underline text-lg">
+          <Link
+            to="/forum/$forumId"
+            params={{ forumId: categoryId.toString() }}
+            className="hover:underline text-lg"
+          >
             {categoryName}
           </Link>
           <span className="text-sm">{categoryDescription}</span>
