@@ -1,5 +1,6 @@
 import { forumService } from "@/api/client";
 import { Banners } from "@/components/Banner";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Category } from "@/components/Category";
 import { Stats } from "@/components/Stats";
 import { createFileRoute } from "@tanstack/react-router";
@@ -14,9 +15,9 @@ function App() {
   return (
     <>
       <div>
-        <span className="text-sm font-bold">rF Community Forums</span>
+        <Breadcrumbs crumbs={[]} />
 
-        <div className="mt-4 w-full flex flex-col items-start justify-center gap-4">
+        <div className="w-full flex flex-col items-start justify-center gap-4">
           {allForums.map((forum) => {
             return (
               <>
