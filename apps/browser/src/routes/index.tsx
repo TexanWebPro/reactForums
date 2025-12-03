@@ -20,7 +20,7 @@ function App() {
         <div className="w-full flex flex-col items-start justify-center gap-4">
           {allForums.map((forum) => {
             return (
-              <>
+              <div key={forum.name + forum.id}>
                 {forum.isCategory && forum.children ? (
                   <Category
                     categoryId={forum.id}
@@ -31,7 +31,7 @@ function App() {
                 ) : (
                   <></>
                 )}
-              </>
+              </div>
             );
           })}
           <Stats />

@@ -18,7 +18,7 @@ export default function Breadcrumbs({ crumbs }: { crumbs: Crumb[] }) {
   return (
     <>
       <nav aria-label="Breadcrumb">
-        <ol className="text-sm font-bold flex flex-row items-center justify-start pb-4">
+        <ol className="text-sm font-bold flex flex-row items-center justify-start py-4">
           {crumbsWithRoot.map((crumb, i) => (
             <li key={i} className="flex items-center">
               {crumb.href ? (
