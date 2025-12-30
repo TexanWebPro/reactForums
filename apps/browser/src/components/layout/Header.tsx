@@ -88,7 +88,7 @@ export default function Header() {
         <Edges className="w-full flex flex-row items-center justify-between text-sm">
           <div className="flex flex-row items-center justify-between gap-4">
             <Link
-              to="/"
+              to="/user-dashboard"
               className="flex flex-row items-center justify-between gap-1"
             >
               <img
