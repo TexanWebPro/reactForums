@@ -17,10 +17,10 @@ function App() {
       <div>
         <Breadcrumbs crumbs={[]} />
 
-        <div className="w-full flex flex-col items-start justify-center gap-4">
+        <div className="flex flex-col items-start justify-center gap-4">
           {allForums.map((forum) => {
             return (
-              <div key={forum.name + forum.id}>
+              <div key={forum.name + forum.id} className="w-full">
                 {forum.isCategory && forum.children ? (
                   <Category
                     categoryId={forum.id}

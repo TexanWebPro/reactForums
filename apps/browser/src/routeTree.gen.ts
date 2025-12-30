@@ -11,49 +11,58 @@
 import { createServerRootRoute } from '@tanstack/react-start/server'
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as UsersRouteImport } from './routes/users'
-import { Route as RedirectRouteImport } from './routes/redirect'
-import { Route as PostsRouteImport } from './routes/posts'
-import { Route as DeferredRouteImport } from './routes/deferred'
-import { Route as PathlessLayoutRouteImport } from './routes/_pathlessLayout'
+import { Route as UserDashboardRouteImport } from './routes/user-dashboard'
+import { Route as TeamRouteImport } from './routes/team'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as ModDashboardRouteImport } from './routes/mod-dashboard'
+import { Route as MessagesRouteImport } from './routes/messages'
+import { Route as MemberlistRouteImport } from './routes/memberlist'
+import { Route as HelpRouteImport } from './routes/help'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as UsersIndexRouteImport } from './routes/users.index'
-import { Route as PostsIndexRouteImport } from './routes/posts.index'
-import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
-import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
-import { Route as ForumForumIdRouteImport } from './routes/forum/$forumId'
-import { Route as PathlessLayoutNestedLayoutRouteImport } from './routes/_pathlessLayout/_nested-layout'
-import { Route as PostsPostIdDeepRouteImport } from './routes/posts_.$postId.deep'
-import { Route as PathlessLayoutNestedLayoutRouteBRouteImport } from './routes/_pathlessLayout/_nested-layout/route-b'
-import { Route as PathlessLayoutNestedLayoutRouteARouteImport } from './routes/_pathlessLayout/_nested-layout/route-a'
-import { ServerRoute as CustomScriptDotjsServerRouteImport } from './routes/customScript[.]js'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as UsersUserIdRouteImport } from './routes/users/$userId'
+import { Route as ForumForumIdIndexRouteImport } from './routes/forum/$forumId/index'
+import { Route as ForumForumIdThreadReplyRouteImport } from './routes/forum/$forumId/thread/reply'
+import { Route as ForumForumIdThreadNewRouteImport } from './routes/forum/$forumId/thread/new'
+import { Route as ForumForumIdThreadThreadIdRouteImport } from './routes/forum/$forumId/thread/$threadId'
 import { ServerRoute as ApiUsersServerRouteImport } from './routes/api/users'
 import { ServerRoute as ApiUsersUserIdServerRouteImport } from './routes/api/users.$userId'
 
 const rootServerRouteImport = createServerRootRoute()
 
-const UsersRoute = UsersRouteImport.update({
-  id: '/users',
-  path: '/users',
+const UserDashboardRoute = UserDashboardRouteImport.update({
+  id: '/user-dashboard',
+  path: '/user-dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RedirectRoute = RedirectRouteImport.update({
-  id: '/redirect',
-  path: '/redirect',
+const TeamRoute = TeamRouteImport.update({
+  id: '/team',
+  path: '/team',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PostsRoute = PostsRouteImport.update({
-  id: '/posts',
-  path: '/posts',
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DeferredRoute = DeferredRouteImport.update({
-  id: '/deferred',
-  path: '/deferred',
+const ModDashboardRoute = ModDashboardRouteImport.update({
+  id: '/mod-dashboard',
+  path: '/mod-dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PathlessLayoutRoute = PathlessLayoutRouteImport.update({
-  id: '/_pathlessLayout',
+const MessagesRoute = MessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MemberlistRoute = MemberlistRouteImport.update({
+  id: '/memberlist',
+  path: '/memberlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpRoute = HelpRouteImport.update({
+  id: '/help',
+  path: '/help',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -61,58 +70,37 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UsersIndexRoute = UsersIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => UsersRoute,
-} as any)
-const PostsIndexRoute = PostsIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => PostsRoute,
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const UsersUserIdRoute = UsersUserIdRouteImport.update({
-  id: '/$userId',
-  path: '/$userId',
-  getParentRoute: () => UsersRoute,
-} as any)
-const PostsPostIdRoute = PostsPostIdRouteImport.update({
-  id: '/$postId',
-  path: '/$postId',
-  getParentRoute: () => PostsRoute,
-} as any)
-const ForumForumIdRoute = ForumForumIdRouteImport.update({
-  id: '/forum/$forumId',
-  path: '/forum/$forumId',
+  id: '/users/$userId',
+  path: '/users/$userId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PathlessLayoutNestedLayoutRoute =
-  PathlessLayoutNestedLayoutRouteImport.update({
-    id: '/_nested-layout',
-    getParentRoute: () => PathlessLayoutRoute,
-  } as any)
-const PostsPostIdDeepRoute = PostsPostIdDeepRouteImport.update({
-  id: '/posts_/$postId/deep',
-  path: '/posts/$postId/deep',
+const ForumForumIdIndexRoute = ForumForumIdIndexRouteImport.update({
+  id: '/forum/$forumId/',
+  path: '/forum/$forumId/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PathlessLayoutNestedLayoutRouteBRoute =
-  PathlessLayoutNestedLayoutRouteBRouteImport.update({
-    id: '/route-b',
-    path: '/route-b',
-    getParentRoute: () => PathlessLayoutNestedLayoutRoute,
-  } as any)
-const PathlessLayoutNestedLayoutRouteARoute =
-  PathlessLayoutNestedLayoutRouteARouteImport.update({
-    id: '/route-a',
-    path: '/route-a',
-    getParentRoute: () => PathlessLayoutNestedLayoutRoute,
-  } as any)
-const CustomScriptDotjsServerRoute = CustomScriptDotjsServerRouteImport.update({
-  id: '/customScript.js',
-  path: '/customScript.js',
-  getParentRoute: () => rootServerRouteImport,
+const ForumForumIdThreadReplyRoute = ForumForumIdThreadReplyRouteImport.update({
+  id: '/forum/$forumId/thread/reply',
+  path: '/forum/$forumId/thread/reply',
+  getParentRoute: () => rootRouteImport,
 } as any)
+const ForumForumIdThreadNewRoute = ForumForumIdThreadNewRouteImport.update({
+  id: '/forum/$forumId/thread/new',
+  path: '/forum/$forumId/thread/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForumForumIdThreadThreadIdRoute =
+  ForumForumIdThreadThreadIdRouteImport.update({
+    id: '/forum/$forumId/thread/$threadId',
+    path: '/forum/$forumId/thread/$threadId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiUsersServerRoute = ApiUsersServerRouteImport.update({
   id: '/api/users',
   path: '/api/users',
@@ -126,172 +114,194 @@ const ApiUsersUserIdServerRoute = ApiUsersUserIdServerRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/deferred': typeof DeferredRoute
-  '/posts': typeof PostsRouteWithChildren
-  '/redirect': typeof RedirectRoute
-  '/users': typeof UsersRouteWithChildren
-  '/forum/$forumId': typeof ForumForumIdRoute
-  '/posts/$postId': typeof PostsPostIdRoute
+  '/help': typeof HelpRoute
+  '/memberlist': typeof MemberlistRoute
+  '/messages': typeof MessagesRoute
+  '/mod-dashboard': typeof ModDashboardRoute
+  '/search': typeof SearchRoute
+  '/team': typeof TeamRoute
+  '/user-dashboard': typeof UserDashboardRoute
   '/users/$userId': typeof UsersUserIdRoute
-  '/posts/': typeof PostsIndexRoute
-  '/users/': typeof UsersIndexRoute
-  '/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
-  '/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
-  '/posts/$postId/deep': typeof PostsPostIdDeepRoute
+  '/admin': typeof AdminIndexRoute
+  '/forum/$forumId': typeof ForumForumIdIndexRoute
+  '/forum/$forumId/thread/$threadId': typeof ForumForumIdThreadThreadIdRoute
+  '/forum/$forumId/thread/new': typeof ForumForumIdThreadNewRoute
+  '/forum/$forumId/thread/reply': typeof ForumForumIdThreadReplyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/deferred': typeof DeferredRoute
-  '/redirect': typeof RedirectRoute
-  '/forum/$forumId': typeof ForumForumIdRoute
-  '/posts/$postId': typeof PostsPostIdRoute
+  '/help': typeof HelpRoute
+  '/memberlist': typeof MemberlistRoute
+  '/messages': typeof MessagesRoute
+  '/mod-dashboard': typeof ModDashboardRoute
+  '/search': typeof SearchRoute
+  '/team': typeof TeamRoute
+  '/user-dashboard': typeof UserDashboardRoute
   '/users/$userId': typeof UsersUserIdRoute
-  '/posts': typeof PostsIndexRoute
-  '/users': typeof UsersIndexRoute
-  '/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
-  '/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
-  '/posts/$postId/deep': typeof PostsPostIdDeepRoute
+  '/admin': typeof AdminIndexRoute
+  '/forum/$forumId': typeof ForumForumIdIndexRoute
+  '/forum/$forumId/thread/$threadId': typeof ForumForumIdThreadThreadIdRoute
+  '/forum/$forumId/thread/new': typeof ForumForumIdThreadNewRoute
+  '/forum/$forumId/thread/reply': typeof ForumForumIdThreadReplyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_pathlessLayout': typeof PathlessLayoutRouteWithChildren
-  '/deferred': typeof DeferredRoute
-  '/posts': typeof PostsRouteWithChildren
-  '/redirect': typeof RedirectRoute
-  '/users': typeof UsersRouteWithChildren
-  '/_pathlessLayout/_nested-layout': typeof PathlessLayoutNestedLayoutRouteWithChildren
-  '/forum/$forumId': typeof ForumForumIdRoute
-  '/posts/$postId': typeof PostsPostIdRoute
+  '/help': typeof HelpRoute
+  '/memberlist': typeof MemberlistRoute
+  '/messages': typeof MessagesRoute
+  '/mod-dashboard': typeof ModDashboardRoute
+  '/search': typeof SearchRoute
+  '/team': typeof TeamRoute
+  '/user-dashboard': typeof UserDashboardRoute
   '/users/$userId': typeof UsersUserIdRoute
-  '/posts/': typeof PostsIndexRoute
-  '/users/': typeof UsersIndexRoute
-  '/_pathlessLayout/_nested-layout/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
-  '/_pathlessLayout/_nested-layout/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
-  '/posts_/$postId/deep': typeof PostsPostIdDeepRoute
+  '/admin/': typeof AdminIndexRoute
+  '/forum/$forumId/': typeof ForumForumIdIndexRoute
+  '/forum/$forumId/thread/$threadId': typeof ForumForumIdThreadThreadIdRoute
+  '/forum/$forumId/thread/new': typeof ForumForumIdThreadNewRoute
+  '/forum/$forumId/thread/reply': typeof ForumForumIdThreadReplyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/deferred'
-    | '/posts'
-    | '/redirect'
-    | '/users'
-    | '/forum/$forumId'
-    | '/posts/$postId'
+    | '/help'
+    | '/memberlist'
+    | '/messages'
+    | '/mod-dashboard'
+    | '/search'
+    | '/team'
+    | '/user-dashboard'
     | '/users/$userId'
-    | '/posts/'
-    | '/users/'
-    | '/route-a'
-    | '/route-b'
-    | '/posts/$postId/deep'
+    | '/admin'
+    | '/forum/$forumId'
+    | '/forum/$forumId/thread/$threadId'
+    | '/forum/$forumId/thread/new'
+    | '/forum/$forumId/thread/reply'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/deferred'
-    | '/redirect'
-    | '/forum/$forumId'
-    | '/posts/$postId'
+    | '/help'
+    | '/memberlist'
+    | '/messages'
+    | '/mod-dashboard'
+    | '/search'
+    | '/team'
+    | '/user-dashboard'
     | '/users/$userId'
-    | '/posts'
-    | '/users'
-    | '/route-a'
-    | '/route-b'
-    | '/posts/$postId/deep'
+    | '/admin'
+    | '/forum/$forumId'
+    | '/forum/$forumId/thread/$threadId'
+    | '/forum/$forumId/thread/new'
+    | '/forum/$forumId/thread/reply'
   id:
     | '__root__'
     | '/'
-    | '/_pathlessLayout'
-    | '/deferred'
-    | '/posts'
-    | '/redirect'
-    | '/users'
-    | '/_pathlessLayout/_nested-layout'
-    | '/forum/$forumId'
-    | '/posts/$postId'
+    | '/help'
+    | '/memberlist'
+    | '/messages'
+    | '/mod-dashboard'
+    | '/search'
+    | '/team'
+    | '/user-dashboard'
     | '/users/$userId'
-    | '/posts/'
-    | '/users/'
-    | '/_pathlessLayout/_nested-layout/route-a'
-    | '/_pathlessLayout/_nested-layout/route-b'
-    | '/posts_/$postId/deep'
+    | '/admin/'
+    | '/forum/$forumId/'
+    | '/forum/$forumId/thread/$threadId'
+    | '/forum/$forumId/thread/new'
+    | '/forum/$forumId/thread/reply'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  PathlessLayoutRoute: typeof PathlessLayoutRouteWithChildren
-  DeferredRoute: typeof DeferredRoute
-  PostsRoute: typeof PostsRouteWithChildren
-  RedirectRoute: typeof RedirectRoute
-  UsersRoute: typeof UsersRouteWithChildren
-  ForumForumIdRoute: typeof ForumForumIdRoute
-  PostsPostIdDeepRoute: typeof PostsPostIdDeepRoute
+  HelpRoute: typeof HelpRoute
+  MemberlistRoute: typeof MemberlistRoute
+  MessagesRoute: typeof MessagesRoute
+  ModDashboardRoute: typeof ModDashboardRoute
+  SearchRoute: typeof SearchRoute
+  TeamRoute: typeof TeamRoute
+  UserDashboardRoute: typeof UserDashboardRoute
+  UsersUserIdRoute: typeof UsersUserIdRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  ForumForumIdIndexRoute: typeof ForumForumIdIndexRoute
+  ForumForumIdThreadThreadIdRoute: typeof ForumForumIdThreadThreadIdRoute
+  ForumForumIdThreadNewRoute: typeof ForumForumIdThreadNewRoute
+  ForumForumIdThreadReplyRoute: typeof ForumForumIdThreadReplyRoute
 }
 export interface FileServerRoutesByFullPath {
-  '/customScript.js': typeof CustomScriptDotjsServerRoute
   '/api/users': typeof ApiUsersServerRouteWithChildren
   '/api/users/$userId': typeof ApiUsersUserIdServerRoute
 }
 export interface FileServerRoutesByTo {
-  '/customScript.js': typeof CustomScriptDotjsServerRoute
   '/api/users': typeof ApiUsersServerRouteWithChildren
   '/api/users/$userId': typeof ApiUsersUserIdServerRoute
 }
 export interface FileServerRoutesById {
   __root__: typeof rootServerRouteImport
-  '/customScript.js': typeof CustomScriptDotjsServerRoute
   '/api/users': typeof ApiUsersServerRouteWithChildren
   '/api/users/$userId': typeof ApiUsersUserIdServerRoute
 }
 export interface FileServerRouteTypes {
   fileServerRoutesByFullPath: FileServerRoutesByFullPath
-  fullPaths: '/customScript.js' | '/api/users' | '/api/users/$userId'
+  fullPaths: '/api/users' | '/api/users/$userId'
   fileServerRoutesByTo: FileServerRoutesByTo
-  to: '/customScript.js' | '/api/users' | '/api/users/$userId'
-  id: '__root__' | '/customScript.js' | '/api/users' | '/api/users/$userId'
+  to: '/api/users' | '/api/users/$userId'
+  id: '__root__' | '/api/users' | '/api/users/$userId'
   fileServerRoutesById: FileServerRoutesById
 }
 export interface RootServerRouteChildren {
-  CustomScriptDotjsServerRoute: typeof CustomScriptDotjsServerRoute
   ApiUsersServerRoute: typeof ApiUsersServerRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/users': {
-      id: '/users'
-      path: '/users'
-      fullPath: '/users'
-      preLoaderRoute: typeof UsersRouteImport
+    '/user-dashboard': {
+      id: '/user-dashboard'
+      path: '/user-dashboard'
+      fullPath: '/user-dashboard'
+      preLoaderRoute: typeof UserDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/redirect': {
-      id: '/redirect'
-      path: '/redirect'
-      fullPath: '/redirect'
-      preLoaderRoute: typeof RedirectRouteImport
+    '/team': {
+      id: '/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof TeamRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/posts': {
-      id: '/posts'
-      path: '/posts'
-      fullPath: '/posts'
-      preLoaderRoute: typeof PostsRouteImport
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/deferred': {
-      id: '/deferred'
-      path: '/deferred'
-      fullPath: '/deferred'
-      preLoaderRoute: typeof DeferredRouteImport
+    '/mod-dashboard': {
+      id: '/mod-dashboard'
+      path: '/mod-dashboard'
+      fullPath: '/mod-dashboard'
+      preLoaderRoute: typeof ModDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_pathlessLayout': {
-      id: '/_pathlessLayout'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof PathlessLayoutRouteImport
+    '/messages': {
+      id: '/messages'
+      path: '/messages'
+      fullPath: '/messages'
+      preLoaderRoute: typeof MessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/memberlist': {
+      id: '/memberlist'
+      path: '/memberlist'
+      fullPath: '/memberlist'
+      preLoaderRoute: typeof MemberlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help': {
+      id: '/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -301,80 +311,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/users/': {
-      id: '/users/'
-      path: '/'
-      fullPath: '/users/'
-      preLoaderRoute: typeof UsersIndexRouteImport
-      parentRoute: typeof UsersRoute
-    }
-    '/posts/': {
-      id: '/posts/'
-      path: '/'
-      fullPath: '/posts/'
-      preLoaderRoute: typeof PostsIndexRouteImport
-      parentRoute: typeof PostsRoute
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/users/$userId': {
       id: '/users/$userId'
-      path: '/$userId'
+      path: '/users/$userId'
       fullPath: '/users/$userId'
       preLoaderRoute: typeof UsersUserIdRouteImport
-      parentRoute: typeof UsersRoute
+      parentRoute: typeof rootRouteImport
     }
-    '/posts/$postId': {
-      id: '/posts/$postId'
-      path: '/$postId'
-      fullPath: '/posts/$postId'
-      preLoaderRoute: typeof PostsPostIdRouteImport
-      parentRoute: typeof PostsRoute
-    }
-    '/forum/$forumId': {
-      id: '/forum/$forumId'
+    '/forum/$forumId/': {
+      id: '/forum/$forumId/'
       path: '/forum/$forumId'
       fullPath: '/forum/$forumId'
-      preLoaderRoute: typeof ForumForumIdRouteImport
+      preLoaderRoute: typeof ForumForumIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_pathlessLayout/_nested-layout': {
-      id: '/_pathlessLayout/_nested-layout'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof PathlessLayoutNestedLayoutRouteImport
-      parentRoute: typeof PathlessLayoutRoute
-    }
-    '/posts_/$postId/deep': {
-      id: '/posts_/$postId/deep'
-      path: '/posts/$postId/deep'
-      fullPath: '/posts/$postId/deep'
-      preLoaderRoute: typeof PostsPostIdDeepRouteImport
+    '/forum/$forumId/thread/reply': {
+      id: '/forum/$forumId/thread/reply'
+      path: '/forum/$forumId/thread/reply'
+      fullPath: '/forum/$forumId/thread/reply'
+      preLoaderRoute: typeof ForumForumIdThreadReplyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_pathlessLayout/_nested-layout/route-b': {
-      id: '/_pathlessLayout/_nested-layout/route-b'
-      path: '/route-b'
-      fullPath: '/route-b'
-      preLoaderRoute: typeof PathlessLayoutNestedLayoutRouteBRouteImport
-      parentRoute: typeof PathlessLayoutNestedLayoutRoute
+    '/forum/$forumId/thread/new': {
+      id: '/forum/$forumId/thread/new'
+      path: '/forum/$forumId/thread/new'
+      fullPath: '/forum/$forumId/thread/new'
+      preLoaderRoute: typeof ForumForumIdThreadNewRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_pathlessLayout/_nested-layout/route-a': {
-      id: '/_pathlessLayout/_nested-layout/route-a'
-      path: '/route-a'
-      fullPath: '/route-a'
-      preLoaderRoute: typeof PathlessLayoutNestedLayoutRouteARouteImport
-      parentRoute: typeof PathlessLayoutNestedLayoutRoute
+    '/forum/$forumId/thread/$threadId': {
+      id: '/forum/$forumId/thread/$threadId'
+      path: '/forum/$forumId/thread/$threadId'
+      fullPath: '/forum/$forumId/thread/$threadId'
+      preLoaderRoute: typeof ForumForumIdThreadThreadIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 declare module '@tanstack/react-start/server' {
   interface ServerFileRoutesByPath {
-    '/customScript.js': {
-      id: '/customScript.js'
-      path: '/customScript.js'
-      fullPath: '/customScript.js'
-      preLoaderRoute: typeof CustomScriptDotjsServerRouteImport
-      parentRoute: typeof rootServerRouteImport
-    }
     '/api/users': {
       id: '/api/users'
       path: '/api/users'
@@ -392,60 +374,6 @@ declare module '@tanstack/react-start/server' {
   }
 }
 
-interface PathlessLayoutNestedLayoutRouteChildren {
-  PathlessLayoutNestedLayoutRouteARoute: typeof PathlessLayoutNestedLayoutRouteARoute
-  PathlessLayoutNestedLayoutRouteBRoute: typeof PathlessLayoutNestedLayoutRouteBRoute
-}
-
-const PathlessLayoutNestedLayoutRouteChildren: PathlessLayoutNestedLayoutRouteChildren =
-  {
-    PathlessLayoutNestedLayoutRouteARoute:
-      PathlessLayoutNestedLayoutRouteARoute,
-    PathlessLayoutNestedLayoutRouteBRoute:
-      PathlessLayoutNestedLayoutRouteBRoute,
-  }
-
-const PathlessLayoutNestedLayoutRouteWithChildren =
-  PathlessLayoutNestedLayoutRoute._addFileChildren(
-    PathlessLayoutNestedLayoutRouteChildren,
-  )
-
-interface PathlessLayoutRouteChildren {
-  PathlessLayoutNestedLayoutRoute: typeof PathlessLayoutNestedLayoutRouteWithChildren
-}
-
-const PathlessLayoutRouteChildren: PathlessLayoutRouteChildren = {
-  PathlessLayoutNestedLayoutRoute: PathlessLayoutNestedLayoutRouteWithChildren,
-}
-
-const PathlessLayoutRouteWithChildren = PathlessLayoutRoute._addFileChildren(
-  PathlessLayoutRouteChildren,
-)
-
-interface PostsRouteChildren {
-  PostsPostIdRoute: typeof PostsPostIdRoute
-  PostsIndexRoute: typeof PostsIndexRoute
-}
-
-const PostsRouteChildren: PostsRouteChildren = {
-  PostsPostIdRoute: PostsPostIdRoute,
-  PostsIndexRoute: PostsIndexRoute,
-}
-
-const PostsRouteWithChildren = PostsRoute._addFileChildren(PostsRouteChildren)
-
-interface UsersRouteChildren {
-  UsersUserIdRoute: typeof UsersUserIdRoute
-  UsersIndexRoute: typeof UsersIndexRoute
-}
-
-const UsersRouteChildren: UsersRouteChildren = {
-  UsersUserIdRoute: UsersUserIdRoute,
-  UsersIndexRoute: UsersIndexRoute,
-}
-
-const UsersRouteWithChildren = UsersRoute._addFileChildren(UsersRouteChildren)
-
 interface ApiUsersServerRouteChildren {
   ApiUsersUserIdServerRoute: typeof ApiUsersUserIdServerRoute
 }
@@ -460,19 +388,24 @@ const ApiUsersServerRouteWithChildren = ApiUsersServerRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  PathlessLayoutRoute: PathlessLayoutRouteWithChildren,
-  DeferredRoute: DeferredRoute,
-  PostsRoute: PostsRouteWithChildren,
-  RedirectRoute: RedirectRoute,
-  UsersRoute: UsersRouteWithChildren,
-  ForumForumIdRoute: ForumForumIdRoute,
-  PostsPostIdDeepRoute: PostsPostIdDeepRoute,
+  HelpRoute: HelpRoute,
+  MemberlistRoute: MemberlistRoute,
+  MessagesRoute: MessagesRoute,
+  ModDashboardRoute: ModDashboardRoute,
+  SearchRoute: SearchRoute,
+  TeamRoute: TeamRoute,
+  UserDashboardRoute: UserDashboardRoute,
+  UsersUserIdRoute: UsersUserIdRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  ForumForumIdIndexRoute: ForumForumIdIndexRoute,
+  ForumForumIdThreadThreadIdRoute: ForumForumIdThreadThreadIdRoute,
+  ForumForumIdThreadNewRoute: ForumForumIdThreadNewRoute,
+  ForumForumIdThreadReplyRoute: ForumForumIdThreadReplyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
 const rootServerRouteChildren: RootServerRouteChildren = {
-  CustomScriptDotjsServerRoute: CustomScriptDotjsServerRoute,
   ApiUsersServerRoute: ApiUsersServerRouteWithChildren,
 }
 export const serverRouteTree = rootServerRouteImport

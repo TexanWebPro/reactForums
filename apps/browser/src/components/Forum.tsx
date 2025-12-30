@@ -99,7 +99,8 @@ export function Forum() {
                         </span>
                         <span className="flex flex-col">
                           <Link
-                            to="/"
+                            to="/forum/$forumId/thread/$threadId"
+                            params={{ forumId: "2", threadId: "1" }}
                             className="text-sky-700 hover:underline font-bold"
                           >
                             {thread.subject}

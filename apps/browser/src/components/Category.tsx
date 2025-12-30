@@ -8,6 +8,7 @@ export function Category(props: {
   forums: ForumTreeNode[];
 }) {
   const { categoryId, categoryName, categoryDescription, forums } = props;
+
   return (
     <>
       <div className="w-full bg-stone-200 flex flex-col rounded-lg text-sm mb-4">

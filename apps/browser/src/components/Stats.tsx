@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { ForumStats } from "@reactforums/core";
 import { ForumStatsView } from "@reactforums/common/models";
 import { formatNumber } from "@reactforums/common/utils/numbers";
+import { formatDateTimeForStatsDisplay } from "@reactforums/common/utils/dates";
 
 export function Stats() {
   const unformattedStats = statsService.getGlobalStats();
@@ -41,8 +42,7 @@ export function Stats() {
           </p>
           <p>
             The most users online at one time was {boardStats.mostOnlineAtOnce}{" "}
-            on {boardStats.mostOnlineAtOnceDate.toString()}
-            PM
+            on {formatDateTimeForStatsDisplay(boardStats.mostOnlineAtOnceDate)}
           </p>
         </div>
       </div>

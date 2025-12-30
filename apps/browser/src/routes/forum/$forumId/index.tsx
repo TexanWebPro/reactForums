@@ -4,7 +4,7 @@ import { Category } from "@/components/Category";
 import { Forum } from "@/components/Forum";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/forum/$forumId")({
+export const Route = createFileRoute("/forum/$forumId/")({
   loader: async ({ params }) => {
     const forum = forumService.getForumById(Number(params.forumId));
 
