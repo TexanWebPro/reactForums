@@ -26,7 +26,10 @@ export default function Header() {
         <Edges className="w-full flex flex-row items-center justify-between text-sm">
           <div className="flex flex-row items-center justify-between gap-4">
             <span>
-              Welcome back, <Link to="/">Elegant Totality</Link>
+              Welcome back,{" "}
+              <Link to="/users/$userId" params={{ userId: "Elegant-Totality" }}>
+                Elegant Totality
+              </Link>
             </span>
             <ul className="flex flex-row items-center justify-between gap-2">
               <li>
