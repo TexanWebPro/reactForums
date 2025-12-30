@@ -132,7 +132,7 @@ export default function Header() {
               <Link to="/">View New Topics</Link>
             </li>
             <li>
-              <Link to="/">Messages</Link>
+              <Link to="/messages">Messages</Link>
             </li>
           </ul>
         </Edges>
