@@ -35,7 +35,11 @@ export function Post(post: Post) {
         ) : (
           <></>
         )}
-        <PostOptions website={userInfo.website} />
+        <PostOptions
+          website={userInfo.website}
+          userId={userInfo.id}
+          postId={post.id}
+        />
       </div>
     </>
   );
