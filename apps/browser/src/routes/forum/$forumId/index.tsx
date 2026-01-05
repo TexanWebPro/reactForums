@@ -1,7 +1,7 @@
 import { forumService } from "@/api/client";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Category } from "@/components/Category";
-import { Forum } from "@/components/Forum";
+import { ForumComponent } from "@/components/Forum";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/forum/$forumId/")({
@@ -32,7 +32,6 @@ function RouteComponent() {
   return (
     <div>
       <Breadcrumbs crumbs={crumbs} />
-      {/* <pre>{JSON.stringify(forum, null, 2)}</pre> */}
 
       {forum?.isCategory && forum.children ? (
         <>
@@ -57,7 +56,7 @@ function RouteComponent() {
           ) : (
             <></>
           )}
-          <Forum />
+          {forum ? <ForumComponent {...forum} /> : <></>}
         </>
       )}
     </div>

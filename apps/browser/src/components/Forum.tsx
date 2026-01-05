@@ -5,13 +5,18 @@ import {
   formatDateTimeForForumDisplay,
   formatLastPostDateTime,
 } from "@reactforums/common/utils/dates";
+import type { Forum } from "@reactforums/core";
 
-export function Forum() {
-  const threads = threadService.getLastNThreadsInForum(2, 10);
+export function ForumComponent(forum: Forum) {
+  const threads = threadService.getLastNThreadsInForum(forum.id, 10);
 
   return (
     <div className="flex flex-col items-end justify-between gap-8">
-      <Button text="New Topic" linkTo="/new-topic" />
+      <Button
+        text="New Topic"
+        linkTo="/forum/$forumId/thread/new"
+        params={{ forumId: forum.id }}
+      />
       <div className="w-full bg-stone-200 flex flex-col rounded-lg text-sm">
         <div className="bg-sky-600 w-full p-4 py-2 font-bold text-stone-50 border-2 border-sky-800 rounded-t-lg flex flex-row items-center justify-between gap-2">
           <span className="text-lg">Forum Name</span>
@@ -100,7 +105,10 @@ export function Forum() {
                         <span className="flex flex-col">
                           <Link
                             to="/forum/$forumId/thread/$threadId"
-                            params={{ forumId: "2", threadId: "1" }}
+                            params={{
+                              forumId: `${thread.forumId}`,
+                              threadId: `${thread.id}`,
+                            }}
                             className="text-sky-700 hover:underline font-bold"
                           >
                             {thread.subject}
@@ -187,8 +195,11 @@ export function Forum() {
           </span>
         </div>
       </div>
-
-      <Button text="New Topic" linkTo="/new-topic" />
+      <Button
+        text="New Topic"
+        linkTo="/forum/$forumId/thread/new"
+        params={{ forumId: forum.id }}
+      />
     </div>
   );
 }
