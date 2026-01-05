@@ -11,3 +11,7 @@ export function formatLastPostDateTime(date: Date) {
 export function formatDateTimeForStatsDisplay(date: Date) {
   return format(date, "PPPPp");
 }
+
+export function formatDateForPostInfoDisplay(date: Date) {
+  return format(date, "MMM yyyy");
+}
