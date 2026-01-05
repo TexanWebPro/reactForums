@@ -1,19 +1,26 @@
+import { userService } from "@/api/client";
+import { formatDateForPostInfoDisplay } from "@reactforums/common/utils/dates";
 import type { Post } from "@reactforums/core";
 import { Link } from "@tanstack/react-router";
 
 export function Post(post: Post) {
+  const { userId } = post;
+  const userInfo = userService.getUserInfo(userId);
+
+  if (!userInfo) return;
   return (
     <>
+      {/* <pre>{JSON.stringify(userInfo, null, 2)}</pre> */}
       <div className="flex w-full flex-col border-b-2 border-sky-800">
         <UserInfoBar
           username={post.username}
-          userTitle="Administrator"
-          userGroup="administrator"
-          replies={145}
-          topics={32}
-          joined={new Date()}
-          reputation={12}
-          warning={0}
+          userTitle={userInfo.userTitle}
+          userGroup={userInfo.primaryUserGroup}
+          posts={userInfo.postCount}
+          threads={userInfo.threadCount}
+          joined={userInfo.registrationDate}
+          reputation={userInfo.reputation}
+          warning={userInfo.warningPoints}
         />
         <PostContent
           createdAt={post.createdAt}
@@ -23,12 +30,12 @@ export function Post(post: Post) {
         />
         {post.includeSignature ? (
           <>
-            <UserSignatureInPost signature="text" />
+            <UserSignatureInPost signature={userInfo.signature} />
           </>
         ) : (
           <></>
         )}
-        <PostOptions />
+        <PostOptions website={userInfo.website} />
       </div>
     </>
   );
@@ -38,8 +45,8 @@ function UserInfoBar(props: {
   username: string;
   userTitle: string;
   userGroup: string;
-  replies: number;
-  topics: number;
+  posts: number;
+  threads: number;
   joined: Date;
   reputation: number;
   warning: number;
@@ -48,8 +55,8 @@ function UserInfoBar(props: {
     username,
     userTitle,
     userGroup,
-    replies,
-    topics,
+    posts,
+    threads,
     joined,
     reputation,
     warning,
@@ -57,7 +64,7 @@ function UserInfoBar(props: {
 
   function userGroupStars(userGroup: string) {
     switch (userGroup) {
-      case "administrator":
+      case "Administrator":
         return (
           <>
             <img src="/images/star.png" alt="star" />
@@ -84,7 +91,13 @@ function UserInfoBar(props: {
             className="w-16 border-2 border-stone-300"
           />
           <span className="flex flex-col items-start">
-            <span className="text-lg text-green-800 font-bold">{username}</span>
+            <Link
+              to="/users/$userId"
+              params={{ userId: username }}
+              className="text-lg text-green-800 font-bold hover:underline"
+            >
+              {username}
+            </Link>
             <span className="italic">{userTitle}</span>
             <span className="flex flex-row items-center justify-between gap-1 mb-4">
               {userGroupStars(userGroup)}
@@ -94,17 +107,24 @@ function UserInfoBar(props: {
         <span className="text-xs">
           <span>
             <p>
-              <span className="font-bold">Replies:</span> {replies}
+              <span className="font-bold">Posts:</span> {posts}
             </p>
             <p>
-              <span className="font-bold">Topics:</span> {topics}
+              <span className="font-bold">Threads:</span> {threads}
             </p>
             <p>
-              <span className="font-bold">Joined:</span> {joined.toDateString()}
+              <span className="font-bold">Joined:</span>{" "}
+              {formatDateForPostInfoDisplay(joined)}
             </p>
             <p>
               <span className="font-bold">Reputation:</span>{" "}
-              <span className="font-bold text-green-700">+{reputation}</span>
+              <Link
+                to="/users/$userId/reputation"
+                params={{ userId: username }}
+                className="font-bold text-green-700 hover:underline"
+              >
+                +{reputation}
+              </Link>
             </p>
             <p>
               {/* TODO: Viewable only to Mods and Admins */}
@@ -163,24 +183,35 @@ function UserSignatureInPost(props: { signature?: string }) {
   );
 }
 
-function PostOptions() {
+function PostOptions(props: {
+  website: string;
+  userId: string;
+  postId: number;
+}) {
+  const { website, userId, postId } = props;
+
   return (
     <div className="border-t-2 border-stone-400 p-4 flex flex-row items-center justify-between gap-2">
       <span className="flex flex-row justify-between items-center gap-2 w-1/5">
-        <a
-          href="/"
-          className="flex flex-row items-center justify-center gap-1 p-2 bg-stone-200 text-stone-950 font-bold border-2 border-stone-300 hover:bg-stone-300 text-center w-full rounded-lg text-sm"
-        >
-          <img
-            src="/images/icons/globe-alt.svg"
-            alt="Website"
-            className="w-5"
-          />
-          Website
-        </a>
+        {website ? (
+          <a
+            href={`https://${website}`}
+            target="_blank"
+            className="flex flex-row items-center justify-center gap-1 p-2 bg-stone-200 text-stone-950 font-bold border-2 border-stone-300 hover:bg-stone-300 text-center w-full rounded-lg text-sm"
+          >
+            <img
+              src="/images/icons/globe-alt.svg"
+              alt="Website"
+              className="w-5"
+            />
+            Website
+          </a>
+        ) : (
+          <></>
+        )}
         <Link
-          to="/"
-          className="flex flex-row flex-nowrap items-center justify-center w-full p-2 bg-stone-200 text-stone-950 font-bold border-2 border-stone-300 hover:bg-stone-300 text-center rounded-lg text-sm"
+          to="/search"
+          className="flex flex-row flex-nowrap items-center justify-center w-full max-w-32 p-2 bg-stone-200 text-stone-950 font-bold border-2 border-stone-300 hover:bg-stone-300 text-center rounded-lg text-sm"
         >
           <img
             src="/images/icons/magnifying-glass.svg"
