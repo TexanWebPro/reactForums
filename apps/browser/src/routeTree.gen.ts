@@ -14,6 +14,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UserDashboardRouteImport } from './routes/user-dashboard'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as ReportRouteImport } from './routes/report'
 import { Route as ModDashboardRouteImport } from './routes/mod-dashboard'
 import { Route as MessagesRouteImport } from './routes/messages'
 import { Route as MemberlistRouteImport } from './routes/memberlist'
@@ -44,6 +45,11 @@ const TeamRoute = TeamRouteImport.update({
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportRoute = ReportRouteImport.update({
+  id: '/report',
+  path: '/report',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ModDashboardRoute = ModDashboardRouteImport.update({
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/memberlist': typeof MemberlistRoute
   '/messages': typeof MessagesRoute
   '/mod-dashboard': typeof ModDashboardRoute
+  '/report': typeof ReportRoute
   '/search': typeof SearchRoute
   '/team': typeof TeamRoute
   '/user-dashboard': typeof UserDashboardRoute
@@ -141,6 +148,7 @@ export interface FileRoutesByTo {
   '/memberlist': typeof MemberlistRoute
   '/messages': typeof MessagesRoute
   '/mod-dashboard': typeof ModDashboardRoute
+  '/report': typeof ReportRoute
   '/search': typeof SearchRoute
   '/team': typeof TeamRoute
   '/user-dashboard': typeof UserDashboardRoute
@@ -159,6 +167,7 @@ export interface FileRoutesById {
   '/memberlist': typeof MemberlistRoute
   '/messages': typeof MessagesRoute
   '/mod-dashboard': typeof ModDashboardRoute
+  '/report': typeof ReportRoute
   '/search': typeof SearchRoute
   '/team': typeof TeamRoute
   '/user-dashboard': typeof UserDashboardRoute
@@ -178,6 +187,7 @@ export interface FileRouteTypes {
     | '/memberlist'
     | '/messages'
     | '/mod-dashboard'
+    | '/report'
     | '/search'
     | '/team'
     | '/user-dashboard'
@@ -195,6 +205,7 @@ export interface FileRouteTypes {
     | '/memberlist'
     | '/messages'
     | '/mod-dashboard'
+    | '/report'
     | '/search'
     | '/team'
     | '/user-dashboard'
@@ -212,6 +223,7 @@ export interface FileRouteTypes {
     | '/memberlist'
     | '/messages'
     | '/mod-dashboard'
+    | '/report'
     | '/search'
     | '/team'
     | '/user-dashboard'
@@ -230,6 +242,7 @@ export interface RootRouteChildren {
   MemberlistRoute: typeof MemberlistRoute
   MessagesRoute: typeof MessagesRoute
   ModDashboardRoute: typeof ModDashboardRoute
+  ReportRoute: typeof ReportRoute
   SearchRoute: typeof SearchRoute
   TeamRoute: typeof TeamRoute
   UserDashboardRoute: typeof UserDashboardRoute
@@ -287,6 +300,13 @@ declare module '@tanstack/react-router' {
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/report': {
+      id: '/report'
+      path: '/report'
+      fullPath: '/report'
+      preLoaderRoute: typeof ReportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mod-dashboard': {
@@ -412,6 +432,7 @@ const rootRouteChildren: RootRouteChildren = {
   MemberlistRoute: MemberlistRoute,
   MessagesRoute: MessagesRoute,
   ModDashboardRoute: ModDashboardRoute,
+  ReportRoute: ReportRoute,
   SearchRoute: SearchRoute,
   TeamRoute: TeamRoute,
   UserDashboardRoute: UserDashboardRoute,

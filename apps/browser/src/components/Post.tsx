@@ -189,7 +189,7 @@ function UserSignatureInPost(props: { signature?: string }) {
 
 function PostOptions(props: {
   website: string;
-  userId: string;
+  userId: number;
   postId: number;
 }) {
   const { website, userId, postId } = props;
