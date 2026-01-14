@@ -1,4 +1,4 @@
-import { userService } from "@/api/client";
+import { postService, threadService, userService } from "@/api/client";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/Button";
 import {
@@ -10,7 +10,7 @@ import {
   reputationSymbol,
   reputationWord,
 } from "@reactforums/common/utils/reputation";
-import type { Reputation } from "@reactforums/core";
+import type { Reputation, User } from "@reactforums/core";
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/users/$userId/reputation")({
@@ -138,23 +138,12 @@ function RouteComponent() {
                   </p>
                 </span>
               </span>
-              <span className="flex flex-col gap-2">
-                <div className="flex flex-row items-center justify-between gap-4">
-                  <span>+124 Positive</span> <span>72%</span> <span>↑ 5%</span>
-                </div>
-                <div className="flex flex-row items-center justify-between gap-4">
-                  <span>12 Neutral</span> <span>7%</span> <span>-</span>
-                </div>
-                <div className="flex flex-row items-center justify-between gap-4">
-                  <span>-36 Negative</span> <span>21%</span> <span>↑ 4%</span>
-                </div>
-              </span>
             </span>
           </div>
           {reputations.map((reputation) => {
             return (
               <>
-                <Reputation {...reputation} />
+                <Reputation reputation={reputation} userInfo={userInfo} />
               </>
             );
           })}
@@ -166,8 +155,13 @@ function RouteComponent() {
   );
 }
 
-function Reputation(reputation: Reputation) {
+function Reputation(props: { reputation: Reputation; userInfo: User }) {
+  const { reputation, userInfo } = props;
   const givingUser = userService.getUserInfo(reputation.givingUserId);
+  const referencedPost = postService.getPostById(reputation.postId);
+  const referencedThread =
+    referencedPost && threadService.getThreadById(referencedPost.threadId);
+
   return (
     <>
       <div
@@ -210,11 +204,33 @@ function Reputation(reputation: Reputation) {
                 <></>
               )}
             </div>
-            {reputation.postId ? (
+            {referencedPost ? (
               <>
-                <div className="text-xs">
-                  Rating given for Elegant Totality's post in thread
-                </div>
+                <p className="text-xs">
+                  Rating given for{" "}
+                  <Link
+                    to="/forum/$forumId/thread/$threadId/$postId"
+                    params={{
+                      forumId: referencedPost.forumId.toString(),
+                      threadId: referencedPost.threadId.toString(),
+                      postId: referencedPost.id.toString(),
+                    }}
+                    className="hover:underline"
+                  >
+                    {userInfo.username}'s post
+                  </Link>{" "}
+                  in{" "}
+                  <Link
+                    to="/forum/$forumId/thread/$threadId"
+                    params={{
+                      forumId: referencedPost.forumId.toString(),
+                      threadId: referencedPost.threadId.toString(),
+                    }}
+                    className="hover:underline"
+                  >
+                    {referencedThread?.subject}
+                  </Link>
+                </p>
               </>
             ) : (
               <></>

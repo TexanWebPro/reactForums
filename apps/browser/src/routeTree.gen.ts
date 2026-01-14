@@ -27,6 +27,7 @@ import { Route as UsersUserIdReputationRouteImport } from './routes/users/$userI
 import { Route as ForumForumIdThreadReplyRouteImport } from './routes/forum/$forumId/thread/reply'
 import { Route as ForumForumIdThreadNewRouteImport } from './routes/forum/$forumId/thread/new'
 import { Route as ForumForumIdThreadThreadIdRouteImport } from './routes/forum/$forumId/thread/$threadId'
+import { Route as ForumForumIdThreadThreadIdPostIdRouteImport } from './routes/forum/$forumId/thread/$threadId.$postId'
 import { ServerRoute as ApiUsersServerRouteImport } from './routes/api/users'
 import { ServerRoute as ApiUsersUserIdServerRouteImport } from './routes/api/users.$userId'
 
@@ -113,6 +114,12 @@ const ForumForumIdThreadThreadIdRoute =
     path: '/forum/$forumId/thread/$threadId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ForumForumIdThreadThreadIdPostIdRoute =
+  ForumForumIdThreadThreadIdPostIdRouteImport.update({
+    id: '/$postId',
+    path: '/$postId',
+    getParentRoute: () => ForumForumIdThreadThreadIdRoute,
+  } as any)
 const ApiUsersServerRoute = ApiUsersServerRouteImport.update({
   id: '/api/users',
   path: '/api/users',
@@ -138,9 +145,10 @@ export interface FileRoutesByFullPath {
   '/users/$userId/reputation': typeof UsersUserIdReputationRoute
   '/forum/$forumId': typeof ForumForumIdIndexRoute
   '/users/$userId': typeof UsersUserIdIndexRoute
-  '/forum/$forumId/thread/$threadId': typeof ForumForumIdThreadThreadIdRoute
+  '/forum/$forumId/thread/$threadId': typeof ForumForumIdThreadThreadIdRouteWithChildren
   '/forum/$forumId/thread/new': typeof ForumForumIdThreadNewRoute
   '/forum/$forumId/thread/reply': typeof ForumForumIdThreadReplyRoute
+  '/forum/$forumId/thread/$threadId/$postId': typeof ForumForumIdThreadThreadIdPostIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -156,9 +164,10 @@ export interface FileRoutesByTo {
   '/users/$userId/reputation': typeof UsersUserIdReputationRoute
   '/forum/$forumId': typeof ForumForumIdIndexRoute
   '/users/$userId': typeof UsersUserIdIndexRoute
-  '/forum/$forumId/thread/$threadId': typeof ForumForumIdThreadThreadIdRoute
+  '/forum/$forumId/thread/$threadId': typeof ForumForumIdThreadThreadIdRouteWithChildren
   '/forum/$forumId/thread/new': typeof ForumForumIdThreadNewRoute
   '/forum/$forumId/thread/reply': typeof ForumForumIdThreadReplyRoute
+  '/forum/$forumId/thread/$threadId/$postId': typeof ForumForumIdThreadThreadIdPostIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -175,9 +184,10 @@ export interface FileRoutesById {
   '/users/$userId/reputation': typeof UsersUserIdReputationRoute
   '/forum/$forumId/': typeof ForumForumIdIndexRoute
   '/users/$userId/': typeof UsersUserIdIndexRoute
-  '/forum/$forumId/thread/$threadId': typeof ForumForumIdThreadThreadIdRoute
+  '/forum/$forumId/thread/$threadId': typeof ForumForumIdThreadThreadIdRouteWithChildren
   '/forum/$forumId/thread/new': typeof ForumForumIdThreadNewRoute
   '/forum/$forumId/thread/reply': typeof ForumForumIdThreadReplyRoute
+  '/forum/$forumId/thread/$threadId/$postId': typeof ForumForumIdThreadThreadIdPostIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -198,6 +208,7 @@ export interface FileRouteTypes {
     | '/forum/$forumId/thread/$threadId'
     | '/forum/$forumId/thread/new'
     | '/forum/$forumId/thread/reply'
+    | '/forum/$forumId/thread/$threadId/$postId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -216,6 +227,7 @@ export interface FileRouteTypes {
     | '/forum/$forumId/thread/$threadId'
     | '/forum/$forumId/thread/new'
     | '/forum/$forumId/thread/reply'
+    | '/forum/$forumId/thread/$threadId/$postId'
   id:
     | '__root__'
     | '/'
@@ -234,6 +246,7 @@ export interface FileRouteTypes {
     | '/forum/$forumId/thread/$threadId'
     | '/forum/$forumId/thread/new'
     | '/forum/$forumId/thread/reply'
+    | '/forum/$forumId/thread/$threadId/$postId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -250,7 +263,7 @@ export interface RootRouteChildren {
   UsersUserIdReputationRoute: typeof UsersUserIdReputationRoute
   ForumForumIdIndexRoute: typeof ForumForumIdIndexRoute
   UsersUserIdIndexRoute: typeof UsersUserIdIndexRoute
-  ForumForumIdThreadThreadIdRoute: typeof ForumForumIdThreadThreadIdRoute
+  ForumForumIdThreadThreadIdRoute: typeof ForumForumIdThreadThreadIdRouteWithChildren
   ForumForumIdThreadNewRoute: typeof ForumForumIdThreadNewRoute
   ForumForumIdThreadReplyRoute: typeof ForumForumIdThreadReplyRoute
 }
@@ -393,6 +406,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForumForumIdThreadThreadIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/forum/$forumId/thread/$threadId/$postId': {
+      id: '/forum/$forumId/thread/$threadId/$postId'
+      path: '/$postId'
+      fullPath: '/forum/$forumId/thread/$threadId/$postId'
+      preLoaderRoute: typeof ForumForumIdThreadThreadIdPostIdRouteImport
+      parentRoute: typeof ForumForumIdThreadThreadIdRoute
+    }
   }
 }
 declare module '@tanstack/react-start/server' {
@@ -413,6 +433,21 @@ declare module '@tanstack/react-start/server' {
     }
   }
 }
+
+interface ForumForumIdThreadThreadIdRouteChildren {
+  ForumForumIdThreadThreadIdPostIdRoute: typeof ForumForumIdThreadThreadIdPostIdRoute
+}
+
+const ForumForumIdThreadThreadIdRouteChildren: ForumForumIdThreadThreadIdRouteChildren =
+  {
+    ForumForumIdThreadThreadIdPostIdRoute:
+      ForumForumIdThreadThreadIdPostIdRoute,
+  }
+
+const ForumForumIdThreadThreadIdRouteWithChildren =
+  ForumForumIdThreadThreadIdRoute._addFileChildren(
+    ForumForumIdThreadThreadIdRouteChildren,
+  )
 
 interface ApiUsersServerRouteChildren {
   ApiUsersUserIdServerRoute: typeof ApiUsersUserIdServerRoute
@@ -440,7 +475,7 @@ const rootRouteChildren: RootRouteChildren = {
   UsersUserIdReputationRoute: UsersUserIdReputationRoute,
   ForumForumIdIndexRoute: ForumForumIdIndexRoute,
   UsersUserIdIndexRoute: UsersUserIdIndexRoute,
-  ForumForumIdThreadThreadIdRoute: ForumForumIdThreadThreadIdRoute,
+  ForumForumIdThreadThreadIdRoute: ForumForumIdThreadThreadIdRouteWithChildren,
   ForumForumIdThreadNewRoute: ForumForumIdThreadNewRoute,
   ForumForumIdThreadReplyRoute: ForumForumIdThreadReplyRoute,
 }
