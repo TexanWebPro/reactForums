@@ -5,6 +5,11 @@ import {
   formatDateForPostInfoDisplay,
   formatDateTimeForForumDisplay,
 } from "@reactforums/common/utils/dates";
+import {
+  reputationClassStyle,
+  reputationSymbol,
+  reputationWord,
+} from "@reactforums/common/utils/reputation";
 import type { Reputation } from "@reactforums/core";
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 
@@ -46,6 +51,9 @@ function RouteComponent() {
         break;
     }
   }
+
+  const repFromPosts = reputations.filter((rep) => rep.postId !== null);
+  const repFromMembers = userInfo.reputation - repFromPosts.length;
 
   return (
     <>
@@ -109,16 +117,24 @@ function RouteComponent() {
               <span className="flex flex-col gap-2">
                 <p>
                   <span className="font-bold">Total Reputation: </span>
-                  <span className="font-bold text-green-700">100</span>
+                  <span
+                    className={`font-bold ${reputationClassStyle(userInfo.reputation)}`}
+                  >
+                    {userInfo.reputation}
+                  </span>
                 </p>
                 <span>
                   <p>
                     <span className="font-bold">Reputation from Members: </span>
-                    <span className="font-bold text-green-700">33</span>
+                    <span className="font-bold text-green-700">
+                      {repFromMembers}
+                    </span>
                   </p>
                   <p>
                     <span className="font-bold">Reputation from Posts: </span>
-                    <span className="font-bold text-green-700">67</span>
+                    <span className="font-bold text-green-700">
+                      {repFromPosts.length}
+                    </span>
                   </p>
                 </span>
               </span>
@@ -155,24 +171,41 @@ function Reputation(reputation: Reputation) {
   return (
     <>
       <div
-        className={`flex w-full flex-col border-b-2 border-sky-800 p-4 ${reputation.count > 0 ? "bg-green-200" : reputation.count < 0 ? "bg-red-200" : ""}`}
+        className={`flex w-full flex-col border-b-2 border-sky-800 p-4 gap-4 ${reputation.count > 0 ? "bg-green-200" : reputation.count < 0 ? "bg-red-200" : ""}`}
       >
-        <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-row items-start justify-between">
           <span>
             <div>
-              <span className="font-bold">
-                <span
-                  className={`${givingUser === undefined ? "line-through" : ""}`}
-                >
-                  {givingUser?.username || "deleted"}
-                </span>{" "}
-                ({givingUser?.reputation || 0})
+              <span className="">
+                {givingUser ? (
+                  <>
+                    <Link
+                      to="/users/$userId"
+                      params={{ userId: givingUser.username }}
+                      className="hover:underline"
+                    >
+                      {givingUser?.username || "deleted"}
+                    </Link>{" "}
+                    <Link
+                      to="/users/$userId/reputation"
+                      params={{ userId: givingUser.username }}
+                      className={`hover:underline font-bold ${reputationClassStyle(givingUser.reputation)}`}
+                    >
+                      ({givingUser.reputation})
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <span className="line-through">{"deleted"}</span>
+                    {" 0"}
+                  </>
+                )}
               </span>{" "}
               {reputation.updatedAt ? (
-                <>
+                <span className="text-sm">
                   - Updated at{" "}
                   {formatDateTimeForForumDisplay(reputation.updatedAt)}
-                </>
+                </span>
               ) : (
                 <></>
               )}
@@ -198,7 +231,9 @@ function Reputation(reputation: Reputation) {
         </div>
 
         <span>
-          Positive ({reputation.count}): {reputation.comments}
+          {reputationWord(reputation.count)} (
+          {reputationSymbol(reputation.count)}
+          {reputation.count}): {reputation.comments || "[No comment]"}
         </span>
       </div>
     </>

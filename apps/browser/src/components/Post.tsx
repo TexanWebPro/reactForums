@@ -1,5 +1,6 @@
 import { userService } from "@/api/client";
 import { formatDateForPostInfoDisplay } from "@reactforums/common/utils/dates";
+import { reputationClassStyle } from "@reactforums/common/utils/reputation";
 import type { Post } from "@reactforums/core";
 import { Link } from "@tanstack/react-router";
 
@@ -125,9 +126,9 @@ function UserInfoBar(props: {
               <Link
                 to="/users/$userId/reputation"
                 params={{ userId: username }}
-                className="font-bold text-green-700 hover:underline"
+                className={`font-bold hover:underline ${reputationClassStyle(reputation)}`}
               >
-                +{reputation}
+                {reputation}
               </Link>
             </p>
             <p>
