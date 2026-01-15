@@ -1,6 +1,11 @@
 export function reputationSymbol(reputation: number) {
-  if (reputation < 0) return "-";
+  if (reputation > 0) return "+";
   return "";
+}
+
+export function reputationWord(reputation: number) {
+  if (reputation === 0) return "Neutral";
+  return reputation > 0 ? "Positive" : "Negative";
 }
 
 export function reputationClassStyle(reputation: number) {
