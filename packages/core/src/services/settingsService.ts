@@ -8,7 +8,7 @@ export class SettingsService {
       {
         id: 1,
         name: SettingKey.BoardName,
-        value: "reactForums",
+        value: "rF Community Forums",
         description:
           "The name of your community. We recommend that it is not over 75 characters.",
         groupId: 1,
@@ -22,6 +22,13 @@ export class SettingsService {
       },
       {
         id: 3,
+        name: SettingKey.BoardUrl,
+        value: "/",
+        description: "The url of your community.",
+        groupId: 1,
+      },
+      {
+        id: 4,
         name: SettingKey.HomepageName,
         value: "reactForums",
         description:
@@ -29,21 +36,21 @@ export class SettingsService {
         groupId: 1,
       },
       {
-        id: 4,
+        id: 5,
         name: SettingKey.HomepageUrl,
         value: "https://reactforums.com",
         description: "The url of your homepage.",
         groupId: 1,
       },
       {
-        id: 5,
+        id: 6,
         name: SettingKey.SiteMetaTitle,
         value: "reactForums | Next-Generation Community Software",
         description: "",
         groupId: 1,
       },
       {
-        id: 6,
+        id: 7,
         name: SettingKey.SiteMetaDescription,
         value:
           "The official reactForums community for administrators to stay current with the latest core and platform updates, discuss forum management, exchange tips, and show off their sites.",
@@ -51,7 +58,7 @@ export class SettingsService {
         groupId: 1,
       },
       {
-        id: 7,
+        id: 8,
         name: SettingKey.FaviconUrl,
         value: "/favicon-32x32.png",
         description: "",

@@ -72,7 +72,7 @@ export interface Setting {
 }
 
 export interface User {
-  id: string;
+  id: number;
   username: string;
   email: string;
   password: string;
@@ -82,7 +82,8 @@ export interface User {
   website: string;
   birthday: string;
   signature: string;
-  postCount: string;
+  postCount: number;
+  threadCount: number;
   reputation: number;
   warningPoints: number;
   primaryUserGroup: string;
@@ -149,3 +150,88 @@ export interface Forum {
 export interface ForumTreeNode extends Forum {
   children?: ForumTreeNode[];
 }
+
+export interface Thread {
+  id: number;
+  forumId: number;
+  subject: string;
+  prefix: string;
+  icon: string;
+  pollId: null;
+  userId: string;
+  username: string;
+  createdAt: Date;
+  updatedAt: Date;
+  firstPostId: number;
+  lastPostCreatedAt: Date;
+  lastPosterUsername: string;
+  lastPosterId: string;
+  views: number;
+  replies: number;
+  isClosed: boolean;
+  isSticky: boolean;
+  ratingsNumber: number;
+  ratingsTotal: number;
+  moderatorNotes: string;
+  isDraft: boolean;
+  isApproved: boolean;
+  unapprovedPostsTotal: number;
+  attachmentTotal: number;
+  isDeleted: boolean;
+}
+
+export interface Post {
+  id: number;
+  threadId: number;
+  replyToId?: number;
+  forumId: number;
+  subject?: string;
+  icon?: number;
+  userId: number;
+  username: string;
+  createdAt: Date;
+  content: string;
+  ipAddress: string;
+  longIpAddress: string;
+  includeSignature: boolean;
+  editUId: number;
+  editedAt: Date;
+  isVisible: boolean;
+}
+
+export interface Reputation {
+  id: number;
+  userId: number; // id of the user receiving the reputation
+  givingUserId: number; // id of the user giving the reputation
+  postId: number | null; // post id for reputation given in relation to a post
+  count: number; // ammount given in this one instance
+  date: Date;
+  updatedAt?: Date;
+  comments?: string;
+}
+
+export interface CustomProfileField {
+  id: number;
+  name: string;
+  description: string;
+  displayOrder: number;
+  type: "text" | "textarea" | "select" | "checkbox";
+  length: number;
+  maxLength: number;
+  canEdit: boolean;
+  isHidden: boolean;
+  isRequired: boolean;
+}
+
+export type CustomProfileFields = CustomProfileField[];
+
+export type CustomProfileFieldsValue = {
+  userId: number;
+  fieldId: number; // custom field ID to which this value belongs
+  value: string;
+};
+
+export type UserProfileFieldValues = CustomProfileFieldsValue[];
+export type UserWithProfileFieldValues = User & {
+  profileFields: UserProfileFieldValues;
+};
