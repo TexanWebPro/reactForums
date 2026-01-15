@@ -5,6 +5,7 @@ import {
   UserService,
   StatsService,
   SettingsService,
+  ProfileFieldsService,
 } from "@reactforums/core";
 
 const baseUrl = "localhost:9999";
@@ -16,3 +17,4 @@ export const postService = new PostService(baseUrl);
 export const userService = new UserService(baseUrl);
 export const statsService = new StatsService(baseUrl);
 export const settingsService = new SettingsService(baseUrl);
+export const profileFieldsService = new ProfileFieldsService(baseUrl);

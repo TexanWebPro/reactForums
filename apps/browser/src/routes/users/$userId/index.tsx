@@ -1,24 +1,37 @@
+import { profileFieldsService, userService } from "@/api/client";
+import { formatDateTimeForUserProfile } from "@reactforums/common/utils/dates";
+import { reputationClassStyle } from "@reactforums/common/utils/reputation";
+import { UserWithProfileFieldValues } from "@reactforums/core";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/users/$userId/")({
+  loader: async ({ params }) => {
+    const userInfo = userService.getUserForProfileView(params.userId);
+    return { userInfo };
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const { userInfo } = Route.useLoaderData();
+
+  // TODO: redirect
+  if (!userInfo) return;
+
   return (
     <div>
       <span className="text-sm font-bold flex flex-row items-center justify-start gap-2 pb-4">
         <Link to="/">rF Community Forums</Link>
-        <p>{`-> Profile of Elegant Totality`}</p>
+        <p>{`-> Profile of ${userInfo.username}`}</p>
       </span>
 
       <div>
         <div className="flex flex-row items-center justify-between text-sm p-4 border-2 border-stone-200">
           <span className="flex flex-col items-start">
             <span className="text-2xl text-green-800 font-bold">
-              Elegant Totality
+              {userInfo.username}
             </span>
-            <span className="italic">Administrator</span>
+            <span className="italic">{userInfo.userTitle}</span>
             <span className="flex flex-row items-center justify-between gap-1 mb-4">
               <img src="/images/star.png" alt="star" />
               <img src="/images/star.png" alt="star" />
@@ -30,7 +43,8 @@ function RouteComponent() {
             </span>
             <span>
               <p>
-                <span className="font-bold">Registration Date:</span> Today
+                <span className="font-bold">Registration Date:</span>{" "}
+                {formatDateTimeForUserProfile(userInfo.registrationDate)}
               </p>
               <p>
                 <span className="font-bold">Date of Birth:</span> 01-01-1975 (50
@@ -50,7 +64,7 @@ function RouteComponent() {
           <span className="border-2 border-stone-900">
             <img
               src="/images/default_avatar.jpg"
-              alt="Elegant Totality Avatar"
+              alt={`${userInfo.username} Avatar`}
             />
           </span>
         </div>
@@ -58,23 +72,23 @@ function RouteComponent() {
         <div className="grid lg:grid-cols-2 gap-4 mt-8 text-sm w-full justify-items-center">
           <div className="border-2 border-stone-200 rounded-lg w-full">
             <div className="bg-sky-700 p-4 text-neutral-50 font-bold rounded-t-lg">
-              Elegant Totality's Forum Info
+              {userInfo.username}'s Forum Info
             </div>
             <div className="px-4 py-2">
               <div className="border-b-2 border-stone-200 p-2">
                 <span className="font-bold">Joined Date:</span>{" "}
-                {new Date().toString()}
+                {formatDateTimeForUserProfile(userInfo.registrationDate)}
               </div>
               <div className="border-b-2 border-stone-200 p-2">
                 <span className="font-bold">Last Visit:</span> 1 Day Ago
               </div>
               <div className="border-b-2 border-stone-200 p-2">
-                <span className="font-bold">Total Replies:</span> 0 (0 replies
-                per day | 0 percent of total replies)
+                <span className="font-bold">Total Posts:</span>{" "}
+                {userInfo.postCount}
               </div>
               <div className="border-b-2 border-stone-200 p-2">
-                <span className="font-bold">Total Topics:</span> 0 (0 topics per
-                day | 0 percent of total topics)
+                <span className="font-bold">Total Threads:</span>{" "}
+                {userInfo.threadCount}
               </div>
               <div className="border-b-2 border-stone-200 p-2">
                 <span className="font-bold">Time Spent Online:</span> 2 Minutes,
@@ -85,45 +99,39 @@ function RouteComponent() {
               </div>
               <div className="border-b-2 border-stone-200 p-2">
                 <span className="font-bold">Reputation:</span>{" "}
-                <span className="font-bold text-green-700">+12</span>
+                <Link
+                  to="/users/$userId/reputation"
+                  params={{ userId: userInfo.username }}
+                  className={`font-bold ${reputationClassStyle(userInfo.reputation)}`}
+                >
+                  {userInfo.reputation}
+                </Link>
               </div>
               <div className="p-2">
                 {/* TODO: Viewable only to Mods and Admins */}
                 <span className="font-bold">Warning Level:</span>{" "}
-                <span className="font-bold text-red-700">0%</span>
+                <span className="font-bold text-red-700">
+                  {userInfo.warningPoints}
+                </span>
               </div>
             </div>
           </div>
           <div className="border-2 border-stone-200 rounded-lg w-full max-h-fit">
             <div className="bg-sky-700 p-4 text-neutral-50 font-bold rounded-t-lg">
-              Elegant Totality's Signature
+              {userInfo.username}'s Signature
             </div>
-            <div className="px-4 py-4">Signature.</div>
+            <div className="px-4 py-4">{userInfo.signature}</div>
           </div>
+
+          <CustomProfileFields {...userInfo} />
 
           <div className="border-2 border-stone-200 rounded-lg w-full max-h-fit">
             <div className="bg-sky-700 p-4 text-neutral-50 font-bold rounded-t-lg">
-              Additional Info About Elegant Totality
-            </div>
-            <div className="px-4 py-2">
-              <div className="border-b-2 border-stone-200 p-2">
-                <span className="font-bold">Location:</span> Alabama
-              </div>
-              <div className="border-b-2 border-stone-200 p-2">
-                <span className="font-bold">Bio:</span> 1 Day Ago
-              </div>
-              <div className="p-2">
-                <span className="font-bold">Gender:</span> Male
-              </div>
-            </div>
-          </div>
-          <div className="border-2 border-stone-200 rounded-lg w-full max-h-fit">
-            <div className="bg-sky-700 p-4 text-neutral-50 font-bold rounded-t-lg">
-              Elegant Totality's Contact Info
+              {userInfo.username}'s Contact Info
             </div>
             <div className="px-4 py-2">
               <div className="p-2">
-                <span className="font-bold">Website:</span> https://website.com
+                <span className="font-bold">Website:</span> {userInfo.website}
               </div>
             </div>
           </div>
@@ -135,11 +143,11 @@ function RouteComponent() {
               <div className="p-2 flex flex-col border-b-2 border-stone-200">
                 <span>
                   <span className="font-bold">Registration IP:</span>{" "}
-                  0-00-00-0-0-00-0-0-0-0
+                  {userInfo.registrationIP}
                 </span>
                 <span>
                   <span className="font-bold">Last Known IP:</span>{" "}
-                  0-00-00-0-0-00-0-0-0-0
+                  {userInfo.lastIP}
                 </span>
               </div>
               <div className="p-2 flex flex-col border-b-2 border-stone-200">
@@ -188,5 +196,35 @@ function RouteComponent() {
         </div>
       </div>
     </div>
+  );
+}
+
+function CustomProfileFields(user: UserWithProfileFieldValues) {
+  return (
+    <>
+      <div className="border-2 border-stone-200 rounded-lg w-full max-h-fit">
+        <div className="bg-sky-700 p-4 text-neutral-50 font-bold rounded-t-lg">
+          Additional Info About {user.username}
+        </div>
+        <div className="px-4 py-2">
+          {user.profileFields.map((field, i) => {
+            const fieldData = profileFieldsService.getProfileFieldValue(
+              field.fieldId
+            );
+            if (!fieldData) return;
+            return (
+              <>
+                <div
+                  className={`border-stone-200 p-2 ${i === user.profileFields.length - 1 ? "" : "border-b-2"}`}
+                >
+                  <span className="font-bold">{fieldData.name}:</span>{" "}
+                  {field.value}
+                </div>
+              </>
+            );
+          })}
+        </div>
+      </div>
+    </>
   );
 }
