@@ -6,7 +6,9 @@ import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/forum/$forumId/")({
   loader: async ({ params }) => {
-    const forum = forumService.getForumById(Number(params.forumId));
+    const forum = await forumService.getBreadcrumbForumHierarchy(
+      Number(params.forumId)
+    );
 
     // build hierarchy
     const crumbs = [];
@@ -17,7 +19,7 @@ export const Route = createFileRoute("/forum/$forumId/")({
         href: `/forum/${current.id}`,
       });
       current = current.parentForumId
-        ? forumService.getForumById(current.parentForumId)
+        ? await forumService.getBreadcrumbForumHierarchy(current.parentForumId)
         : undefined;
     }
 

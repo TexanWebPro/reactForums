@@ -123,7 +123,13 @@ function RouteComponent() {
             <div className="px-4 py-4">{userInfo.signature}</div>
           </div>
 
-          <CustomProfileFields {...userInfo} />
+          {userInfo.profileFields.length > 0 ? (
+            <>
+              <CustomProfileFields {...userInfo} />
+            </>
+          ) : (
+            <></>
+          )}
 
           <div className="border-2 border-stone-200 rounded-lg w-full max-h-fit">
             <div className="bg-sky-700 p-4 text-neutral-50 font-bold rounded-t-lg">

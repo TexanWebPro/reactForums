@@ -1,7 +1,5 @@
-import { forumService } from "@/api/client";
-import { Banners } from "@/components/Banner";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { Category } from "@/components/Category";
+import { ForumDisplay } from "@/components/ForumDisplay";
 import { Stats } from "@/components/Stats";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -10,30 +8,13 @@ export const Route = createFileRoute("/")({
 });
 
 function App() {
-  const allForums = forumService.listAllForumsByCategory();
-
   return (
     <>
       <div>
         <Breadcrumbs crumbs={[]} />
 
         <div className="flex flex-col items-start justify-center gap-4">
-          {allForums.map((forum) => {
-            return (
-              <div key={forum.name + forum.id} className="w-full">
-                {forum.isCategory && forum.children ? (
-                  <Category
-                    categoryId={forum.id}
-                    categoryName={forum.name}
-                    categoryDescription={forum.description}
-                    forums={forum.children}
-                  />
-                ) : (
-                  <></>
-                )}
-              </div>
-            );
-          })}
+          <ForumDisplay />
           <Stats />
           <ForumIconKey />
         </div>
