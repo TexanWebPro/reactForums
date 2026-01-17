@@ -1,7 +1,8 @@
 /// <reference types="vite/client" />
+import * as React from "react";
 import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import * as React from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { DefaultCatchBoundary } from "@/components/DefaultCatchBoundary";
 import { NotFound } from "@/components/NotFound";
 import appCss from "@/styles/app.css?url";
@@ -11,6 +12,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { settingsService } from "@/api/client";
 import { SettingKey } from "@reactforums/core";
+
+const queryClient = new QueryClient();
 
 const faviconUrl = settingsService.getByName(SettingKey.FaviconUrl);
 const seoTitle = settingsService.getByName(SettingKey.SiteMetaTitle);
@@ -74,11 +77,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <Header />
-        <Edges>{children}</Edges>
-        <Footer />
-        <TanStackRouterDevtools position="bottom-right" />
-        <Scripts />
+        <QueryClientProvider client={queryClient}>
+          <Header />
+          <Edges>{children}</Edges>
+          <Footer />
+          <TanStackRouterDevtools position="bottom-right" />
+          <Scripts />
+        </QueryClientProvider>
       </body>
     </html>
   );

@@ -41,6 +41,9 @@ importers:
       '@reactforums/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@tanstack/react-query':
+        specifier: ^5.90.18
+        version: 5.90.18(react@19.1.0)
       '@tanstack/react-router':
         specifier: ^1.131.49
         version: 1.131.49(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -2285,6 +2288,14 @@ packages:
   '@tanstack/history@1.131.2':
     resolution: {integrity: sha512-cs1WKawpXIe+vSTeiZUuSBy8JFjEuDgdMKZFRLKwQysKo8y2q6Q1HvS74Yw+m5IhOW1nTZooa6rlgdfXcgFAaw==}
     engines: {node: '>=12'}
+
+  '@tanstack/query-core@5.90.18':
+    resolution: {integrity: sha512-rbGx6bHgPNVzutP7BEr+53UPKohpckqlMAad+To9UxTbeaQ+kC/1SDRj+QzkwbQ7qhLT/1IKp34yS6thda6fzA==}
+
+  '@tanstack/react-query@5.90.18':
+    resolution: {integrity: sha512-KqNZX0C5IFz4639zR1ilnQ288tQdJrMNLtzmlzyJ14xauBkhtLEy3mPU/V4KiHsr41eL1ILZbDP36TB12lYfCQ==}
+    peerDependencies:
+      react: ^18 || ^19
 
   '@tanstack/react-router-devtools@1.131.49':
     resolution: {integrity: sha512-GdF7OaSCgyjuei9Cc9FsKR+ab+URvsWsoVBsCrvap7oWv0tXlga9bWSwaaF7erVI9gYaQt/iR/hQdGi88Ua8CQ==}
@@ -7070,6 +7081,7 @@ packages:
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-fetch@3.6.20:
     resolution: {integrity: sha512-EqhiFU6daOA8kpjOWTL0olhVOF3i7OrFzSYiGsEMB8GcXS+RrzauAERX65xMeNWVqxA6HXH2m69Z9LaKKdisfg==}
@@ -9491,6 +9503,13 @@ snapshots:
       - supports-color
 
   '@tanstack/history@1.131.2': {}
+
+  '@tanstack/query-core@5.90.18': {}
+
+  '@tanstack/react-query@5.90.18(react@19.1.0)':
+    dependencies:
+      '@tanstack/query-core': 5.90.18
+      react: 19.1.0
 
   '@tanstack/react-router-devtools@1.131.49(@tanstack/react-router@1.131.49(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@tanstack/router-core@1.131.48)(csstype@3.1.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(solid-js@1.9.9)(tiny-invariant@1.3.3)':
     dependencies:
