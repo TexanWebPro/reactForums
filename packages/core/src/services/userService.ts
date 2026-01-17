@@ -114,7 +114,7 @@ export class UserService {
       (val) => val.userId === user?.id
     );
 
-    return { ...user, profileFields: profileFieldValues };
+    return { ...user, profileFields: customProfileFieldsValues };
   }
 
   getUserReputations(userId: number): Reputation[] {

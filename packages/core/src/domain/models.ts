@@ -147,6 +147,8 @@ export interface Forum {
   canModsEdit: boolean;
 }
 
+export type Forums = Forum[];
+
 export interface ForumTreeNode extends Forum {
   children?: ForumTreeNode[];
 }

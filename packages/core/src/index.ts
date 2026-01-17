@@ -8,3 +8,5 @@ export * from "./services/statsService";
 export * from "./services/userService";
 export * from "./services/settingsService";
 export * from "./services/profileFieldsService";
+// export repositories
+export * from "./repositories/ForumRepository";
