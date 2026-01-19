@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@reactforums/core": "workspace:*",
+    "@reactforums/adapters": "workspace:*",
     "@tanstack/react-query": "^5.90.18",
     "@tanstack/react-router": "^1.131.49",
     "@tanstack/react-router-devtools": "^1.131.49",

@@ -1,26 +1,11 @@
-import { forumService } from "@/api/client";
-// import { Banners } from "@/components/Banner";
 import { Category } from "@/components/Category";
-import { Stats } from "@/components/Stats";
-import { useQuery } from "@tanstack/react-query";
+import { ForumTreeNode } from "@reactforums/core";
 
-export function ForumDisplay() {
-  const { isPending, error, data } = useQuery({
-    queryKey: ["forumsForDisplay"],
-    queryFn: () => forumService.listAllForumsByCategory(),
-  });
-
-  if (isPending) {
-    return <>LOADING</>;
-  }
-
-  if (error) {
-    return <>ERROR</>;
-  }
-
+export function ForumDisplay(props: { forums: ForumTreeNode[] }) {
+  const { forums } = props;
   return (
     <>
-      {data?.map((forum) => {
+      {forums?.map((forum) => {
         return (
           <div key={forum.name + forum.id} className="w-full">
             {forum.isCategory && forum.children ? (

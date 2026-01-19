@@ -7,15 +7,12 @@ import {
   SettingsService,
   ProfileFieldsService,
 } from "@reactforums/core";
-import { DrizzleForumRepository } from "./data/forumRepository";
+import { repository } from "./data/drizzleAdapter";
 
 const baseUrl = "localhost:9999";
 
-// instantiate repositories
-const forumRepository = new DrizzleForumRepository();
-
 // instantiate services
-export const forumService = new ForumService(baseUrl, forumRepository);
+export const forumService = new ForumService(baseUrl, repository.forum);
 export const threadService = new ThreadService(baseUrl);
 export const postService = new PostService(baseUrl);
 export const userService = new UserService(baseUrl);

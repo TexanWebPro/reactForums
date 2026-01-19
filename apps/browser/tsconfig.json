@@ -17,6 +17,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@reactforums/core": ["../../packages/core/src"],
+      "@reactforums/adapters": ["../../packages/adapters/src"],
       "@reactforums/common/*": ["../common/*"]
     },
     "noEmit": true
