@@ -20,17 +20,6 @@ This package contains the domain logic, models, services, and abstractions that 
   - Keeps the domain layer database agnostic.
   - Can be implemented with Postgres or MySQL, Prisma or Drizzle.
 
-- <b>Adapters</b>
-
-  Pluggable integrations for external systems:
-  - Database: Postgres, MySQL, SQLite, Prisma, TypeORM.
-  - Auth: Clerk, OAuth, SSO, JWT, custom providers.
-  - Storage: AWS S3, Google Cloud Storage, Azure Blob, local filesystem.
-  - Events: Kafka, Redis, RabbitMQ.
-  - Notifications: Email (SMTP/SES), push.
-  - Search: Elasticsearch, Algolia.
-  - Analytics: Segment, Amplitude.
-
 - <b>Authorization Utilities</b>
 
   Role/permission-based access control with fine-grained checks (ABAD-ready). Example:
@@ -57,16 +46,9 @@ This package contains the domain logic, models, services, and abstractions that 
 
 ```
 src/
-├─ adapters/        # External system integrations
-│   ├─ analytics/   # Segment, Amplitude
-│   ├─ auth/        # OAuth, Clerk, SSO, JWT
-│   ├─ database/    # Postgres, Prisma, MySQL, in-memory
-│   ├─ events/      # Kafka, Redis, RabbitMQ, in-memory
-│   ├─ notifications/ # Email, push, Slack
-│   ├─ search/      # Elasticsearch, Algolia
-│   ├─ storage/     # S3, GCS, Azure, local FS
 ├─ domain/          # Core models, enums, DTOs
 │   ├─ dtos.ts      # CreatePostDTO, UpdateUserDTO, etc.
+|   ├─ errors.ts    # Error messages
 │   ├─ models.ts    # Post, User, Forum, Comment, etc.│
 ├─ repositories/    # Interfaces for persistence
 ├─ services/        # Business logic (PostService, UserService, etc.)
@@ -78,13 +60,22 @@ src/
 ### Frontend (Browser, Mobile, Desktop)
 
 ```ts
-usage;
-```
+import {
+  ForumService,
+  ThreadService,
+  PostService,
+  UserService,
+} from "@reactforums/core";
+import { repository } from "./data/drizzleAdapter";
 
-### Backend
+const baseUrl = "localhost:9999";
 
-```ts
-usage;
+// instantiate services
+export const forumService = new ForumService(baseUrl, repository.forum);
+export const threadService = new ThreadService(baseUrl, repository.thread);
+export const postService = new PostService(baseUrl, repository.post);
+export const userService = new UserService(baseUrl, repository.user);
+export const statsService = new StatsService(baseUrl, repository.stats);
 ```
 
 <hr>
