@@ -1,3 +1,100 @@
+declare enum SettingKey {
+    BoardName = "bbname",
+    BoardDescription = "board_description",
+    BoardUrl = "board_url",
+    HomepageName = "homepage_name",
+    HomepageUrl = "homepage_url",
+    Timezone = "timezone",
+    DefaultLanguage = "default_language",
+    LogoUrl = "logo_url",
+    FaviconUrl = "favicon_url",
+    AllowRegistration = "allow_registration",
+    RequireEmailVerification = "require_email_verification",
+    DefaultUserRole = "default_user_role",
+    MaxLoginAttempts = "max_login_attempts",
+    PasswordMinLength = "password_min_length",
+    UsernameMinLength = "username_min_length",
+    UsernameMaxLength = "username_max_length",
+    AllowGuestPosting = "allow_guest_posting",
+    PostsRequireApproval = "posts_require_approval",
+    ThreadsRequireApproval = "threads_require_approval",
+    AttachmentsRequireApproval = "attachments_require_approval",
+    CanModsEditPosts = "can_mods_edit",
+    MaxAttachmentSizeMB = "max_attachment_size_mb",
+    AllowedAttachmentTypes = "allowed_attachment_types",
+    MaxPostLength = "max_post_length",
+    MaxThreadLength = "max_thread_length",
+    PostsPerPage = "posts_per_page",
+    ThreadsPerPage = "threads_per_page",
+    DateFormat = "date_format",
+    ShowOnlineStatus = "show_online_status",
+    ShowUserAvatars = "show_user_avatars",
+    DefaultAvatarUrl = "default_avatar_url",
+    SiteMetaTitle = "site_meta_title",
+    SiteMetaDescription = "site_meta_description",
+    SiteMetaKeywords = "site_meta_keywords",
+    OpenGraphImageUrl = "open_graph_image_url",
+    RobotsTxtContent = "robots_txt_content",
+    SendEmailOnNewPost = "send_email_on_new_post",
+    SendEmailOnNewThread = "send_email_on_new_thread",
+    EmailFromAddress = "email_from_address",
+    EmailSmtpHost = "email_smtp_host",
+    EmailSmtpPort = "email_smtp_port",
+    EmailSmtpUser = "email_smtp_user",
+    EmailSmtpPassword = "email_smtp_password",
+    EnableRecaptcha = "enable_recaptcha",
+    RecaptchaSiteKey = "recaptcha_site_key",
+    RecaptchaSecretKey = "recaptcha_secret_key",
+    AnalyticsScript = "analytics_script",
+    EnableWebSockets = "enable_websockets",
+    MaxConcurrentUsers = "max_concurrent_users"
+}
+interface Setting {
+    id: number;
+    name: SettingKey;
+    value: string;
+    description: string;
+    groupId: number;
+}
+interface User {
+    id: number;
+    username: string;
+    email: string;
+    password: string;
+    role: "admin" | "mod" | "user" | "banned";
+    avatar: string;
+    userTitle: string;
+    website: string;
+    birthday: string;
+    signature: string;
+    postCount: number;
+    threadCount: number;
+    reputation: number;
+    warningPoints: number;
+    primaryUserGroup: string;
+    registrationDate: Date;
+    lastactive: Date;
+    lastVisit: Date;
+    lastPost: Date;
+    allowMessages: boolean;
+    allowMessagesFromBuddiesOnly: boolean;
+    showBirthday: boolean;
+    showSignatures: boolean;
+    showAvatars: boolean;
+    showQuickReply: boolean;
+    isAway: boolean;
+    awayReason: string;
+    postsPerPage: number;
+    threadsPerPage: number;
+    timezone: string;
+    language: string;
+    totalTimeOnline: number;
+    registrationIP: string;
+    lastIP: string;
+    failedLogins: number;
+    updatedDate: Date;
+}
+type Users = User[];
 interface ForumStats {
     threadCount: number;
     postCount: number;
@@ -16,12 +113,12 @@ interface Forum {
     displayOrder: number;
     threadCount: number;
     postCount: number;
-    lastPostTime: Date;
-    lastPostAuthor: string;
-    lastPostThreadId: number;
-    lastPostThreadSubject: string;
-    rulesTitle: string;
-    rules: string;
+    lastPostTime: Date | null;
+    lastPostAuthor: string | null;
+    lastPostThreadId: number | null;
+    lastPostThreadSubject: string | null;
+    rulesTitle: string | null;
+    rules: string | null;
     unapprovedThreadCount: number;
     unapprovedPostCount: number;
     isActive: boolean;
@@ -33,13 +130,171 @@ interface Forum {
     mustReviewAttachments: boolean;
     canModsEdit: boolean;
 }
+type Forums = Forum[];
 interface ForumTreeNode extends Forum {
     children?: ForumTreeNode[];
 }
+interface Thread {
+    id: number;
+    forumId: number;
+    subject: string;
+    prefix: string;
+    icon: string;
+    pollId: null;
+    userId: string;
+    username: string;
+    createdAt: Date;
+    updatedAt: Date;
+    firstPostId: number;
+    lastPostCreatedAt: Date;
+    lastPosterUsername: string;
+    lastPosterId: string;
+    views: number;
+    replies: number;
+    isClosed: boolean;
+    isSticky: boolean;
+    ratingsNumber: number;
+    ratingsTotal: number;
+    moderatorNotes: string;
+    isDraft: boolean;
+    isApproved: boolean;
+    unapprovedPostsTotal: number;
+    attachmentTotal: number;
+    isDeleted: boolean;
+}
+interface Post {
+    id: number;
+    threadId: number;
+    replyToId?: number;
+    forumId: number;
+    subject?: string;
+    icon?: number;
+    userId: number;
+    username: string;
+    createdAt: Date;
+    content: string;
+    ipAddress: string;
+    longIpAddress: string;
+    includeSignature: boolean;
+    editUId: number;
+    editedAt: Date;
+    isVisible: boolean;
+}
+interface Reputation {
+    id: number;
+    userId: number;
+    givingUserId: number;
+    postId: number | null;
+    count: number;
+    date: Date;
+    updatedAt?: Date;
+    comments?: string;
+}
+type Reputations = Reputation[];
+interface CustomProfileField {
+    id: number;
+    name: string;
+    description: string;
+    displayOrder: number;
+    type: "text" | "textarea" | "select" | "checkbox";
+    length: number;
+    maxLength: number;
+    canEdit: boolean;
+    isHidden: boolean;
+    isRequired: boolean;
+}
+type CustomProfileFields = CustomProfileField[];
+type CustomProfileFieldsValue = {
+    userId: number;
+    fieldId: number;
+    value: string;
+};
+type UserProfileFieldValues = CustomProfileFieldsValue[];
+type UserWithProfileFieldValues = User & {
+    profileFields: UserProfileFieldValues;
+};
 
-declare class ForumService {
-    constructor(baseUrl: string);
-    listAllForumsByCategory(): ForumTreeNode[];
+interface ForumRepository {
+    getAllForums(): Promise<Forums>;
+    getForumById(id: number): Promise<Forum | undefined>;
 }
 
-export { type Forum, ForumService, type ForumStats, type ForumTreeNode };
+declare class ForumService {
+    private baseUrl;
+    private repository;
+    constructor(baseUrl: string, repository: ForumRepository);
+    listAllForumsByCategory(): Promise<ForumTreeNode[]>;
+    getBreadcrumbForumHierarchy(id: number): Promise<ForumTreeNode | undefined>;
+    buildTree(forums: Forum[], parentId?: number | null): ForumTreeNode[];
+}
+
+declare class ThreadService {
+    constructor(baseUrl: string);
+    getLastNThreadsInForum(forumId: number, _n: number): Thread[];
+    getThreadById(threadId: number): Thread | undefined;
+}
+
+declare class PostService {
+    constructor(baseUrl: string);
+    getPostById(postId: number | null): {
+        id: number;
+        threadId: number;
+        forumId: number;
+        userId: number;
+        username: string;
+        createdAt: Date;
+        content: string;
+        ipAddress: string;
+        longIpAddress: string;
+        includeSignature: boolean;
+        editUId: number;
+        editedAt: Date;
+        isVisible: boolean;
+    };
+    getNPostsInThread(postId: number, _n: number): Post[];
+    getThreadById(postId: number): Post | undefined;
+}
+
+declare class StatsService {
+    constructor(baseUrl: string);
+    getGlobalStats(): ForumStats;
+    rebuildStats(): void;
+}
+
+declare class UserService {
+    constructor(baseUrl: string);
+    latestUser(): Pick<User, "username">;
+    getUserInfo(userId: number): User | undefined;
+    getUserByUsername(username: string): User | undefined;
+    getUserForProfileView(username: string): UserWithProfileFieldValues | undefined;
+    getUserReputations(userId: number): Reputation[];
+}
+
+declare class SettingsService {
+    constructor(baseUrl: string);
+    getByName(name: SettingKey): Setting | null;
+}
+
+declare class ProfileFieldsService {
+    constructor(baseUrl: string);
+    getProfileFieldValue(fieldId: number): CustomProfileField;
+}
+
+interface UserRepository {
+    getLatestUser(): Promise<User>;
+    getAllUsers(): Promise<Users>;
+    getUserById(id: number): Promise<User>;
+    getUserByUsername(username: string): Promise<User>;
+    getUserReputations(userId: number): Promise<Reputations>;
+}
+
+interface ReactForumsAdapter {
+    forum: ForumRepository;
+}
+interface ReactForumsAdapterInput {
+    forum: ForumRepository;
+}
+
+declare function createForumAdapter(input: ReactForumsAdapterInput): ReactForumsAdapter;
+
+export { type CustomProfileField, type CustomProfileFields, type CustomProfileFieldsValue, type Forum, type ForumRepository, ForumService, type ForumStats, type ForumTreeNode, type Forums, type Post, PostService, ProfileFieldsService, type ReactForumsAdapter, type ReactForumsAdapterInput, type Reputation, type Reputations, type Setting, SettingKey, SettingsService, StatsService, type Thread, ThreadService, type User, type UserProfileFieldValues, type UserRepository, UserService, type UserWithProfileFieldValues, type Users, createForumAdapter };

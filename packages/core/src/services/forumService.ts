@@ -4,7 +4,7 @@ import type { ForumRepository } from "../repositories/ForumRepository";
 export class ForumService {
   constructor(
     private baseUrl: string,
-    private repository: ForumRepository
+    private repository: ForumRepository,
   ) {}
 
   // return forums by category, ordered by displayOrder
@@ -15,7 +15,7 @@ export class ForumService {
   }
 
   async getBreadcrumbForumHierarchy(
-    id: number
+    id: number,
   ): Promise<ForumTreeNode | undefined> {
     const forums = await this.repository.getAllForums();
     const forum = await this.repository.getForumById(id);

@@ -12,7 +12,7 @@
     "baseUrl": ".",
     "paths": {
       "@reactforums/core": ["packages/core/src"],
-      "@reactforums/common": ["apps/common/src"],
+      "@reactforums/common": ["apps/common/src"]
     }
   }
 }

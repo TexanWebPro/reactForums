@@ -106,12 +106,12 @@ export class UserService {
   }
 
   getUserForProfileView(
-    username: string
+    username: string,
   ): UserWithProfileFieldValues | undefined {
     const user = this.getUserByUsername(username);
     if (!user) return;
     const customProfileFieldsValues = profileFieldValues.filter(
-      (val) => val.userId === user?.id
+      (val) => val.userId === user?.id,
     );
 
     return { ...user, profileFields: customProfileFieldsValues };
@@ -119,7 +119,7 @@ export class UserService {
 
   getUserReputations(userId: number): Reputation[] {
     const userReputations = allReputations.filter(
-      (rep) => rep.userId === userId
+      (rep) => rep.userId === userId,
     );
     return userReputations;
   }

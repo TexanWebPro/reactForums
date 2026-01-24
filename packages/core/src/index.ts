@@ -10,3 +10,7 @@ export * from "./services/settingsService";
 export * from "./services/profileFieldsService";
 // export repositories
 export * from "./repositories/ForumRepository";
+export * from "./repositories/UserRepository";
+// export adapter contracts
+export * from "./adapters/createForumAdapter";
+export * from "./adapters/types";

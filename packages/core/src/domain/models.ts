@@ -110,6 +110,8 @@ export interface User {
   updatedDate: Date;
 }
 
+export type Users = User[];
+
 export interface ForumStats {
   threadCount: number;
   postCount: number;
@@ -129,12 +131,12 @@ export interface Forum {
   displayOrder: number;
   threadCount: number;
   postCount: number;
-  lastPostTime: Date;
-  lastPostAuthor: string; // user ID
-  lastPostThreadId: number;
-  lastPostThreadSubject: string;
-  rulesTitle: string;
-  rules: string;
+  lastPostTime: Date | null;
+  lastPostAuthor: string | null; // user ID
+  lastPostThreadId: number | null;
+  lastPostThreadSubject: string | null;
+  rulesTitle: string | null;
+  rules: string | null;
   unapprovedThreadCount: number;
   unapprovedPostCount: number;
   isActive: boolean;
@@ -211,6 +213,8 @@ export interface Reputation {
   updatedAt?: Date;
   comments?: string;
 }
+
+export type Reputations = Reputation[];
 
 export interface CustomProfileField {
   id: number;
