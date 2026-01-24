@@ -8,7 +8,8 @@
     "build": "vite build && tsc --noEmit",
     "start": "node .output/server/index.mjs",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "ts-node scripts/seed.ts"
   },
   "dependencies": {
     "@reactforums/adapter-drizzle-pg": "workspace:*",
@@ -22,6 +23,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^2.6.0",
+    "ts-node": "^10.9.2",
     "zod": "^3.24.2"
   },
   "devDependencies": {
