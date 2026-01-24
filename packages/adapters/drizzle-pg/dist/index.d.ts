@@ -1,10 +1,9 @@
 import * as _reactforums_core from '@reactforums/core';
 import * as drizzle_orm_pg_core from 'drizzle-orm/pg-core';
 import { PgTable } from 'drizzle-orm/pg-core';
-import { drizzle } from 'drizzle-orm/node-postgres';
+import { D as DrizzlePgDatabase } from './types-CS55s55O.js';
 import { forumSchema } from './schema/index.js';
-
-type DrizzlePgDatabase = ReturnType<typeof drizzle>;
+import 'drizzle-orm/node-postgres';
 
 interface ReactForumsDrizzleSchema<TForumTable extends PgTable = typeof forumSchema> {
     forums: TForumTable;
