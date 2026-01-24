@@ -6,15 +6,19 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && tsc --noEmit",
-    "start": "node .output/server/index.mjs"
+    "start": "node .output/server/index.mjs",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
+    "@reactforums/adapter-drizzle-pg": "workspace:*",
     "@reactforums/core": "workspace:*",
-    "@reactforums/adapters": "workspace:*",
     "@tanstack/react-query": "^5.90.18",
     "@tanstack/react-router": "^1.131.49",
     "@tanstack/react-router-devtools": "^1.131.49",
     "@tanstack/react-start": "^1.131.49",
+    "drizzle-orm": "^0.45.1",
+    "pg": "^8.17.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^2.6.0",
@@ -26,6 +30,7 @@
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.6.0",
     "autoprefixer": "^10.4.20",
+    "drizzle-kit": "^0.31.8",
     "postcss": "^8.5.1",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2",

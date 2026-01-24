@@ -18,7 +18,7 @@ const queryClient = new QueryClient();
 const faviconUrl = settingsService.getByName(SettingKey.FaviconUrl);
 const seoTitle = settingsService.getByName(SettingKey.SiteMetaTitle);
 const seoDescription = settingsService.getByName(
-  SettingKey.SiteMetaDescription
+  SettingKey.SiteMetaDescription,
 );
 
 export const Route = createRootRoute({
