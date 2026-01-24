@@ -1,7 +1,7 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["src/index.ts"], // entry point of core package
+  entry: ["src/index.ts", "src/schema/index.ts"], // entry point of core package
   format: ["cjs", "esm"], // CommonJS for WP, ESM for browser/mobile
   dts: true, // generate TypeScript declaration files
   sourcemap: true, // useful for debugging

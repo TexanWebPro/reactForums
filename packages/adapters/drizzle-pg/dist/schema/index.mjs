@@ -1,0 +1,42 @@
+// src/schema/forum.ts
+import {
+  boolean,
+  date,
+  integer,
+  pgTable,
+  serial,
+  text
+} from "drizzle-orm/pg-core";
+var forumSchema = pgTable("rf_forums", {
+  id: serial().primaryKey().notNull(),
+  isCategory: boolean().notNull(),
+  parentForumId: integer(),
+  name: text().notNull(),
+  description: text().notNull(),
+  linkTo: text(),
+  password: text(),
+  displayOrder: integer().notNull(),
+  threadCount: integer().notNull(),
+  postCount: integer().notNull(),
+  lastPostTime: date(),
+  lastPostAuthor: text(),
+  // lastPostAuthor: "uuid", // user ID
+  lastPostThreadId: integer(),
+  lastPostThreadSubject: text(),
+  rulesTitle: text(),
+  rules: text(),
+  unapprovedThreadCount: integer().notNull().default(0),
+  unapprovedPostCount: integer().notNull().default(0),
+  isActive: boolean().notNull().default(false),
+  isLocked: boolean().notNull().default(false),
+  allowRatings: boolean().notNull().default(true),
+  usePostCounts: boolean().notNull().default(true),
+  mustReviewPosts: boolean().notNull().default(false),
+  mustReviewThreads: boolean().notNull().default(false),
+  mustReviewAttachments: boolean().notNull().default(false),
+  canModsEdit: boolean().notNull().default(true)
+});
+export {
+  forumSchema
+};
+//# sourceMappingURL=index.mjs.map
