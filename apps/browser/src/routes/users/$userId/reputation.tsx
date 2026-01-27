@@ -1,6 +1,6 @@
 // import { postService, threadService, userService } from "@/api/client";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import { Button } from "@/components/ui/Button";
+// import Breadcrumbs from "@/components/Breadcrumbs";
+// import { Button } from "@/components/ui/Button";
 import {
   formatDateForPostInfoDisplay,
   formatDateTimeForForumDisplay,
@@ -57,9 +57,9 @@ function RouteComponent() {
 
   return (
     <>
-      <Breadcrumbs crumbs={[]} />
+      {/* <Breadcrumbs crumbs={[]} /> */}
       <div className="flex flex-col items-end justify-center">
-        <Button text="Rate User" linkTo="/" icon="thumbsUp" />
+        {/* <Button text="Rate User" linkTo="/" icon="thumbsUp" /> */}
         <span className="bg-sky-600 w-full p-4 py-2 mt-4 font-bold text-stone-50 border-2 border-sky-800 rounded-t-lg flex flex-row items-center justify-between gap-2">
           <p>Reputation of Elegant Totality</p>
           <span className="flex flex-row justify-end text-gray-900">
@@ -149,7 +149,7 @@ function RouteComponent() {
           })} */}
         </div>
 
-        <Button text="Rate User" linkTo="/" icon="thumbsUp" />
+        {/* <Button text="Rate User" linkTo="/" icon="thumbsUp" /> */}
       </div>
     </>
   );

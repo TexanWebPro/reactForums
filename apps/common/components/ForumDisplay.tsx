@@ -1,4 +1,4 @@
-import { Category } from "@/components/Category";
+import { Category } from "./Category";
 import { ForumTreeNode } from "@reactforums/core";
 
 export function ForumDisplay(props: { forums: ForumTreeNode[] }) {

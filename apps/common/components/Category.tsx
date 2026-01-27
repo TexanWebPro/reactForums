@@ -130,7 +130,10 @@ export function Category(props: {
                   </span>
                   <span>
                     by{" "}
-                    <Link to={board.lastPostAuthor} className="text-sky-700">
+                    <Link
+                      to={board.lastPostAuthor || ""}
+                      className="text-sky-700"
+                    >
                       {board.lastPostAuthor}
                     </Link>
                   </span>

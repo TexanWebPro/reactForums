@@ -1,7 +1,7 @@
 // import { forumService } from "@/api/client";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import { Category } from "@/components/Category";
-import { ForumComponent } from "@/components/Forum";
+// import Breadcrumbs from "@/components/Breadcrumbs";
+// import { Category } from "@/components/Category";
+// import { ForumComponent } from "@/components/Forum";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/forum/$forumId/")({

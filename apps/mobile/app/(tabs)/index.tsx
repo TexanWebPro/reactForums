@@ -3,7 +3,6 @@ import { StyleSheet, View } from "react-native";
 
 import ParallaxScrollView from "@/components/parallax-scroll-view";
 
-import { Text, FlatList } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 
 const baseUrl = "http://localhost:9999/";

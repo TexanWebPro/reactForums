@@ -4,7 +4,7 @@ import { Button } from "./ui/Button";
 import {
   formatDateTimeForForumDisplay,
   formatLastPostDateTime,
-} from "@reactforums/common/utils/dates";
+} from "../utils/dates";
 import type { Forum } from "@reactforums/core";
 
 export function ForumComponent(forum: Forum) {

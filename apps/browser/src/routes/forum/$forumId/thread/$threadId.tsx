@@ -1,6 +1,6 @@
 // import { forumService, threadService } from "@/api/client";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import { ThreadComponent } from "@/components/Thread";
+// import Breadcrumbs from "@/components/Breadcrumbs";
+// import { ThreadComponent } from "@/components/Thread";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/forum/$forumId/thread/$threadId")({

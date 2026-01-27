@@ -3,13 +3,11 @@ import * as React from "react";
 import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { DefaultCatchBoundary } from "@/components/DefaultCatchBoundary";
-import { NotFound } from "@/components/NotFound";
+import { DefaultCatchBoundary } from "@reactforums/common/components/DefaultCatchBoundary";
+import { NotFound } from "@reactforums/common/components/NotFound";
+import { Layout } from "@reactforums/common/components/layout";
 import appCss from "@/styles/app.css?url";
 import { seo } from "@/utils/seo";
-import Edges from "@/components/layout/Edges";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 // import { settingsService } from "@/api/client";
 import { SettingKey } from "@reactforums/core";
 
@@ -78,9 +76,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <QueryClientProvider client={queryClient}>
-          <Header />
-          <Edges>{children}</Edges>
-          <Footer />
+          <Layout>{children}</Layout>
           <TanStackRouterDevtools position="bottom-right" />
           <Scripts />
         </QueryClientProvider>
