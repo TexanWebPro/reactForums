@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "./ui/Button";
-import { threadService } from "@/api/client";
+// import { threadService } from "@/api/client";
 import {
   formatDateTimeForForumDisplay,
   formatLastPostDateTime,
@@ -8,7 +8,7 @@ import {
 import type { Forum } from "@reactforums/core";
 
 export function ForumComponent(forum: Forum) {
-  const threads = threadService.getLastNThreadsInForum(forum.id, 10);
+  // const threads = threadService.getLastNThreadsInForum(forum.id, 10);
 
   return (
     <div className="flex flex-col items-end justify-between gap-8">
@@ -38,7 +38,7 @@ export function ForumComponent(forum: Forum) {
           <span>Last Post</span>
         </div>
         <div className="border-2 border-stone-300">
-          {threads.length ? (
+          {/* {threads.length ? (
             <>
               {threads.map((thread, i) => {
                 function starRating(rating: number) {
@@ -161,7 +161,7 @@ export function ForumComponent(forum: Forum) {
                 specified date and time limiting options.
               </p>
             </>
-          )}
+          )} */}
         </div>
         <div className="bg-stone-200 text-stone-950 p-2 w-full border-2 border-t-0 border-stone-300 rounded-b-lg flex flex-row items-center justify-end">
           <span className="flex flex-row items-center justify-around gap-2">

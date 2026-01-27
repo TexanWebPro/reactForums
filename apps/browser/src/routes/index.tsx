@@ -1,19 +1,23 @@
-import { forumService } from "@/api/client";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { ForumDisplay } from "@/components/ForumDisplay";
 import { Stats } from "@/components/Stats";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
-  loader: async () => {
-    const forums = await forumService.listAllForumsByCategory();
-    return forums;
-  },
   component: App,
 });
 
 function App() {
-  const forums = Route.useLoaderData();
+  const { data } = useQuery({
+    queryKey: [],
+    queryFn: async () => {
+      const res = await fetch("/api/forums/query/by-category");
+      return res.json();
+    },
+  });
+
+  if (!data) return;
 
   return (
     <>
@@ -21,7 +25,7 @@ function App() {
         <Breadcrumbs crumbs={[]} />
 
         <div className="flex flex-col items-start justify-center gap-4">
-          <ForumDisplay forums={forums} />
+          <ForumDisplay forums={data} />
           <Stats />
           <ForumIconKey />
         </div>

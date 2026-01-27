@@ -1,4 +1,4 @@
-import { statsService, userService } from "@/api/client";
+// import { statsService, userService } from "@/api/client";
 import { Link } from "@tanstack/react-router";
 import { ForumStats } from "@reactforums/core";
 import { ForumStatsView } from "@reactforums/common/models";
@@ -6,8 +6,8 @@ import { formatNumber } from "@reactforums/common/utils/numbers";
 import { formatDateTimeForStatsDisplay } from "@reactforums/common/utils/dates";
 
 export function Stats() {
-  const unformattedStats = statsService.getGlobalStats();
-  const latestUser = userService.latestUser();
+  // const unformattedStats = statsService.getGlobalStats();
+  // const latestUser = userService.latestUser();
 
   function formatStats(stats: ForumStats): ForumStatsView {
     return {
@@ -19,7 +19,7 @@ export function Stats() {
     };
   }
 
-  const boardStats = formatStats(unformattedStats);
+  // const boardStats = formatStats(unformattedStats);
 
   return (
     <>
@@ -29,7 +29,7 @@ export function Stats() {
         </span>
 
         <div className="p-4 border-2 border-stone-300 rounded-b-lg flex flex-col items-start justify-between text-sm gap-2">
-          <p>
+          {/* <p>
             Our members have made a total of {boardStats.postCount} posts in{" "}
             {boardStats.threadCount} threads.
           </p>
@@ -43,7 +43,7 @@ export function Stats() {
           <p>
             The most users online at one time was {boardStats.mostOnlineAtOnce}{" "}
             on {formatDateTimeForStatsDisplay(boardStats.mostOnlineAtOnceDate)}
-          </p>
+          </p> */}
         </div>
       </div>
     </>

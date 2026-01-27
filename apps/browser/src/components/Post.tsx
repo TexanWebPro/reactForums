@@ -1,19 +1,19 @@
-import { userService } from "@/api/client";
+// import { userService } from "@/api/client";
 import { formatDateForPostInfoDisplay } from "@reactforums/common/utils/dates";
 import { reputationClassStyle } from "@reactforums/common/utils/reputation";
 import type { Post } from "@reactforums/core";
 import { Link } from "@tanstack/react-router";
 
 export function Post(post: Post) {
-  const { userId } = post;
-  const userInfo = userService.getUserInfo(userId);
+  // const { userId } = post;
+  // const userInfo = userService.getUserInfo(userId);
 
-  if (!userInfo) return;
+  // if (!userInfo) return;
   return (
     <>
       {/* <pre>{JSON.stringify(userInfo, null, 2)}</pre> */}
       <div className="flex w-full flex-col border-b-2 border-sky-800">
-        <UserInfoBar
+        {/* <UserInfoBar
           username={post.username}
           userTitle={userInfo.userTitle}
           userGroup={userInfo.primaryUserGroup}
@@ -22,14 +22,14 @@ export function Post(post: Post) {
           joined={userInfo.registrationDate}
           reputation={userInfo.reputation}
           warning={userInfo.warningPoints}
-        />
+        /> */}
         <PostContent
           createdAt={post.createdAt}
           editedBy="Elegant Totality"
           updatedAt={post.editedAt}
           content={post.content}
         />
-        {post.includeSignature ? (
+        {/* {post.includeSignature ? (
           <>
             <UserSignatureInPost signature={userInfo.signature} />
           </>
@@ -40,7 +40,7 @@ export function Post(post: Post) {
           website={userInfo.website}
           userId={userInfo.id}
           postId={post.id}
-        />
+        /> */}
       </div>
     </>
   );

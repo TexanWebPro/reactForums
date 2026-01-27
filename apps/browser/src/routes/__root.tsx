@@ -10,16 +10,16 @@ import { seo } from "@/utils/seo";
 import Edges from "@/components/layout/Edges";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { settingsService } from "@/api/client";
+// import { settingsService } from "@/api/client";
 import { SettingKey } from "@reactforums/core";
 
 const queryClient = new QueryClient();
 
-const faviconUrl = settingsService.getByName(SettingKey.FaviconUrl);
-const seoTitle = settingsService.getByName(SettingKey.SiteMetaTitle);
-const seoDescription = settingsService.getByName(
-  SettingKey.SiteMetaDescription,
-);
+// const faviconUrl = settingsService.getByName(SettingKey.FaviconUrl);
+// const seoTitle = settingsService.getByName(SettingKey.SiteMetaTitle);
+// const seoDescription = settingsService.getByName(
+//   SettingKey.SiteMetaDescription,
+// );
 
 export const Route = createRootRoute({
   head: () => ({
@@ -31,10 +31,10 @@ export const Route = createRootRoute({
         name: "viewport",
         content: "width=device-width, initial-scale=1",
       },
-      ...seo({
-        title: `${seoTitle?.value}`,
-        description: `${seoDescription?.value}`,
-      }),
+      // ...seo({
+      //   title: `${seoTitle?.value}`,
+      //   description: `${seoDescription?.value}`,
+      // }),
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -47,7 +47,7 @@ export const Route = createRootRoute({
         rel: "icon",
         type: "image/png",
         sizes: "32x32",
-        href: `${faviconUrl?.value}`,
+        // href: `${faviconUrl?.value}`,
       },
       {
         rel: "icon",

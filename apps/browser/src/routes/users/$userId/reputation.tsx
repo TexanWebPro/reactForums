@@ -1,4 +1,4 @@
-import { postService, threadService, userService } from "@/api/client";
+// import { postService, threadService, userService } from "@/api/client";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/Button";
 import {
@@ -14,24 +14,24 @@ import type { Reputation, User } from "@reactforums/core";
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/users/$userId/reputation")({
-  loader: async ({ params }) => {
-    const user = userService.getUserByUsername(params.userId);
-    if (!user) {
-      throw redirect({
-        to: "/",
-      });
-    }
-    const reputations = userService.getUserReputations(user.id);
-    const userInfo = userService.getUserInfo(user.id);
-    return { reputations, userInfo };
-  },
+  // loader: async ({ params }) => {
+  //   const user = userService.getUserByUsername(params.userId);
+  //   if (!user) {
+  //     throw redirect({
+  //       to: "/",
+  //     });
+  //   }
+  //   const reputations = userService.getUserReputations(user.id);
+  //   const userInfo = userService.getUserInfo(user.id);
+  //   return { reputations, userInfo };
+  // },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { reputations, userInfo } = Route.useLoaderData();
+  // const { reputations, userInfo } = Route.useLoaderData();
 
-  if (!userInfo) return;
+  // if (!userInfo) return;
 
   function userGroupStars(userGroup: string) {
     switch (userGroup) {
@@ -52,8 +52,8 @@ function RouteComponent() {
     }
   }
 
-  const repFromPosts = reputations.filter((rep) => rep.postId !== null);
-  const repFromMembers = userInfo.reputation - repFromPosts.length;
+  // const repFromPosts = reputations.filter((rep) => rep.postId !== null);
+  // const repFromMembers = userInfo.reputation - repFromPosts.length;
 
   return (
     <>
@@ -81,7 +81,7 @@ function RouteComponent() {
                   className="w-16 border-2 border-stone-300"
                 />
 
-                <span className="flex flex-col items-start">
+                {/* <span className="flex flex-col items-start">
                   <Link
                     to="/users/$userId"
                     params={{ userId: userInfo.username }}
@@ -93,11 +93,11 @@ function RouteComponent() {
                   <span className="flex flex-row items-center justify-between gap-1 mb-4">
                     {userGroupStars(userInfo.primaryUserGroup)}
                   </span>
-                </span>
+                </span> */}
               </span>
               <span className="text-xs">
                 <span>
-                  <p>
+                  {/* <p>
                     <span className="font-bold">Posts:</span>{" "}
                     {userInfo.postCount}
                   </p>
@@ -108,7 +108,7 @@ function RouteComponent() {
                   <p>
                     <span className="font-bold">Joined:</span>{" "}
                     {formatDateForPostInfoDisplay(userInfo.registrationDate)}
-                  </p>
+                  </p> */}
                 </span>
               </span>
             </span>
@@ -117,36 +117,36 @@ function RouteComponent() {
               <span className="flex flex-col gap-2">
                 <p>
                   <span className="font-bold">Total Reputation: </span>
-                  <span
+                  {/* <span
                     className={`font-bold ${reputationClassStyle(userInfo.reputation)}`}
                   >
                     {userInfo.reputation}
-                  </span>
+                  </span> */}
                 </p>
                 <span>
                   <p>
                     <span className="font-bold">Reputation from Members: </span>
-                    <span className="font-bold text-green-700">
+                    {/* <span className="font-bold text-green-700">
                       {repFromMembers}
-                    </span>
+                    </span> */}
                   </p>
                   <p>
                     <span className="font-bold">Reputation from Posts: </span>
-                    <span className="font-bold text-green-700">
+                    {/* <span className="font-bold text-green-700">
                       {repFromPosts.length}
-                    </span>
+                    </span> */}
                   </p>
                 </span>
               </span>
             </span>
           </div>
-          {reputations.map((reputation) => {
+          {/* {reputations.map((reputation) => {
             return (
               <>
                 <Reputation reputation={reputation} userInfo={userInfo} />
               </>
             );
-          })}
+          })} */}
         </div>
 
         <Button text="Rate User" linkTo="/" icon="thumbsUp" />
@@ -157,10 +157,10 @@ function RouteComponent() {
 
 function Reputation(props: { reputation: Reputation; userInfo: User }) {
   const { reputation, userInfo } = props;
-  const givingUser = userService.getUserInfo(reputation.givingUserId);
-  const referencedPost = postService.getPostById(reputation.postId);
-  const referencedThread =
-    referencedPost && threadService.getThreadById(referencedPost.threadId);
+  // const givingUser = userService.getUserInfo(reputation.givingUserId);
+  // const referencedPost = postService.getPostById(reputation.postId);
+  // const referencedThread =
+  //   referencedPost && threadService.getThreadById(referencedPost.threadId);
 
   return (
     <>
@@ -170,7 +170,7 @@ function Reputation(props: { reputation: Reputation; userInfo: User }) {
         <div className="flex flex-row items-start justify-between">
           <span>
             <div>
-              <span className="">
+              {/* <span className="">
                 {givingUser ? (
                   <>
                     <Link
@@ -194,7 +194,7 @@ function Reputation(props: { reputation: Reputation; userInfo: User }) {
                     {" 0"}
                   </>
                 )}
-              </span>{" "}
+              </span>{" "} */}
               {reputation.updatedAt ? (
                 <span className="text-sm">
                   - Updated at{" "}
@@ -204,7 +204,7 @@ function Reputation(props: { reputation: Reputation; userInfo: User }) {
                 <></>
               )}
             </div>
-            {referencedPost ? (
+            {/* {referencedPost ? (
               <>
                 <p className="text-xs">
                   Rating given for{" "}
@@ -234,7 +234,7 @@ function Reputation(props: { reputation: Reputation; userInfo: User }) {
               </>
             ) : (
               <></>
-            )}
+            )} */}
           </span>
 
           <Link

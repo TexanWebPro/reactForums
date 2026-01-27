@@ -1,39 +1,39 @@
-import { forumService } from "@/api/client";
+// import { forumService } from "@/api/client";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Category } from "@/components/Category";
 import { ForumComponent } from "@/components/Forum";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/forum/$forumId/")({
-  loader: async ({ params }) => {
-    const forum = await forumService.getBreadcrumbForumHierarchy(
-      Number(params.forumId)
-    );
+  // loader: async ({ params }) => {
+  //   const forum = await forumService.getBreadcrumbForumHierarchy(
+  //     Number(params.forumId)
+  //   );
 
-    // build hierarchy
-    const crumbs = [];
-    let current = forum;
-    while (current) {
-      crumbs.unshift({
-        label: current.name,
-        href: `/forum/${current.id}`,
-      });
-      current = current.parentForumId
-        ? await forumService.getBreadcrumbForumHierarchy(current.parentForumId)
-        : undefined;
-    }
+  //   // build hierarchy
+  //   const crumbs = [];
+  //   let current = forum;
+  //   while (current) {
+  //     crumbs.unshift({
+  //       label: current.name,
+  //       href: `/forum/${current.id}`,
+  //     });
+  //     current = current.parentForumId
+  //       ? await forumService.getBreadcrumbForumHierarchy(current.parentForumId)
+  //       : undefined;
+  //   }
 
-    return { forum, crumbs };
-  },
+  //   return { forum, crumbs };
+  // },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { forum, crumbs } = Route.useLoaderData();
+  // const { forum, crumbs } = Route.useLoaderData();
 
   return (
     <div>
-      <Breadcrumbs crumbs={crumbs} />
+      {/* <Breadcrumbs crumbs={crumbs} />
 
       {forum?.isCategory && forum.children ? (
         <>
@@ -60,7 +60,7 @@ function RouteComponent() {
           )}
           {forum ? <ForumComponent {...forum} /> : <></>}
         </>
-      )}
+      )} */}
     </div>
   );
 }
