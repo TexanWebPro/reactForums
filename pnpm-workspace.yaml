@@ -4,3 +4,12 @@ packages:
   - www
 
 nodeLinker: hoisted
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - '@tailwindcss/oxide'
+  - electron
+  - electron-winstaller
+  - esbuild
+  - sharp
+  - unrs-resolver

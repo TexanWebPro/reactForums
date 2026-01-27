@@ -1,3 +1,1 @@
-# reactForums Desktop
-
-## Electron Wrapper Around Browser Frontend
+# reactForums Desktop App
