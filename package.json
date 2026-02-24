@@ -12,6 +12,7 @@
     "dev:browser": "turbo run dev --filter=browser",
     "dev:mobile": "turbo run dev --filter=mobile",
     "dev:www": "turbo run dev --filter=www",
+    "build:core": "turbo run build --filter=@reactforums/core",
     "build:design-tokens": "turbo run build --filter=design-tokens",
     "build:adapter-drizzle-pg": "turbo run build --filter=@reactforums/adapter-drizzle-pg",
     "build": "turbo run build",

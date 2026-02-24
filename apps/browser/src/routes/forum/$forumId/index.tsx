@@ -1,40 +1,47 @@
 // import { forumService } from "@/api/client";
 // import Breadcrumbs from "@/components/Breadcrumbs";
-// import { Category } from "@/components/Category";
-// import { ForumComponent } from "@/components/Forum";
+import { Category } from "@reactforums/common/components/Category";
+import { ForumComponent } from "@reactforums/common/components/Forum";
 import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/forum/$forumId/")({
-  // loader: async ({ params }) => {
-  //   const forum = await forumService.getBreadcrumbForumHierarchy(
-  //     Number(params.forumId)
-  //   );
+  loader: async ({ params }) => {
+    // const forum = await forumService.getBreadcrumbForumHierarchy(
+    //   Number(params.forumId),
+    // );
 
-  //   // build hierarchy
-  //   const crumbs = [];
-  //   let current = forum;
-  //   while (current) {
-  //     crumbs.unshift({
-  //       label: current.name,
-  //       href: `/forum/${current.id}`,
-  //     });
-  //     current = current.parentForumId
-  //       ? await forumService.getBreadcrumbForumHierarchy(current.parentForumId)
-  //       : undefined;
-  //   }
+    // // build hierarchy
+    // const crumbs = [];
+    // let current = forum;
+    // while (current) {
+    //   crumbs.unshift({
+    //     label: current.name,
+    //     href: `/forum/${current.id}`,
+    //   });
+    //   current = current.parentForumId
+    //     ? await forumService.getBreadcrumbForumHierarchy(current.parentForumId)
+    //     : undefined;
+    // }
 
-  //   return { forum, crumbs };
-  // },
+    return { params };
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  // const { forum, crumbs } = Route.useLoaderData();
+  const { params } = Route.useLoaderData();
+  const { data: forum } = useQuery({
+    queryKey: [`forum-${params.forumId}-thread-list`],
+    queryFn: async () => {
+      const res = await fetch("/api/forums/query/by-id");
+      return res.json();
+    },
+  });
 
   return (
     <div>
-      {/* <Breadcrumbs crumbs={crumbs} />
-
+      {/* <Breadcrumbs crumbs={crumbs} /> */}
       {forum?.isCategory && forum.children ? (
         <>
           <Category
@@ -60,7 +67,7 @@ function RouteComponent() {
           )}
           {forum ? <ForumComponent {...forum} /> : <></>}
         </>
-      )} */}
+      )}
     </div>
   );
 }

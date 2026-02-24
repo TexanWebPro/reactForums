@@ -28,6 +28,9 @@ import { Route as ForumForumIdThreadReplyRouteImport } from './routes/forum/$for
 import { Route as ForumForumIdThreadNewRouteImport } from './routes/forum/$forumId/thread/new'
 import { Route as ForumForumIdThreadThreadIdRouteImport } from './routes/forum/$forumId/thread/$threadId'
 import { Route as ForumForumIdThreadThreadIdPostIdRouteImport } from './routes/forum/$forumId/thread/$threadId.$postId'
+import { ServerRoute as ApiThreadsQueryByIdServerRouteImport } from './routes/api/threads/query/by-id'
+import { ServerRoute as ApiThreadsQueryByForumServerRouteImport } from './routes/api/threads/query/by-forum'
+import { ServerRoute as ApiForumsQueryByIdServerRouteImport } from './routes/api/forums/query/by-id'
 import { ServerRoute as ApiForumsQueryByCategoryServerRouteImport } from './routes/api/forums/query/by-category'
 
 const rootServerRouteImport = createServerRootRoute()
@@ -118,6 +121,24 @@ const ForumForumIdThreadThreadIdPostIdRoute =
     id: '/$postId',
     path: '/$postId',
     getParentRoute: () => ForumForumIdThreadThreadIdRoute,
+  } as any)
+const ApiThreadsQueryByIdServerRoute =
+  ApiThreadsQueryByIdServerRouteImport.update({
+    id: '/api/threads/query/by-id',
+    path: '/api/threads/query/by-id',
+    getParentRoute: () => rootServerRouteImport,
+  } as any)
+const ApiThreadsQueryByForumServerRoute =
+  ApiThreadsQueryByForumServerRouteImport.update({
+    id: '/api/threads/query/by-forum',
+    path: '/api/threads/query/by-forum',
+    getParentRoute: () => rootServerRouteImport,
+  } as any)
+const ApiForumsQueryByIdServerRoute =
+  ApiForumsQueryByIdServerRouteImport.update({
+    id: '/api/forums/query/by-id',
+    path: '/api/forums/query/by-id',
+    getParentRoute: () => rootServerRouteImport,
   } as any)
 const ApiForumsQueryByCategoryServerRoute =
   ApiForumsQueryByCategoryServerRouteImport.update({
@@ -264,24 +285,49 @@ export interface RootRouteChildren {
 }
 export interface FileServerRoutesByFullPath {
   '/api/forums/query/by-category': typeof ApiForumsQueryByCategoryServerRoute
+  '/api/forums/query/by-id': typeof ApiForumsQueryByIdServerRoute
+  '/api/threads/query/by-forum': typeof ApiThreadsQueryByForumServerRoute
+  '/api/threads/query/by-id': typeof ApiThreadsQueryByIdServerRoute
 }
 export interface FileServerRoutesByTo {
   '/api/forums/query/by-category': typeof ApiForumsQueryByCategoryServerRoute
+  '/api/forums/query/by-id': typeof ApiForumsQueryByIdServerRoute
+  '/api/threads/query/by-forum': typeof ApiThreadsQueryByForumServerRoute
+  '/api/threads/query/by-id': typeof ApiThreadsQueryByIdServerRoute
 }
 export interface FileServerRoutesById {
   __root__: typeof rootServerRouteImport
   '/api/forums/query/by-category': typeof ApiForumsQueryByCategoryServerRoute
+  '/api/forums/query/by-id': typeof ApiForumsQueryByIdServerRoute
+  '/api/threads/query/by-forum': typeof ApiThreadsQueryByForumServerRoute
+  '/api/threads/query/by-id': typeof ApiThreadsQueryByIdServerRoute
 }
 export interface FileServerRouteTypes {
   fileServerRoutesByFullPath: FileServerRoutesByFullPath
-  fullPaths: '/api/forums/query/by-category'
+  fullPaths:
+    | '/api/forums/query/by-category'
+    | '/api/forums/query/by-id'
+    | '/api/threads/query/by-forum'
+    | '/api/threads/query/by-id'
   fileServerRoutesByTo: FileServerRoutesByTo
-  to: '/api/forums/query/by-category'
-  id: '__root__' | '/api/forums/query/by-category'
+  to:
+    | '/api/forums/query/by-category'
+    | '/api/forums/query/by-id'
+    | '/api/threads/query/by-forum'
+    | '/api/threads/query/by-id'
+  id:
+    | '__root__'
+    | '/api/forums/query/by-category'
+    | '/api/forums/query/by-id'
+    | '/api/threads/query/by-forum'
+    | '/api/threads/query/by-id'
   fileServerRoutesById: FileServerRoutesById
 }
 export interface RootServerRouteChildren {
   ApiForumsQueryByCategoryServerRoute: typeof ApiForumsQueryByCategoryServerRoute
+  ApiForumsQueryByIdServerRoute: typeof ApiForumsQueryByIdServerRoute
+  ApiThreadsQueryByForumServerRoute: typeof ApiThreadsQueryByForumServerRoute
+  ApiThreadsQueryByIdServerRoute: typeof ApiThreadsQueryByIdServerRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -409,6 +455,27 @@ declare module '@tanstack/react-router' {
 }
 declare module '@tanstack/react-start/server' {
   interface ServerFileRoutesByPath {
+    '/api/threads/query/by-id': {
+      id: '/api/threads/query/by-id'
+      path: '/api/threads/query/by-id'
+      fullPath: '/api/threads/query/by-id'
+      preLoaderRoute: typeof ApiThreadsQueryByIdServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/threads/query/by-forum': {
+      id: '/api/threads/query/by-forum'
+      path: '/api/threads/query/by-forum'
+      fullPath: '/api/threads/query/by-forum'
+      preLoaderRoute: typeof ApiThreadsQueryByForumServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/forums/query/by-id': {
+      id: '/api/forums/query/by-id'
+      path: '/api/forums/query/by-id'
+      fullPath: '/api/forums/query/by-id'
+      preLoaderRoute: typeof ApiForumsQueryByIdServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
     '/api/forums/query/by-category': {
       id: '/api/forums/query/by-category'
       path: '/api/forums/query/by-category'
@@ -457,6 +524,9 @@ export const routeTree = rootRouteImport
   ._addFileTypes<FileRouteTypes>()
 const rootServerRouteChildren: RootServerRouteChildren = {
   ApiForumsQueryByCategoryServerRoute: ApiForumsQueryByCategoryServerRoute,
+  ApiForumsQueryByIdServerRoute: ApiForumsQueryByIdServerRoute,
+  ApiThreadsQueryByForumServerRoute: ApiThreadsQueryByForumServerRoute,
+  ApiThreadsQueryByIdServerRoute: ApiThreadsQueryByIdServerRoute,
 }
 export const serverRouteTree = rootServerRouteImport
   ._addFileChildren(rootServerRouteChildren)

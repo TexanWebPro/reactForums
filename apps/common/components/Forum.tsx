@@ -1,14 +1,21 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "./ui/Button";
-// import { threadService } from "@/api/client";
 import {
   formatDateTimeForForumDisplay,
   formatLastPostDateTime,
 } from "../utils/dates";
-import type { Forum } from "@reactforums/core";
+import type { Forum, Thread } from "@reactforums/core";
+import { useQuery } from "@tanstack/react-query";
 
 export function ForumComponent(forum: Forum) {
   // const threads = threadService.getLastNThreadsInForum(forum.id, 10);
+  const { data: threads } = useQuery({
+    queryKey: [`${forum.id}-threads-list`],
+    queryFn: async () => {
+      const res = await fetch("/api/threads/query/by-forum");
+      return res.json();
+    },
+  });
 
   return (
     <div className="flex flex-col items-end justify-between gap-8">
@@ -38,9 +45,9 @@ export function ForumComponent(forum: Forum) {
           <span>Last Post</span>
         </div>
         <div className="border-2 border-stone-300">
-          {/* {threads.length ? (
+          {threads ? (
             <>
-              {threads.map((thread, i) => {
+              {threads.map((thread: Thread, i: number) => {
                 function starRating(rating: number) {
                   switch (rating) {
                     case 0:
@@ -132,7 +139,9 @@ export function ForumComponent(forum: Forum) {
                       <span>{thread.views}</span>
                       <span className="flex flex-row items-center">
                         {starRating(
-                          Math.floor(thread.ratingsTotal / thread.ratingsNumber)
+                          Math.floor(
+                            thread.ratingsTotal / thread.ratingsNumber,
+                          ),
                         )}
                       </span>
                       <span className="flex flex-col">
@@ -161,7 +170,7 @@ export function ForumComponent(forum: Forum) {
                 specified date and time limiting options.
               </p>
             </>
-          )} */}
+          )}
         </div>
         <div className="bg-stone-200 text-stone-950 p-2 w-full border-2 border-t-0 border-stone-300 rounded-b-lg flex flex-row items-center justify-end">
           <span className="flex flex-row items-center justify-around gap-2">
