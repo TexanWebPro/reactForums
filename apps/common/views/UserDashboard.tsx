@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { AccountSummary } from "components/AccountSummary";
-import { UserCPNav } from "components/layout/UserCPNav";
-import { SingleUserLatestTopics } from "components/SingleUserLatestTopics";
+import { AccountSummary } from "../components/AccountSummary";
+import { UserCPNav } from "../components/layout/UserCPNav";
+import { SingleUserLatestTopics } from "../components/SingleUserLatestTopics";
 
 export function UserDashboardView() {
   return (
