@@ -2,10 +2,7 @@ import { Forum, ForumTreeNode } from "../domain/models";
 import type { ForumRepository } from "../repositories/ForumRepository";
 
 export class ForumService {
-  constructor(
-    private baseUrl: string,
-    private repository: ForumRepository,
-  ) {}
+  constructor(private repository: ForumRepository) {}
 
   // return forums by category, ordered by displayOrder
   async listAllForumsByCategory(): Promise<ForumTreeNode[]> {

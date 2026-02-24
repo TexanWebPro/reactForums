@@ -1,7 +1,7 @@
 import { CustomProfileFields } from "../domain/models";
 
 export class ProfileFieldsService {
-  constructor(baseUrl: string) {}
+  constructor() {}
 
   getProfileFieldValue(fieldId: number) {
     const fieldValue = profileFields.find((field) => field.id === fieldId);

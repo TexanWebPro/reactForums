@@ -85,7 +85,7 @@ const users: User[] = [
 ];
 
 export class UserService {
-  constructor(baseUrl: string) {}
+  constructor() {}
 
   latestUser(): Pick<User, "username"> {
     return {

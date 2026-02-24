@@ -1,7 +1,7 @@
 import { Setting, SettingKey } from "../domain/models";
 
 export class SettingsService {
-  constructor(baseUrl: string) {}
+  constructor() {}
 
   getByName(name: SettingKey): Setting | null {
     const settingsTable: Setting[] = [

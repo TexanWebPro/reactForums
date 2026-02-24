@@ -138,30 +138,32 @@ interface Thread {
     id: number;
     forumId: number;
     subject: string;
-    prefix: string;
-    icon: string;
-    pollId: null;
-    userId: string;
+    prefixId: string | null;
+    iconId: string | null;
+    pollId: string | null;
+    userId: number;
     username: string;
     createdAt: Date;
     updatedAt: Date;
-    firstPostId: number;
-    lastPostCreatedAt: Date;
-    lastPosterUsername: string;
-    lastPosterId: string;
+    firstPostId: number | null;
+    lastPostCreatedAt: Date | null;
+    lastPosterUsername: string | null;
+    lastPosterId: number | null;
     views: number;
     replies: number;
     isClosed: boolean;
     isSticky: boolean;
     ratingsNumber: number;
     ratingsTotal: number;
-    moderatorNotes: string;
+    moderatorNotes: string | null;
     isDraft: boolean;
     isApproved: boolean;
     unapprovedPostsTotal: number;
     attachmentTotal: number;
     isDeleted: boolean;
+    deletedAt: Date | null;
 }
+type Threads = Thread[];
 interface Post {
     id: number;
     threadId: number;
@@ -220,22 +222,27 @@ interface ForumRepository {
 }
 
 declare class ForumService {
-    private baseUrl;
     private repository;
-    constructor(baseUrl: string, repository: ForumRepository);
+    constructor(repository: ForumRepository);
     listAllForumsByCategory(): Promise<ForumTreeNode[]>;
     getBreadcrumbForumHierarchy(id: number): Promise<ForumTreeNode | undefined>;
     buildTree(forums: Forum[], parentId?: number | null): ForumTreeNode[];
 }
 
+interface ThreadRepository {
+    getAllThreadsInForum(forumId: number): Promise<Threads>;
+    getThreadById(threadId: number): Promise<Thread | undefined>;
+}
+
 declare class ThreadService {
-    constructor(baseUrl: string);
-    getLastNThreadsInForum(forumId: number, _n: number): Thread[];
-    getThreadById(threadId: number): Thread | undefined;
+    private repository;
+    constructor(repository: ThreadRepository);
+    getLastNThreadsInForum(forumId: number, _n: number): Promise<Threads>;
+    getThreadById(threadId: number): Promise<Thread | undefined>;
 }
 
 declare class PostService {
-    constructor(baseUrl: string);
+    constructor();
     getPostById(postId: number | null): {
         id: number;
         threadId: number;
@@ -256,13 +263,13 @@ declare class PostService {
 }
 
 declare class StatsService {
-    constructor(baseUrl: string);
+    constructor();
     getGlobalStats(): ForumStats;
     rebuildStats(): void;
 }
 
 declare class UserService {
-    constructor(baseUrl: string);
+    constructor();
     latestUser(): Pick<User, "username">;
     getUserInfo(userId: number): User | undefined;
     getUserByUsername(username: string): User | undefined;
@@ -271,12 +278,12 @@ declare class UserService {
 }
 
 declare class SettingsService {
-    constructor(baseUrl: string);
+    constructor();
     getByName(name: SettingKey): Setting | null;
 }
 
 declare class ProfileFieldsService {
-    constructor(baseUrl: string);
+    constructor();
     getProfileFieldValue(fieldId: number): CustomProfileField;
 }
 
@@ -290,11 +297,13 @@ interface UserRepository {
 
 interface ReactForumsAdapter {
     forum: ForumRepository;
+    thread: ThreadRepository;
 }
 interface ReactForumsAdapterInput {
     forum: ForumRepository;
+    thread: ThreadRepository;
 }
 
 declare function createForumAdapter(input: ReactForumsAdapterInput): ReactForumsAdapter;
 
-export { type CustomProfileField, type CustomProfileFields, type CustomProfileFieldsValue, type Forum, type ForumRepository, ForumService, type ForumStats, type ForumTreeNode, type Forums, type Post, PostService, ProfileFieldsService, type ReactForumsAdapter, type ReactForumsAdapterInput, type Reputation, type Reputations, type Setting, SettingKey, SettingsService, StatsService, type Thread, ThreadService, type User, type UserProfileFieldValues, type UserRepository, UserService, type UserWithProfileFieldValues, type Users, createForumAdapter };
+export { type CustomProfileField, type CustomProfileFields, type CustomProfileFieldsValue, type Forum, type ForumRepository, ForumService, type ForumStats, type ForumTreeNode, type Forums, type Post, PostService, ProfileFieldsService, type ReactForumsAdapter, type ReactForumsAdapterInput, type Reputation, type Reputations, type Setting, SettingKey, SettingsService, StatsService, type Thread, type ThreadRepository, ThreadService, type Threads, type User, type UserProfileFieldValues, type UserRepository, UserService, type UserWithProfileFieldValues, type Users, createForumAdapter };

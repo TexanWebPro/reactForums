@@ -19,7 +19,7 @@ const posts = [
 ];
 
 export class PostService {
-  constructor(baseUrl: string) {}
+  constructor() {}
 
   getPostById(postId: number | null) {
     const post = posts.find((p) => p.id === postId);

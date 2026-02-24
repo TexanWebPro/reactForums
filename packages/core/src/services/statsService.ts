@@ -1,7 +1,7 @@
 import { ForumStats } from "../domain/models";
 
 export class StatsService {
-  constructor(baseUrl: string) {}
+  constructor() {}
 
   getGlobalStats(): ForumStats {
     return {

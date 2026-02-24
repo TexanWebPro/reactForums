@@ -54,8 +54,7 @@ var SettingKey = /* @__PURE__ */ ((SettingKey2) => {
 
 // src/services/forumService.ts
 var ForumService = class {
-  constructor(baseUrl, repository) {
-    this.baseUrl = baseUrl;
+  constructor(repository) {
     this.repository = repository;
   }
   // return forums by category, ordered by displayOrder
@@ -80,298 +79,17 @@ var ForumService = class {
 };
 
 // src/services/threadService.ts
-var threads = [
-  {
-    id: 1,
-    forumId: 2,
-    subject: "First Thread",
-    prefix: "",
-    icon: "",
-    pollId: null,
-    userId: "uuid",
-    username: "Elegant Totality",
-    createdAt: /* @__PURE__ */ new Date(),
-    updatedAt: /* @__PURE__ */ new Date(),
-    firstPostId: 1,
-    lastPostCreatedAt: /* @__PURE__ */ new Date(),
-    lastPosterUsername: "Elegant Totality",
-    lastPosterId: "uuid",
-    views: 135,
-    replies: 65,
-    isClosed: false,
-    isSticky: false,
-    ratingsNumber: 540,
-    ratingsTotal: 2478,
-    moderatorNotes: "",
-    isDraft: false,
-    isApproved: true,
-    unapprovedPostsTotal: 0,
-    attachmentTotal: 0,
-    isDeleted: false
-  },
-  {
-    id: 2,
-    forumId: 2,
-    subject: "Single Topic",
-    prefix: "",
-    icon: "",
-    pollId: null,
-    userId: "uuid",
-    username: "Elegant Totality",
-    createdAt: /* @__PURE__ */ new Date(),
-    updatedAt: /* @__PURE__ */ new Date(),
-    firstPostId: 1,
-    lastPostCreatedAt: /* @__PURE__ */ new Date(),
-    lastPosterUsername: "Elegant Totality",
-    lastPosterId: "uuid",
-    views: 33,
-    replies: 1,
-    isClosed: false,
-    isSticky: false,
-    ratingsNumber: 2,
-    ratingsTotal: 9,
-    moderatorNotes: "",
-    isDraft: false,
-    isApproved: true,
-    unapprovedPostsTotal: 0,
-    attachmentTotal: 0,
-    isDeleted: false
-  },
-  {
-    id: 3,
-    forumId: 2,
-    subject: "Single Topic",
-    prefix: "",
-    icon: "",
-    pollId: null,
-    userId: "uuid",
-    username: "Elegant Totality",
-    createdAt: /* @__PURE__ */ new Date(),
-    updatedAt: /* @__PURE__ */ new Date(),
-    firstPostId: 1,
-    lastPostCreatedAt: /* @__PURE__ */ new Date(),
-    lastPosterUsername: "Elegant Totality",
-    lastPosterId: "uuid",
-    views: 126,
-    replies: 7,
-    isClosed: false,
-    isSticky: false,
-    ratingsNumber: 3,
-    ratingsTotal: 15,
-    moderatorNotes: "",
-    isDraft: false,
-    isApproved: true,
-    unapprovedPostsTotal: 0,
-    attachmentTotal: 0,
-    isDeleted: false
-  },
-  {
-    id: 4,
-    forumId: 2,
-    subject: "Single Topic",
-    prefix: "",
-    icon: "",
-    pollId: null,
-    userId: "uuid",
-    username: "Elegant Totality",
-    createdAt: /* @__PURE__ */ new Date(),
-    updatedAt: /* @__PURE__ */ new Date(),
-    firstPostId: 1,
-    lastPostCreatedAt: /* @__PURE__ */ new Date(),
-    lastPosterUsername: "Elegant Totality",
-    lastPosterId: "uuid",
-    views: 100,
-    replies: 35,
-    isClosed: false,
-    isSticky: false,
-    ratingsNumber: 540,
-    ratingsTotal: 2478,
-    moderatorNotes: "",
-    isDraft: false,
-    isApproved: true,
-    unapprovedPostsTotal: 0,
-    attachmentTotal: 0,
-    isDeleted: false
-  },
-  {
-    id: 5,
-    forumId: 2,
-    subject: "Single Topic",
-    prefix: "",
-    icon: "",
-    pollId: null,
-    userId: "uuid",
-    username: "Elegant Totality",
-    createdAt: /* @__PURE__ */ new Date(),
-    updatedAt: /* @__PURE__ */ new Date(),
-    firstPostId: 1,
-    lastPostCreatedAt: /* @__PURE__ */ new Date(),
-    lastPosterUsername: "Elegant Totality",
-    lastPosterId: "uuid",
-    views: 100,
-    replies: 35,
-    isClosed: false,
-    isSticky: false,
-    ratingsNumber: 540,
-    ratingsTotal: 2478,
-    moderatorNotes: "",
-    isDraft: false,
-    isApproved: true,
-    unapprovedPostsTotal: 0,
-    attachmentTotal: 0,
-    isDeleted: false
-  },
-  {
-    id: 6,
-    forumId: 2,
-    subject: "Single Topic",
-    prefix: "",
-    icon: "",
-    pollId: null,
-    userId: "uuid",
-    username: "Elegant Totality",
-    createdAt: /* @__PURE__ */ new Date(),
-    updatedAt: /* @__PURE__ */ new Date(),
-    firstPostId: 1,
-    lastPostCreatedAt: /* @__PURE__ */ new Date(),
-    lastPosterUsername: "Elegant Totality",
-    lastPosterId: "uuid",
-    views: 100,
-    replies: 35,
-    isClosed: false,
-    isSticky: false,
-    ratingsNumber: 540,
-    ratingsTotal: 2478,
-    moderatorNotes: "",
-    isDraft: false,
-    isApproved: true,
-    unapprovedPostsTotal: 0,
-    attachmentTotal: 0,
-    isDeleted: false
-  },
-  {
-    id: 7,
-    forumId: 2,
-    subject: "Single Topic",
-    prefix: "",
-    icon: "",
-    pollId: null,
-    userId: "uuid",
-    username: "Elegant Totality",
-    createdAt: /* @__PURE__ */ new Date(),
-    updatedAt: /* @__PURE__ */ new Date(),
-    firstPostId: 1,
-    lastPostCreatedAt: /* @__PURE__ */ new Date(),
-    lastPosterUsername: "Elegant Totality",
-    lastPosterId: "uuid",
-    views: 100,
-    replies: 35,
-    isClosed: false,
-    isSticky: false,
-    ratingsNumber: 540,
-    ratingsTotal: 2478,
-    moderatorNotes: "",
-    isDraft: false,
-    isApproved: true,
-    unapprovedPostsTotal: 0,
-    attachmentTotal: 0,
-    isDeleted: false
-  },
-  {
-    id: 8,
-    forumId: 2,
-    subject: "Single Topic",
-    prefix: "",
-    icon: "",
-    pollId: null,
-    userId: "uuid",
-    username: "Elegant Totality",
-    createdAt: /* @__PURE__ */ new Date(),
-    updatedAt: /* @__PURE__ */ new Date(),
-    firstPostId: 1,
-    lastPostCreatedAt: /* @__PURE__ */ new Date(),
-    lastPosterUsername: "Elegant Totality",
-    lastPosterId: "uuid",
-    views: 100,
-    replies: 35,
-    isClosed: false,
-    isSticky: false,
-    ratingsNumber: 540,
-    ratingsTotal: 2478,
-    moderatorNotes: "",
-    isDraft: false,
-    isApproved: true,
-    unapprovedPostsTotal: 0,
-    attachmentTotal: 0,
-    isDeleted: false
-  },
-  {
-    id: 9,
-    forumId: 2,
-    subject: "Single Topic",
-    prefix: "",
-    icon: "",
-    pollId: null,
-    userId: "uuid",
-    username: "Elegant Totality",
-    createdAt: /* @__PURE__ */ new Date(),
-    updatedAt: /* @__PURE__ */ new Date(),
-    firstPostId: 1,
-    lastPostCreatedAt: /* @__PURE__ */ new Date(),
-    lastPosterUsername: "Elegant Totality",
-    lastPosterId: "uuid",
-    views: 100,
-    replies: 35,
-    isClosed: false,
-    isSticky: false,
-    ratingsNumber: 540,
-    ratingsTotal: 2478,
-    moderatorNotes: "",
-    isDraft: false,
-    isApproved: true,
-    unapprovedPostsTotal: 0,
-    attachmentTotal: 0,
-    isDeleted: false
-  },
-  {
-    id: 10,
-    forumId: 2,
-    subject: "Single Topic",
-    prefix: "",
-    icon: "",
-    pollId: null,
-    userId: "uuid",
-    username: "Elegant Totality",
-    createdAt: /* @__PURE__ */ new Date(),
-    updatedAt: /* @__PURE__ */ new Date(),
-    firstPostId: 1,
-    lastPostCreatedAt: /* @__PURE__ */ new Date(),
-    lastPosterUsername: "Elegant Totality",
-    lastPosterId: "uuid",
-    views: 100,
-    replies: 35,
-    isClosed: false,
-    isSticky: false,
-    ratingsNumber: 540,
-    ratingsTotal: 2478,
-    moderatorNotes: "",
-    isDraft: false,
-    isApproved: true,
-    unapprovedPostsTotal: 0,
-    attachmentTotal: 0,
-    isDeleted: false
-  }
-];
 var ThreadService = class {
-  constructor(baseUrl) {
+  constructor(repository) {
+    this.repository = repository;
   }
-  getLastNThreadsInForum(forumId, _n) {
-    const allThreads = threads.filter((thread) => thread.forumId === forumId);
-    return allThreads;
+  async getLastNThreadsInForum(forumId, _n) {
+    const threads = await this.repository.getAllThreadsInForum(forumId);
+    return threads;
   }
-  getThreadById(threadId) {
-    const thread = threads.find((th) => th.id === threadId);
-    return thread;
+  async getThreadById(threadId) {
+    const threads = await this.repository.getThreadById(threadId);
+    return threads;
   }
 };
 
@@ -394,7 +112,7 @@ var posts = [
   }
 ];
 var PostService = class {
-  constructor(baseUrl) {
+  constructor() {
   }
   getPostById(postId) {
     const post = posts.find((p) => p.id === postId);
@@ -412,7 +130,7 @@ var PostService = class {
 
 // src/services/statsService.ts
 var StatsService = class {
-  constructor(baseUrl) {
+  constructor() {
   }
   getGlobalStats() {
     return {
@@ -509,7 +227,7 @@ var users = [
   }
 ];
 var UserService = class {
-  constructor(baseUrl) {
+  constructor() {
   }
   latestUser() {
     return {
@@ -600,7 +318,7 @@ var profileFieldValues = [
 
 // src/services/settingsService.ts
 var SettingsService = class {
-  constructor(baseUrl) {
+  constructor() {
   }
   getByName(name) {
     const settingsTable = [
@@ -667,7 +385,7 @@ var SettingsService = class {
 
 // src/services/profileFieldsService.ts
 var ProfileFieldsService = class {
-  constructor(baseUrl) {
+  constructor() {
   }
   getProfileFieldValue(fieldId) {
     const fieldValue = profileFields.find((field) => field.id === fieldId);
@@ -719,8 +437,12 @@ function createForumAdapter(input) {
   if (!input.forum) {
     throw new Error("createForumAdapter: 'forum' repository is required");
   }
+  if (!input.thread) {
+    throw new Error("createForumAdapter: 'thread' repository is required");
+  }
   return {
-    forum: input.forum
+    forum: input.forum,
+    thread: input.thread
   };
 }
 export {

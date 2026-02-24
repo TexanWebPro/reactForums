@@ -159,30 +159,33 @@ export interface Thread {
   id: number;
   forumId: number;
   subject: string;
-  prefix: string;
-  icon: string;
-  pollId: null;
-  userId: string;
+  prefixId: string | null;
+  iconId: string | null;
+  pollId: string | null;
+  userId: number;
   username: string;
   createdAt: Date;
   updatedAt: Date;
-  firstPostId: number;
-  lastPostCreatedAt: Date;
-  lastPosterUsername: string;
-  lastPosterId: string;
+  firstPostId: number | null;
+  lastPostCreatedAt: Date | null;
+  lastPosterUsername: string | null;
+  lastPosterId: number | null;
   views: number;
   replies: number;
   isClosed: boolean;
   isSticky: boolean;
   ratingsNumber: number;
   ratingsTotal: number;
-  moderatorNotes: string;
+  moderatorNotes: string | null;
   isDraft: boolean;
   isApproved: boolean;
   unapprovedPostsTotal: number;
   attachmentTotal: number;
   isDeleted: boolean;
+  deletedAt: Date | null;
 }
+
+export type Threads = Thread[];
 
 export interface Post {
   id: number;
