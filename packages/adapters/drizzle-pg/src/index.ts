@@ -1,19 +1,23 @@
 import { createForumAdapter } from "@reactforums/core";
 import { DrizzlePgDatabase } from "./types";
 import { PgTable } from "drizzle-orm/pg-core";
-import { forumSchema } from "./schema/forum";
+import { forumSchema, threadSchema } from "./schema";
 
 // import repositories
 import { DrizzleForumRepository } from "./repositories/forum";
+import { DrizzleThreadRepository } from "./repositories/thread";
 
 export interface ReactForumsDrizzleSchema<
   TForumTable extends PgTable = typeof forumSchema,
+  TThreadTable extends PgTable = typeof threadSchema,
 > {
   forums: TForumTable;
+  threads: TThreadTable;
 }
 
 export const defaultSchema = {
   forums: forumSchema,
+  threads: threadSchema,
 };
 
 export function drizzlePgAdapter<
@@ -22,9 +26,11 @@ export function drizzlePgAdapter<
   const { db } = options;
   const schema = options.schema ?? defaultSchema;
   const forumRepo = new DrizzleForumRepository(db, schema);
+  const threadRepo = new DrizzleThreadRepository(db, schema);
 
   return createForumAdapter({
     forum: forumRepo,
+    thread: threadRepo,
   });
 }
 

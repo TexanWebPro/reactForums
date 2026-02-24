@@ -4,7 +4,7 @@ import { NodePgQueryResultHKT } from "drizzle-orm/node-postgres";
 import { ExtractTablesWithRelations } from "drizzle-orm";
 
 /**
- * Seeds the default forum.
+ * Seeds the default forums.
  *
  * Rules:
  * - Must be idempotent
@@ -27,7 +27,7 @@ export async function seedForums(
   }
 
   forumData.map(async (forum) => {
-    // 2. Insert default forum
+    // 2. Insert default forums
     await db.insert(forums).values({
       isCategory: forum.isCategory,
       parentForumId: forum.parentForumId,

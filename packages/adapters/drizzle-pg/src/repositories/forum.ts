@@ -20,10 +20,11 @@ export class DrizzleForumRepository<TSchema extends ReactForumsDrizzleSchema>
   }
 
   async getForumById(id: number): Promise<Forum | undefined> {
+    const forumsTable = this.schema.forums;
     const forums = await this.db
       .select()
       .from(this.schema.forums)
-      .where(eq(this.schema.forums.id, id));
+      .where(eq(forumsTable.id, id));
 
     const forum = forums[0];
     if (!forum) return;

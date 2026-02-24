@@ -1,5 +1,6 @@
 import { DrizzlePgDatabase } from "src/types";
 import { seedForums } from "./forums";
+import { seedThreads } from "./threads";
 
 /**
  * Runs all core seeds in a single transaction.
@@ -15,10 +16,10 @@ export async function seedCore(db: DrizzlePgDatabase) {
     // 1. Seed roles first (permissions)
     // await seedRoles(tx);
 
+    // users
     // 2. Seed forums
     await seedForums(tx);
-
-    // 3. Add other seeds here in order if needed
-    // e.g., await seedCategories(tx);
+    // 3. Seed threads
+    await seedThreads(tx);
   });
 }

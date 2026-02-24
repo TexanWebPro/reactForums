@@ -14,7 +14,7 @@ import { ExtractTablesWithRelations } from 'drizzle-orm';
 declare function seedCore(db: DrizzlePgDatabase): Promise<void>;
 
 /**
- * Seeds the default forum.
+ * Seeds the default forums.
  *
  * Rules:
  * - Must be idempotent
@@ -23,4 +23,14 @@ declare function seedCore(db: DrizzlePgDatabase): Promise<void>;
  */
 declare function seedForums(db: PgTransaction<NodePgQueryResultHKT, Record<string, unknown>, ExtractTablesWithRelations<Record<string, unknown>>>): Promise<void>;
 
-export { seedCore, seedForums };
+/**
+ * Seeds the forum with default threads.
+ *
+ * Rules:
+ * - Must be idempotent
+ * - Must not assume any existing data
+ * - Must not delete or mutate user-created records
+ */
+declare function seedThreads(db: PgTransaction<NodePgQueryResultHKT, Record<string, unknown>, ExtractTablesWithRelations<Record<string, unknown>>>): Promise<void>;
+
+export { seedCore, seedForums, seedThreads };
