@@ -116,8 +116,8 @@ var ThreadService = class {
   constructor(repository) {
     this.repository = repository;
   }
-  async getLastNThreadsInForum(forumId, _n) {
-    const threads = await this.repository.getAllThreadsInForum(forumId);
+  async getLastNThreadsInForum(forumId, limit) {
+    const threads = await this.repository.getAllThreadsInForum(forumId, limit);
     return threads;
   }
   async getThreadById(threadId) {
@@ -181,173 +181,39 @@ var StatsService = class {
 };
 
 // src/services/userService.ts
-var users = [
-  {
-    id: 1,
-    username: "Elegant Totality",
-    email: "my@email.com",
-    password: "pleaseClap",
-    role: "admin",
-    avatar: "string",
-    userTitle: "Administrator",
-    website: "reactforums.com",
-    birthday: "N/A",
-    signature: "My awesome signature",
-    postCount: 145,
-    threadCount: 13,
-    reputation: 3,
-    warningPoints: 0,
-    primaryUserGroup: "Administrator",
-    registrationDate: /* @__PURE__ */ new Date(),
-    lastactive: /* @__PURE__ */ new Date(),
-    lastVisit: /* @__PURE__ */ new Date(),
-    lastPost: /* @__PURE__ */ new Date(),
-    allowMessages: true,
-    allowMessagesFromBuddiesOnly: true,
-    showBirthday: true,
-    showSignatures: true,
-    showAvatars: true,
-    showQuickReply: true,
-    isAway: true,
-    awayReason: "string",
-    postsPerPage: 10,
-    threadsPerPage: 10,
-    timezone: "string",
-    language: "string",
-    totalTimeOnline: 1e4,
-    registrationIP: "string",
-    lastIP: "string",
-    failedLogins: 0,
-    updatedDate: /* @__PURE__ */ new Date()
-  },
-  {
-    id: 2,
-    username: "Jeb Bush",
-    email: "jeb@bush.com",
-    password: "pleaseClap",
-    role: "mod",
-    avatar: "string",
-    userTitle: "Smooth Moderator",
-    website: "reactforums.com",
-    birthday: "N/A",
-    signature: "My awesomest signature",
-    postCount: 145,
-    threadCount: 13,
-    reputation: 0,
-    warningPoints: 0,
-    primaryUserGroup: "Moderator",
-    registrationDate: /* @__PURE__ */ new Date(),
-    lastactive: /* @__PURE__ */ new Date(),
-    lastVisit: /* @__PURE__ */ new Date(),
-    lastPost: /* @__PURE__ */ new Date(),
-    allowMessages: true,
-    allowMessagesFromBuddiesOnly: true,
-    showBirthday: true,
-    showSignatures: true,
-    showAvatars: true,
-    showQuickReply: true,
-    isAway: true,
-    awayReason: "string",
-    postsPerPage: 10,
-    threadsPerPage: 10,
-    timezone: "string",
-    language: "string",
-    totalTimeOnline: 1e4,
-    registrationIP: "string",
-    lastIP: "string",
-    failedLogins: 0,
-    updatedDate: /* @__PURE__ */ new Date()
-  }
-];
 var UserService = class {
-  constructor() {
+  constructor(repository) {
+    this.repository = repository;
   }
-  latestUser() {
-    return {
-      username: "TexanWebPro"
-    };
+  async latestUser() {
+    const user = await this.repository.getLatestUser();
+    return user;
   }
-  getUserInfo(userId) {
-    const user = users.find((u) => u.id === userId);
+  async getUserInfo(userId) {
+    const user = await this.repository.getUserById(userId);
     if (!user) return;
     return user;
   }
-  getUserByUsername(username) {
-    const user = users.find((u) => u.username === username);
+  async getUserByUsername(username) {
+    const user = await this.repository.getUserByUsername(username);
     if (!user) return;
     return user;
   }
-  getUserForProfileView(username) {
-    const user = this.getUserByUsername(username);
-    if (!user) return;
-    const customProfileFieldsValues = profileFieldValues.filter(
-      (val) => val.userId === (user == null ? void 0 : user.id)
-    );
-    return { ...user, profileFields: customProfileFieldsValues };
-  }
-  getUserReputations(userId) {
-    const userReputations = allReputations.filter(
-      (rep) => rep.userId === userId
-    );
-    return userReputations;
-  }
+  // async getUserForProfileView(
+  //   username: string,
+  // ): Promise<UserWithProfileFieldValues | undefined> {
+  //   const user = await this.getUserByUsername(username);
+  //   if (!user) return;
+  //   const customProfileFieldsValues =
+  //     await this.repository.getCustomProfileFieldsByUserId(user.id);
+  //   return { ...user, profileFields: customProfileFieldsValues };
+  // }
+  // //
+  // async getUserReputations(userId: number): Promise<Reputation[]> {
+  //   const userReputations = await this.repository.getUserReputations(userId);
+  //   return userReputations;
+  // }
 };
-var allReputations = [
-  {
-    id: 1,
-    userId: 1,
-    givingUserId: 2,
-    postId: 1,
-    count: 3,
-    date: /* @__PURE__ */ new Date(),
-    comments: "You're awesome for building reactForums!"
-  },
-  {
-    id: 1,
-    userId: 2,
-    givingUserId: 1,
-    postId: 2,
-    count: 2,
-    date: /* @__PURE__ */ new Date(),
-    comments: "You're awesome for using reactForums!"
-  },
-  {
-    id: 1,
-    userId: 1,
-    givingUserId: 2,
-    postId: 2,
-    count: -3,
-    date: /* @__PURE__ */ new Date(),
-    updatedAt: /* @__PURE__ */ new Date(),
-    comments: "Your a poser"
-  },
-  {
-    id: 1,
-    userId: 1,
-    givingUserId: 2,
-    postId: 2,
-    count: 0,
-    date: /* @__PURE__ */ new Date(),
-    comments: void 0
-  }
-];
-var profileFieldValues = [
-  {
-    userId: 1,
-    fieldId: 1,
-    value: "Not the White House"
-  },
-  {
-    userId: 1,
-    fieldId: 2,
-    value: "I was born at a very young age."
-  },
-  {
-    userId: 1,
-    fieldId: 3,
-    value: "Male"
-  }
-];
 
 // src/services/settingsService.ts
 var SettingsService = class {
@@ -467,6 +333,9 @@ var profileFields = [
 
 // src/adapters/createForumAdapter.ts
 function createForumAdapter(input) {
+  if (!input.user) {
+    throw new Error("createForumAdapter: 'user' repository is required");
+  }
   if (!input.forum) {
     throw new Error("createForumAdapter: 'forum' repository is required");
   }
@@ -474,6 +343,7 @@ function createForumAdapter(input) {
     throw new Error("createForumAdapter: 'thread' repository is required");
   }
   return {
+    user: input.user,
     forum: input.forum,
     thread: input.thread
   };

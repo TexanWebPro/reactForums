@@ -4,8 +4,11 @@ import type { ThreadRepository } from "../repositories/ThreadRepository";
 export class ThreadService {
   constructor(private repository: ThreadRepository) {}
 
-  async getLastNThreadsInForum(forumId: number, _n: number): Promise<Threads> {
-    const threads = await this.repository.getAllThreadsInForum(forumId);
+  async getLastNThreadsInForum(
+    forumId: number,
+    limit: number,
+  ): Promise<Threads> {
+    const threads = await this.repository.getAllThreadsInForum(forumId, limit);
     return threads;
   }
 

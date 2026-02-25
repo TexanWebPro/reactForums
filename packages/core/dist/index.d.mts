@@ -63,34 +63,34 @@ interface User {
     password: string;
     role: "admin" | "mod" | "user" | "banned";
     avatar: string;
-    userTitle: string;
-    website: string;
-    birthday: string;
-    signature: string;
+    userTitle: string | null;
+    website: string | null;
+    birthday: string | null;
+    signature: string | null;
     postCount: number;
     threadCount: number;
     reputation: number;
     warningPoints: number;
     primaryUserGroup: string;
     registrationDate: Date;
-    lastactive: Date;
+    lastActive: Date;
     lastVisit: Date;
-    lastPost: Date;
+    lastPost: Date | null;
     allowMessages: boolean;
-    allowMessagesFromBuddiesOnly: boolean;
+    allowMessagesFromFriendsOnly: boolean;
     showBirthday: boolean;
     showSignatures: boolean;
     showAvatars: boolean;
     showQuickReply: boolean;
     isAway: boolean;
-    awayReason: string;
+    awayReason: string | null;
     postsPerPage: number;
     threadsPerPage: number;
     timezone: string;
-    language: string;
+    language: string | null;
     totalTimeOnline: number;
-    registrationIP: string;
-    lastIP: string;
+    registrationIp: string;
+    lastIp: string;
     failedLogins: number;
     updatedDate: Date;
 }
@@ -230,14 +230,14 @@ declare class ForumService {
 }
 
 interface ThreadRepository {
-    getAllThreadsInForum(forumId: number): Promise<Threads>;
+    getAllThreadsInForum(forumId: number, limit: number): Promise<Threads>;
     getThreadById(threadId: number): Promise<Thread | undefined>;
 }
 
 declare class ThreadService {
     private repository;
     constructor(repository: ThreadRepository);
-    getLastNThreadsInForum(forumId: number, _n: number): Promise<Threads>;
+    getLastNThreadsInForum(forumId: number, limit: number): Promise<Threads>;
     getThreadById(threadId: number): Promise<Thread | undefined>;
 }
 
@@ -268,13 +268,19 @@ declare class StatsService {
     rebuildStats(): void;
 }
 
+interface UserRepository {
+    getLatestUser(): Promise<Pick<User, "username">>;
+    getAllUsers(): Promise<Users>;
+    getUserById(id: number): Promise<User>;
+    getUserByUsername(username: string): Promise<User>;
+}
+
 declare class UserService {
-    constructor();
-    latestUser(): Pick<User, "username">;
-    getUserInfo(userId: number): User | undefined;
-    getUserByUsername(username: string): User | undefined;
-    getUserForProfileView(username: string): UserWithProfileFieldValues | undefined;
-    getUserReputations(userId: number): Reputation[];
+    private repository;
+    constructor(repository: UserRepository);
+    latestUser(): Promise<Pick<User, "username">>;
+    getUserInfo(userId: number): Promise<User | undefined>;
+    getUserByUsername(username: string): Promise<User | undefined>;
 }
 
 declare class SettingsService {
@@ -287,19 +293,13 @@ declare class ProfileFieldsService {
     getProfileFieldValue(fieldId: number): CustomProfileField;
 }
 
-interface UserRepository {
-    getLatestUser(): Promise<User>;
-    getAllUsers(): Promise<Users>;
-    getUserById(id: number): Promise<User>;
-    getUserByUsername(username: string): Promise<User>;
-    getUserReputations(userId: number): Promise<Reputations>;
-}
-
 interface ReactForumsAdapter {
+    user: UserRepository;
     forum: ForumRepository;
     thread: ThreadRepository;
 }
 interface ReactForumsAdapterInput {
+    user: UserRepository;
     forum: ForumRepository;
     thread: ThreadRepository;
 }
