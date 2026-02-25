@@ -1,37 +1,56 @@
 // import { profileFieldsService, userService } from "@/api/client";
 import { formatDateTimeForUserProfile } from "@reactforums/common/utils/dates";
 import { reputationClassStyle } from "@reactforums/common/utils/reputation";
-import { UserWithProfileFieldValues } from "@reactforums/core";
+import { User, UserWithProfileFieldValues } from "@reactforums/core";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/users/$userId/")({
-  // loader: async ({ params }) => {
-  //   const userInfo = userService.getUserForProfileView(params.userId);
-  //   return { userInfo };
-  // },
+  loader: async ({ params }) => {
+    return { params };
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  // const { userInfo } = Route.useLoaderData();
+  const { params } = Route.useLoaderData();
+
+  async function fetchUserByUsername(username: string): Promise<User> {
+    const res = await fetch(
+      `/api/users/query/by-username?username=${encodeURIComponent(username)}`,
+    );
+    const body = await res.json().catch(() => null);
+
+    if (!res.ok)
+      throw new Error(body?.error ?? `Request failed (${res.status})`);
+    return body as User;
+  }
+
+  const { data } = useQuery({
+    queryKey: [`user-${params.userId}`],
+    queryFn: async () => {
+      const res = await fetchUserByUsername(params.userId);
+      return res;
+    },
+  });
 
   // TODO: redirect
-  // if (!userInfo) return;
+  if (!data) return;
 
   return (
     <div>
       <span className="text-sm font-bold flex flex-row items-center justify-start gap-2 pb-4">
         <Link to="/">rF Community Forums</Link>
-        {/* <p>{`-> Profile of ${userInfo.username}`}</p> */}
+        <p>{`-> Profile of ${data.username}`}</p>
       </span>
 
       <div>
         <div className="flex flex-row items-center justify-between text-sm p-4 border-2 border-stone-200">
           <span className="flex flex-col items-start">
-            {/* <span className="text-2xl text-green-800 font-bold">
-              {userInfo.username}
-            </span> */}
-            {/* <span className="italic">{userInfo.userTitle}</span> */}
+            <span className="text-2xl text-green-800 font-bold">
+              {data.username}
+            </span>
+            <span className="italic">{data.userTitle}</span>
             <span className="flex flex-row items-center justify-between gap-1 mb-4">
               <img src="/images/star.png" alt="star" />
               <img src="/images/star.png" alt="star" />
@@ -44,7 +63,7 @@ function RouteComponent() {
             <span>
               <p>
                 <span className="font-bold">Registration Date:</span>{" "}
-                {/* {formatDateTimeForUserProfile(userInfo.registrationDate)} */}
+                {formatDateTimeForUserProfile(data.registrationDate)}
               </p>
               <p>
                 <span className="font-bold">Date of Birth:</span> 01-01-1975 (50
@@ -64,32 +83,31 @@ function RouteComponent() {
           <span className="border-2 border-stone-900">
             <img
               src="/images/default_avatar.jpg"
-              // alt={`${userInfo.username} Avatar`}
+              alt={`${data.username} Avatar`}
             />
           </span>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-4 mt-8 text-sm w-full justify-items-center">
           <div className="border-2 border-stone-200 rounded-lg w-full">
-            {/* <div className="bg-sky-700 p-4 text-neutral-50 font-bold rounded-t-lg">
-              {userInfo.username}'s Forum Info
-            </div> */}
+            <div className="bg-sky-700 p-4 text-neutral-50 font-bold rounded-t-lg">
+              {data.username}'s Forum Info
+            </div>
             <div className="px-4 py-2">
               <div className="border-b-2 border-stone-200 p-2">
                 <span className="font-bold">Joined Date:</span>{" "}
-                {/* {formatDateTimeForUserProfile(userInfo.registrationDate)} */}
+                {formatDateTimeForUserProfile(data.registrationDate)}
               </div>
               <div className="border-b-2 border-stone-200 p-2">
                 <span className="font-bold">Last Visit:</span> 1 Day Ago
               </div>
-              {/* <div className="border-b-2 border-stone-200 p-2">
-                <span className="font-bold">Total Posts:</span>{" "}
-                {userInfo.postCount}
+              <div className="border-b-2 border-stone-200 p-2">
+                <span className="font-bold">Total Posts:</span> {data.postCount}
               </div>
               <div className="border-b-2 border-stone-200 p-2">
                 <span className="font-bold">Total Threads:</span>{" "}
-                {userInfo.threadCount}
-              </div> */}
+                {data.threadCount}
+              </div>
               <div className="border-b-2 border-stone-200 p-2">
                 <span className="font-bold">Time Spent Online:</span> 2 Minutes,
                 17 Seconds
@@ -99,45 +117,45 @@ function RouteComponent() {
               </div>
               <div className="border-b-2 border-stone-200 p-2">
                 <span className="font-bold">Reputation:</span>{" "}
-                {/* <Link
+                <Link
                   to="/users/$userId/reputation"
-                  params={{ userId: userInfo.username }}
-                  className={`font-bold ${reputationClassStyle(userInfo.reputation)}`}
+                  params={{ userId: data.username }}
+                  className={`font-bold ${reputationClassStyle(data.reputation)}`}
                 >
-                  {userInfo.reputation}
-                </Link> */}
+                  {data.reputation}
+                </Link>
               </div>
               <div className="p-2">
                 {/* TODO: Viewable only to Mods and Admins */}
                 <span className="font-bold">Warning Level:</span>{" "}
-                {/* <span className="font-bold text-red-700">
-                  {userInfo.warningPoints}
-                </span> */}
+                <span className="font-bold text-red-700">
+                  {data.warningPoints}
+                </span>
               </div>
             </div>
           </div>
           <div className="border-2 border-stone-200 rounded-lg w-full max-h-fit">
-            {/* <div className="bg-sky-700 p-4 text-neutral-50 font-bold rounded-t-lg">
-              {userInfo.username}'s Signature
+            <div className="bg-sky-700 p-4 text-neutral-50 font-bold rounded-t-lg">
+              {data.username}'s Signature
             </div>
-            <div className="px-4 py-4">{userInfo.signature}</div> */}
+            <div className="px-4 py-4">{data.signature}</div>
           </div>
 
-          {/* {userInfo.profileFields.length > 0 ? (
+          {/* {data.profileFields.length > 0 ? (
             <>
-              <CustomProfileFields {...userInfo} />
+              <CustomProfileFields {...data} />
             </>
           ) : (
             <></>
           )} */}
 
           <div className="border-2 border-stone-200 rounded-lg w-full max-h-fit">
-            {/* <div className="bg-sky-700 p-4 text-neutral-50 font-bold rounded-t-lg">
-              {userInfo.username}'s Contact Info
-            </div> */}
+            <div className="bg-sky-700 p-4 text-neutral-50 font-bold rounded-t-lg">
+              {data.username}'s Contact Info
+            </div>
             <div className="px-4 py-2">
               <div className="p-2">
-                {/* <span className="font-bold">Website:</span> {userInfo.website} */}
+                <span className="font-bold">Website:</span> {data.website}
               </div>
             </div>
           </div>
@@ -149,11 +167,11 @@ function RouteComponent() {
               <div className="p-2 flex flex-col border-b-2 border-stone-200">
                 <span>
                   <span className="font-bold">Registration IP:</span>{" "}
-                  {/* {userInfo.registrationIP} */}
+                  {data.registrationIp}
                 </span>
                 <span>
                   <span className="font-bold">Last Known IP:</span>{" "}
-                  {/* {userInfo.lastIP} */}
+                  {data.lastIp}
                 </span>
               </div>
               <div className="p-2 flex flex-col border-b-2 border-stone-200">

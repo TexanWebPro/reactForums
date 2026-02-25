@@ -27,7 +27,7 @@ export default function Header() {
           <div className="flex flex-row items-center justify-between gap-4">
             <span>
               Welcome back,{" "}
-              <Link to="/users/$userId" params={{ userId: "Elegant-Totality" }}>
+              <Link to="/users/$userId" params={{ userId: "Elegant Totality" }}>
                 Elegant Totality
               </Link>
             </span>

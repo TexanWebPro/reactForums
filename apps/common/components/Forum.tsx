@@ -4,18 +4,31 @@ import {
   formatDateTimeForForumDisplay,
   formatLastPostDateTime,
 } from "../utils/dates";
-import type { Forum, Thread } from "@reactforums/core";
+import type { Forum, Thread, Threads } from "@reactforums/core";
 import { useQuery } from "@tanstack/react-query";
 
 export function ForumComponent(forum: Forum) {
-  // const threads = threadService.getLastNThreadsInForum(forum.id, 10);
+  const threadsPerPage = 10;
+  async function fetchThreadsByForumId(id: number): Promise<Threads> {
+    const res = await fetch(
+      `/api/threads/query/by-forum?forumId=${encodeURIComponent(id)}&limit=${encodeURIComponent(threadsPerPage)}`,
+    );
+    const body = await res.json().catch(() => null);
+
+    if (!res.ok)
+      throw new Error(body?.error ?? `Request failed (${res.status})`);
+    return body as Threads;
+  }
+
   const { data: threads } = useQuery({
     queryKey: [`${forum.id}-threads-list`],
     queryFn: async () => {
-      const res = await fetch("/api/threads/query/by-forum");
-      return res.json();
+      const res = await fetchThreadsByForumId(forum.id);
+      return res;
     },
   });
+
+  if (!threads) return;
 
   return (
     <div className="flex flex-col items-end justify-between gap-8">
@@ -26,7 +39,7 @@ export function ForumComponent(forum: Forum) {
       />
       <div className="w-full bg-stone-200 flex flex-col rounded-lg text-sm">
         <div className="bg-sky-600 w-full p-4 py-2 font-bold text-stone-50 border-2 border-sky-800 rounded-t-lg flex flex-row items-center justify-between gap-2">
-          <span className="text-lg">Forum Name</span>
+          <span className="text-lg">{forum.name}</span>
           <span className="text-sm">
             <Link to="/" className="hover:underline">
               Mark Forum As Read
@@ -45,7 +58,7 @@ export function ForumComponent(forum: Forum) {
           <span>Last Post</span>
         </div>
         <div className="border-2 border-stone-300">
-          {threads ? (
+          {threads.length ? (
             <>
               {threads.map((thread: Thread, i: number) => {
                 function starRating(rating: number) {
@@ -146,7 +159,13 @@ export function ForumComponent(forum: Forum) {
                       </span>
                       <span className="flex flex-col">
                         <span>
-                          {formatLastPostDateTime(thread.lastPostCreatedAt)}
+                          {thread.lastPostCreatedAt ? (
+                            <>
+                              {formatLastPostDateTime(thread.lastPostCreatedAt)}
+                            </>
+                          ) : (
+                            <></>
+                          )}
                         </span>
                         <span className="">
                           <Link to="/" className="text-sky-700 hover:underline">
