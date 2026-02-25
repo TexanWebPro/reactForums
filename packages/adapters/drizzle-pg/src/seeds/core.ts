@@ -1,6 +1,7 @@
 import { DrizzlePgDatabase } from "src/types";
 import { seedForums } from "./forums";
 import { seedThreads } from "./threads";
+import { seedUsers } from "./users";
 
 /**
  * Runs all core seeds in a single transaction.
@@ -13,10 +14,9 @@ import { seedThreads } from "./threads";
 export async function seedCore(db: DrizzlePgDatabase) {
   // Drizzle transaction wrapper
   await db.transaction(async (tx) => {
-    // 1. Seed roles first (permissions)
-    // await seedRoles(tx);
+    // 1. Seed users first
+    await seedUsers(tx);
 
-    // users
     // 2. Seed forums
     await seedForums(tx);
     // 3. Seed threads

@@ -14,12 +14,13 @@ export class DrizzleThreadRepository<TSchema extends ReactForumsDrizzleSchema>
     this.schema = schema;
   }
 
-  async getAllThreadsInForum(forumId: number): Promise<Threads> {
+  async getAllThreadsInForum(forumId: number, limit: number): Promise<Threads> {
     const threadsTable = this.schema.threads;
     const threads = await this.db
       .select()
       .from(threadsTable)
-      .where(eq(threadsTable.forumId, forumId));
+      .where(eq(threadsTable.forumId, forumId))
+      .limit(limit);
     return threads.map((thread) => this.mapDbThreadToThread(thread));
   }
 
