@@ -12,6 +12,7 @@ export * from "./services/profileFieldsService";
 export * from "./repositories/ForumRepository";
 export * from "./repositories/ThreadRepository";
 export * from "./repositories/UserRepository";
+export * from "./repositories/SettingsRepository";
 // export adapter contracts
 export * from "./adapters/createForumAdapter";
 export * from "./adapters/types";

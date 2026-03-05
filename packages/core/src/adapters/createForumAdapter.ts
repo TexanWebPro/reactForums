@@ -3,6 +3,9 @@ import { ReactForumsAdapter, ReactForumsAdapterInput } from "./types";
 export function createForumAdapter(
   input: ReactForumsAdapterInput,
 ): ReactForumsAdapter {
+  if (!input.setting) {
+    throw new Error("createForumAdapter: 'setting' repository is required");
+  }
   if (!input.user) {
     throw new Error("createForumAdapter: 'user' repository is required");
   }
@@ -14,6 +17,7 @@ export function createForumAdapter(
   }
 
   return {
+    setting: input.setting,
     user: input.user,
     forum: input.forum,
     thread: input.thread,

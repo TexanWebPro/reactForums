@@ -66,10 +66,28 @@ export enum SettingKey {
 export interface Setting {
   id: number;
   name: SettingKey;
-  value: string;
+  title: string;
   description: string;
+  optionsCode: OptionsCode;
+  value: string;
+  displayOrder: number;
   groupId: number;
 }
+
+export type OptionsCode =
+  | "text"
+  | "textarea"
+  | "yesno"
+  | "onoff"
+  | "numeric"
+  | "select"
+  | "radio"
+  | "checkbox"
+  | "forumselect"
+  | "groupselect"
+  | "language";
+
+export type Settings = Setting[];
 
 export interface User {
   id: number;

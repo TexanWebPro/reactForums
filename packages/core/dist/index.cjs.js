@@ -217,68 +217,12 @@ var UserService = class {
 
 // src/services/settingsService.ts
 var SettingsService = class {
-  constructor() {
+  constructor(repository) {
+    this.repository = repository;
   }
-  getByName(name) {
-    const settingsTable = [
-      {
-        id: 1,
-        name: "bbname" /* BoardName */,
-        value: "rF Community Forums",
-        description: "The name of your community. We recommend that it is not over 75 characters.",
-        groupId: 1
-      },
-      {
-        id: 2,
-        name: "board_description" /* BoardDescription */,
-        value: "The future of forums.",
-        description: "The description of your community.",
-        groupId: 1
-      },
-      {
-        id: 3,
-        name: "board_url" /* BoardUrl */,
-        value: "/",
-        description: "The url of your community.",
-        groupId: 1
-      },
-      {
-        id: 4,
-        name: "homepage_name" /* HomepageName */,
-        value: "reactForums",
-        description: "The name of your homepage. This will appear in the footer with a link to it.",
-        groupId: 1
-      },
-      {
-        id: 5,
-        name: "homepage_url" /* HomepageUrl */,
-        value: "https://reactforums.com",
-        description: "The url of your homepage.",
-        groupId: 1
-      },
-      {
-        id: 6,
-        name: "site_meta_title" /* SiteMetaTitle */,
-        value: "reactForums | Next-Generation Community Software",
-        description: "",
-        groupId: 1
-      },
-      {
-        id: 7,
-        name: "site_meta_description" /* SiteMetaDescription */,
-        value: "The official reactForums community for administrators to stay current with the latest core and platform updates, discuss forum management, exchange tips, and show off their sites.",
-        description: "",
-        groupId: 1
-      },
-      {
-        id: 8,
-        name: "favicon_url" /* FaviconUrl */,
-        value: "/favicon-32x32.png",
-        description: "",
-        groupId: 1
-      }
-    ];
-    return settingsTable.find((s) => s.name === name) ?? null;
+  async getByName(name) {
+    const setting = await this.repository.getSettingByName(name);
+    return setting;
   }
 };
 
@@ -333,6 +277,9 @@ var profileFields = [
 
 // src/adapters/createForumAdapter.ts
 function createForumAdapter(input) {
+  if (!input.setting) {
+    throw new Error("createForumAdapter: 'setting' repository is required");
+  }
   if (!input.user) {
     throw new Error("createForumAdapter: 'user' repository is required");
   }
@@ -343,6 +290,7 @@ function createForumAdapter(input) {
     throw new Error("createForumAdapter: 'thread' repository is required");
   }
   return {
+    setting: input.setting,
     user: input.user,
     forum: input.forum,
     thread: input.thread
@@ -360,4 +308,4 @@ function createForumAdapter(input) {
   UserService,
   createForumAdapter
 });
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.cjs.js.map

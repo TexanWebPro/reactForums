@@ -9,4 +9,8 @@ export default defineConfig({
   external: ["react", "react-dom"], // mark peer deps external
   minify: false, // optional, you can enable later
   splitting: false, // no code splitting for node
+  outExtension({ format }) {
+    if (format === "esm") return { js: ".esm.js" };
+    return { js: ".cjs.js" };
+  },
 });
