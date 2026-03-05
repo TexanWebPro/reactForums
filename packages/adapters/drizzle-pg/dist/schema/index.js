@@ -21,6 +21,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 var schema_exports = {};
 __export(schema_exports, {
   forumSchema: () => forumSchema,
+  settingSchema: () => settingSchema,
   threadSchema: () => threadSchema,
   userSchema: () => userSchema
 });
@@ -133,9 +134,23 @@ var threadSchema = (0, import_pg_core3.pgTable)("rf_threads", {
   isDeleted: (0, import_pg_core3.boolean)("is_deleted").notNull().default(false),
   deletedAt: (0, import_pg_core3.timestamp)("deleted_at")
 });
+
+// src/schema/setting.ts
+var import_pg_core4 = require("drizzle-orm/pg-core");
+var settingSchema = (0, import_pg_core4.pgTable)("rf_settings", {
+  id: (0, import_pg_core4.serial)("id").primaryKey().notNull(),
+  name: (0, import_pg_core4.varchar)("name").notNull().unique(),
+  title: (0, import_pg_core4.varchar)("title").notNull(),
+  value: (0, import_pg_core4.varchar)("value").notNull(),
+  description: (0, import_pg_core4.varchar)("description").notNull(),
+  optionsCode: (0, import_pg_core4.varchar)("options_code").notNull(),
+  groupId: (0, import_pg_core4.integer)("groupd_id").notNull(),
+  displayOrder: (0, import_pg_core4.integer)("display_order").notNull()
+});
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   forumSchema,
+  settingSchema,
   threadSchema,
   userSchema
 });

@@ -128,6 +128,19 @@ var threadSchema = pgTable3("rf_threads", {
   deletedAt: timestamp2("deleted_at")
 });
 
+// src/schema/setting.ts
+import { integer as integer4, pgTable as pgTable4, serial as serial4, varchar as varchar3 } from "drizzle-orm/pg-core";
+var settingSchema = pgTable4("rf_settings", {
+  id: serial4("id").primaryKey().notNull(),
+  name: varchar3("name").notNull().unique(),
+  title: varchar3("title").notNull(),
+  value: varchar3("value").notNull(),
+  description: varchar3("description").notNull(),
+  optionsCode: varchar3("options_code").notNull(),
+  groupId: integer4("groupd_id").notNull(),
+  displayOrder: integer4("display_order").notNull()
+});
+
 // src/seeds/forums.ts
 async function seedForums(db) {
   const existing = await db.select({ id: forumSchema.id }).from(forumSchema).limit(1);
@@ -803,9 +816,112 @@ var userData = [
   }
 ];
 
+// src/seeds/settings.ts
+import { SettingKey } from "@reactforums/core";
+async function seedSettings(db) {
+  const existing = await db.select({ id: settingSchema.id }).from(settingSchema).limit(1);
+  if (existing.length > 0) {
+    return;
+  }
+  settingsData.map(async (setting) => {
+    await db.insert(settingSchema).values({
+      name: setting.name,
+      title: setting.title,
+      value: setting.value,
+      description: setting.description,
+      optionsCode: setting.optionsCode,
+      groupId: setting.groupId,
+      displayOrder: setting.displayOrder
+    });
+  });
+}
+var settingsData = [
+  {
+    id: 1,
+    name: SettingKey.BoardName,
+    title: "Board Name",
+    value: "rF Community Forums",
+    description: "The name of your community. We recommend that it is not over 75 characters.",
+    optionsCode: "text",
+    groupId: 1,
+    displayOrder: 1
+  },
+  {
+    id: 2,
+    name: SettingKey.BoardDescription,
+    title: "Board Description",
+    value: "The future of forums.",
+    description: "The description of your community.",
+    optionsCode: "textarea",
+    groupId: 1,
+    displayOrder: 2
+  },
+  {
+    id: 3,
+    name: SettingKey.BoardUrl,
+    title: "Board URL",
+    value: "/",
+    description: "The url of your community.",
+    optionsCode: "text",
+    groupId: 1,
+    displayOrder: 3
+  },
+  {
+    id: 4,
+    name: SettingKey.HomepageName,
+    title: "Homepage Name",
+    value: "reactForums",
+    description: "The name of your homepage. This will appear in the footer with a link to it.",
+    optionsCode: "text",
+    groupId: 1,
+    displayOrder: 4
+  },
+  {
+    id: 5,
+    name: SettingKey.HomepageUrl,
+    title: "Homepage URL",
+    value: "https://reactforums.com",
+    description: "The url of your homepage.",
+    optionsCode: "text",
+    groupId: 1,
+    displayOrder: 5
+  },
+  {
+    id: 6,
+    name: SettingKey.SiteMetaTitle,
+    title: "Site Meta Title",
+    value: "reactForums | Next-Generation Community Software",
+    description: "",
+    optionsCode: "text",
+    groupId: 1,
+    displayOrder: 6
+  },
+  {
+    id: 7,
+    name: SettingKey.SiteMetaDescription,
+    title: "Site Meta Description",
+    value: "The official reactForums community for administrators to stay current with the latest core and platform updates, discuss forum management, exchange tips, and show off their sites.",
+    description: "",
+    optionsCode: "textarea",
+    groupId: 1,
+    displayOrder: 7
+  },
+  {
+    id: 8,
+    name: SettingKey.FaviconUrl,
+    title: "Favicon URL",
+    value: "/favicon-32x32.png",
+    description: "",
+    optionsCode: "text",
+    groupId: 1,
+    displayOrder: 8
+  }
+];
+
 // src/seeds/core.ts
 async function seedCore(db) {
   await db.transaction(async (tx) => {
+    await seedSettings(tx);
     await seedUsers(tx);
     await seedForums(tx);
     await seedThreads(tx);
@@ -814,6 +930,7 @@ async function seedCore(db) {
 export {
   seedCore,
   seedForums,
+  seedSettings,
   seedThreads
 };
 //# sourceMappingURL=index.mjs.map

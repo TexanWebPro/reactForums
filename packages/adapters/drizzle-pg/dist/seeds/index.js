@@ -22,6 +22,7 @@ var seeds_exports = {};
 __export(seeds_exports, {
   seedCore: () => seedCore,
   seedForums: () => seedForums,
+  seedSettings: () => seedSettings,
   seedThreads: () => seedThreads
 });
 module.exports = __toCommonJS(seeds_exports);
@@ -132,6 +133,19 @@ var threadSchema = (0, import_pg_core3.pgTable)("rf_threads", {
   attachmentTotal: (0, import_pg_core3.integer)("attachment_total").notNull().default(0),
   isDeleted: (0, import_pg_core3.boolean)("is_deleted").notNull().default(false),
   deletedAt: (0, import_pg_core3.timestamp)("deleted_at")
+});
+
+// src/schema/setting.ts
+var import_pg_core4 = require("drizzle-orm/pg-core");
+var settingSchema = (0, import_pg_core4.pgTable)("rf_settings", {
+  id: (0, import_pg_core4.serial)("id").primaryKey().notNull(),
+  name: (0, import_pg_core4.varchar)("name").notNull().unique(),
+  title: (0, import_pg_core4.varchar)("title").notNull(),
+  value: (0, import_pg_core4.varchar)("value").notNull(),
+  description: (0, import_pg_core4.varchar)("description").notNull(),
+  optionsCode: (0, import_pg_core4.varchar)("options_code").notNull(),
+  groupId: (0, import_pg_core4.integer)("groupd_id").notNull(),
+  displayOrder: (0, import_pg_core4.integer)("display_order").notNull()
 });
 
 // src/seeds/forums.ts
@@ -809,9 +823,112 @@ var userData = [
   }
 ];
 
+// src/seeds/settings.ts
+var import_core = require("@reactforums/core");
+async function seedSettings(db) {
+  const existing = await db.select({ id: settingSchema.id }).from(settingSchema).limit(1);
+  if (existing.length > 0) {
+    return;
+  }
+  settingsData.map(async (setting) => {
+    await db.insert(settingSchema).values({
+      name: setting.name,
+      title: setting.title,
+      value: setting.value,
+      description: setting.description,
+      optionsCode: setting.optionsCode,
+      groupId: setting.groupId,
+      displayOrder: setting.displayOrder
+    });
+  });
+}
+var settingsData = [
+  {
+    id: 1,
+    name: import_core.SettingKey.BoardName,
+    title: "Board Name",
+    value: "rF Community Forums",
+    description: "The name of your community. We recommend that it is not over 75 characters.",
+    optionsCode: "text",
+    groupId: 1,
+    displayOrder: 1
+  },
+  {
+    id: 2,
+    name: import_core.SettingKey.BoardDescription,
+    title: "Board Description",
+    value: "The future of forums.",
+    description: "The description of your community.",
+    optionsCode: "textarea",
+    groupId: 1,
+    displayOrder: 2
+  },
+  {
+    id: 3,
+    name: import_core.SettingKey.BoardUrl,
+    title: "Board URL",
+    value: "/",
+    description: "The url of your community.",
+    optionsCode: "text",
+    groupId: 1,
+    displayOrder: 3
+  },
+  {
+    id: 4,
+    name: import_core.SettingKey.HomepageName,
+    title: "Homepage Name",
+    value: "reactForums",
+    description: "The name of your homepage. This will appear in the footer with a link to it.",
+    optionsCode: "text",
+    groupId: 1,
+    displayOrder: 4
+  },
+  {
+    id: 5,
+    name: import_core.SettingKey.HomepageUrl,
+    title: "Homepage URL",
+    value: "https://reactforums.com",
+    description: "The url of your homepage.",
+    optionsCode: "text",
+    groupId: 1,
+    displayOrder: 5
+  },
+  {
+    id: 6,
+    name: import_core.SettingKey.SiteMetaTitle,
+    title: "Site Meta Title",
+    value: "reactForums | Next-Generation Community Software",
+    description: "",
+    optionsCode: "text",
+    groupId: 1,
+    displayOrder: 6
+  },
+  {
+    id: 7,
+    name: import_core.SettingKey.SiteMetaDescription,
+    title: "Site Meta Description",
+    value: "The official reactForums community for administrators to stay current with the latest core and platform updates, discuss forum management, exchange tips, and show off their sites.",
+    description: "",
+    optionsCode: "textarea",
+    groupId: 1,
+    displayOrder: 7
+  },
+  {
+    id: 8,
+    name: import_core.SettingKey.FaviconUrl,
+    title: "Favicon URL",
+    value: "/favicon-32x32.png",
+    description: "",
+    optionsCode: "text",
+    groupId: 1,
+    displayOrder: 8
+  }
+];
+
 // src/seeds/core.ts
 async function seedCore(db) {
   await db.transaction(async (tx) => {
+    await seedSettings(tx);
     await seedUsers(tx);
     await seedForums(tx);
     await seedThreads(tx);
@@ -821,6 +938,7 @@ async function seedCore(db) {
 0 && (module.exports = {
   seedCore,
   seedForums,
+  seedSettings,
   seedThreads
 });
 //# sourceMappingURL=index.js.map

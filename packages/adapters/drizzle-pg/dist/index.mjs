@@ -131,6 +131,19 @@ var threadSchema = pgTable3("rf_threads", {
   deletedAt: timestamp2("deleted_at")
 });
 
+// src/schema/setting.ts
+import { integer as integer4, pgTable as pgTable4, serial as serial4, varchar as varchar3 } from "drizzle-orm/pg-core";
+var settingSchema = pgTable4("rf_settings", {
+  id: serial4("id").primaryKey().notNull(),
+  name: varchar3("name").notNull().unique(),
+  title: varchar3("title").notNull(),
+  value: varchar3("value").notNull(),
+  description: varchar3("description").notNull(),
+  optionsCode: varchar3("options_code").notNull(),
+  groupId: integer4("groupd_id").notNull(),
+  displayOrder: integer4("display_order").notNull()
+});
+
 // src/repositories/forum.ts
 import { eq } from "drizzle-orm";
 var DrizzleForumRepository = class {
@@ -229,8 +242,41 @@ var DrizzleUserRepository = class {
   //   getUserReputations(userId: number): Promise<Reputations> {}
 };
 
+// src/repositories/setting.ts
+import { eq as eq4 } from "drizzle-orm";
+var DrizzleSettingRepository = class {
+  db;
+  schema;
+  constructor(db, schema) {
+    this.db = db;
+    this.schema = schema;
+  }
+  async getAllSettings() {
+    const settingsTable = this.schema.settings;
+    const allSettings = await this.db.select().from(settingsTable);
+    return allSettings.map((setting) => {
+      return this.mapDbSettingToSetting(setting);
+    });
+  }
+  async getSettingByName(name) {
+    const settingsTable = this.schema.settings;
+    const settings = await this.db.select().from(settingsTable).where(eq4(settingsTable.name, name));
+    const setting = settings[0];
+    if (!setting) return;
+    return this.mapDbSettingToSetting(setting);
+  }
+  mapDbSettingToSetting(setting) {
+    return {
+      ...setting,
+      name: setting.name,
+      optionsCode: setting.optionsCode
+    };
+  }
+};
+
 // src/index.ts
 var defaultSchema = {
+  settings: settingSchema,
   users: userSchema,
   forums: forumSchema,
   threads: threadSchema
@@ -238,10 +284,12 @@ var defaultSchema = {
 function drizzlePgAdapter(options) {
   const { db } = options;
   const schema = options.schema ?? defaultSchema;
+  const settingRepo = new DrizzleSettingRepository(db, schema);
   const userRepo = new DrizzleUserRepository(db, schema);
   const forumRepo = new DrizzleForumRepository(db, schema);
   const threadRepo = new DrizzleThreadRepository(db, schema);
   return createForumAdapter({
+    setting: settingRepo,
     user: userRepo,
     forum: forumRepo,
     thread: threadRepo

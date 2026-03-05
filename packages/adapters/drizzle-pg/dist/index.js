@@ -134,6 +134,19 @@ var threadSchema = (0, import_pg_core3.pgTable)("rf_threads", {
   deletedAt: (0, import_pg_core3.timestamp)("deleted_at")
 });
 
+// src/schema/setting.ts
+var import_pg_core4 = require("drizzle-orm/pg-core");
+var settingSchema = (0, import_pg_core4.pgTable)("rf_settings", {
+  id: (0, import_pg_core4.serial)("id").primaryKey().notNull(),
+  name: (0, import_pg_core4.varchar)("name").notNull().unique(),
+  title: (0, import_pg_core4.varchar)("title").notNull(),
+  value: (0, import_pg_core4.varchar)("value").notNull(),
+  description: (0, import_pg_core4.varchar)("description").notNull(),
+  optionsCode: (0, import_pg_core4.varchar)("options_code").notNull(),
+  groupId: (0, import_pg_core4.integer)("groupd_id").notNull(),
+  displayOrder: (0, import_pg_core4.integer)("display_order").notNull()
+});
+
 // src/repositories/forum.ts
 var import_drizzle_orm3 = require("drizzle-orm");
 var DrizzleForumRepository = class {
@@ -232,8 +245,41 @@ var DrizzleUserRepository = class {
   //   getUserReputations(userId: number): Promise<Reputations> {}
 };
 
+// src/repositories/setting.ts
+var import_drizzle_orm6 = require("drizzle-orm");
+var DrizzleSettingRepository = class {
+  db;
+  schema;
+  constructor(db, schema) {
+    this.db = db;
+    this.schema = schema;
+  }
+  async getAllSettings() {
+    const settingsTable = this.schema.settings;
+    const allSettings = await this.db.select().from(settingsTable);
+    return allSettings.map((setting) => {
+      return this.mapDbSettingToSetting(setting);
+    });
+  }
+  async getSettingByName(name) {
+    const settingsTable = this.schema.settings;
+    const settings = await this.db.select().from(settingsTable).where((0, import_drizzle_orm6.eq)(settingsTable.name, name));
+    const setting = settings[0];
+    if (!setting) return;
+    return this.mapDbSettingToSetting(setting);
+  }
+  mapDbSettingToSetting(setting) {
+    return {
+      ...setting,
+      name: setting.name,
+      optionsCode: setting.optionsCode
+    };
+  }
+};
+
 // src/index.ts
 var defaultSchema = {
+  settings: settingSchema,
   users: userSchema,
   forums: forumSchema,
   threads: threadSchema
@@ -241,10 +287,12 @@ var defaultSchema = {
 function drizzlePgAdapter(options) {
   const { db } = options;
   const schema = options.schema ?? defaultSchema;
+  const settingRepo = new DrizzleSettingRepository(db, schema);
   const userRepo = new DrizzleUserRepository(db, schema);
   const forumRepo = new DrizzleForumRepository(db, schema);
   const threadRepo = new DrizzleThreadRepository(db, schema);
   return (0, import_core.createForumAdapter)({
+    setting: settingRepo,
     user: userRepo,
     forum: forumRepo,
     thread: threadRepo

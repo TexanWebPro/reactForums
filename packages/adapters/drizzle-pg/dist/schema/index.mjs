@@ -127,8 +127,22 @@ var threadSchema = pgTable3("rf_threads", {
   isDeleted: boolean3("is_deleted").notNull().default(false),
   deletedAt: timestamp2("deleted_at")
 });
+
+// src/schema/setting.ts
+import { integer as integer4, pgTable as pgTable4, serial as serial4, varchar as varchar3 } from "drizzle-orm/pg-core";
+var settingSchema = pgTable4("rf_settings", {
+  id: serial4("id").primaryKey().notNull(),
+  name: varchar3("name").notNull().unique(),
+  title: varchar3("title").notNull(),
+  value: varchar3("value").notNull(),
+  description: varchar3("description").notNull(),
+  optionsCode: varchar3("options_code").notNull(),
+  groupId: integer4("groupd_id").notNull(),
+  displayOrder: integer4("display_order").notNull()
+});
 export {
   forumSchema,
+  settingSchema,
   threadSchema,
   userSchema
 };
