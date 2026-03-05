@@ -1,6 +1,6 @@
 // import { userService } from "@/api/client";
-import { formatDateForPostInfoDisplay } from "../utils/dates";
-import { reputationClassStyle } from "../utils/reputation";
+import { formatDateForPostInfoDisplay } from "../../../common/utils/dates";
+import { reputationClassStyle } from "../../../common/utils/reputation";
 import type { Post } from "@reactforums/core";
 import { Link } from "@tanstack/react-router";
 

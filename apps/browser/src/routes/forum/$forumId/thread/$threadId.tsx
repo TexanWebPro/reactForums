@@ -1,6 +1,6 @@
 // import { forumService, threadService } from "@/api/client";
 // import Breadcrumbs from "@/components/Breadcrumbs";
-import { ThreadComponent } from "@reactforums/common/components/Thread";
+import { ThreadComponent } from "@/components/Thread";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Thread } from "@reactforums/core";

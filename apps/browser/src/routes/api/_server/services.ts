@@ -15,5 +15,5 @@ export const threadService = new ThreadService(repository.thread);
 export const postService = new PostService();
 export const userService = new UserService(repository.user);
 export const statsService = new StatsService();
-export const settingsService = new SettingsService();
+export const settingsService = new SettingsService(repository.setting);
 export const profileFieldsService = new ProfileFieldsService();

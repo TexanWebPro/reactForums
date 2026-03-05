@@ -3,7 +3,7 @@ import { Button } from "./ui/Button";
 import {
   formatDateTimeForForumDisplay,
   formatLastPostDateTime,
-} from "../utils/dates";
+} from "../../../common/utils/dates";
 import type { Forum, Thread, Threads } from "@reactforums/core";
 import { useQuery } from "@tanstack/react-query";
 

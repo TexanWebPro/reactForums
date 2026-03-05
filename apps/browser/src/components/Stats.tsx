@@ -1,9 +1,9 @@
 // import { statsService, userService } from "@/api/client";
 import { Link } from "@tanstack/react-router";
 import { ForumStats } from "@reactforums/core";
-import { ForumStatsView } from "../models";
-import { formatNumber } from "../utils/numbers";
-import { formatDateTimeForStatsDisplay } from "../utils/dates";
+import { ForumStatsView } from "../../../common/models";
+import { formatNumber } from "../../../common/utils/numbers";
+import { formatDateTimeForStatsDisplay } from "../../../common/utils/dates";
 
 export function Stats() {
   // const unformattedStats = statsService.getGlobalStats();

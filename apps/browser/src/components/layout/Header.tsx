@@ -1,23 +1,56 @@
 import { Link } from "@tanstack/react-router";
 import Edges from "./Edges";
-// import { settingsService } from "@/api/client";
-import { SettingKey } from "@reactforums/core";
+import { SettingKey, Setting } from "@reactforums/core";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Header() {
-  // const boardName = settingsService.getByName(SettingKey.BoardName);
-  // const boardDescription = settingsService.getByName(
-  //   SettingKey.BoardDescription
-  // );
+  async function fetchSettingByName(name: SettingKey): Promise<Setting> {
+    const res = await fetch(
+      `/api/settings/query/by-name?name=${encodeURIComponent(name)}`,
+    );
+    const body = await res.json().catch(() => null);
+
+    if (!res.ok)
+      throw new Error(body?.error ?? `Request failed (${res.status})`);
+    return body as Setting;
+  }
+
+  const {
+    data: boardName,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: [`setting-${SettingKey.BoardName}`],
+    queryFn: async () => {
+      const res = await fetchSettingByName(SettingKey.BoardName);
+      return res;
+    },
+  });
+
+  const {
+    data: boardDescription,
+    isLoading: boardDescriptionLoading,
+    error: boardDescriptionError,
+  } = useQuery({
+    queryKey: [`setting-${SettingKey.BoardDescription}`],
+    queryFn: async () => {
+      const res = await fetchSettingByName(SettingKey.BoardDescription);
+      return res;
+    },
+  });
+
+  if (isLoading || boardDescriptionLoading) return "Loading";
+  if (error || boardDescriptionError) return "Error";
 
   return (
     <header className="flex flex-col bg-sky-700 text-neutral-50 justify-between">
       <nav className="text-2xl">
         <Edges className="flex flex-row gap-4 py-8 items-center justify-between">
           <span>
-            {/* <Link className="hover:underline" to="/">
+            <Link className="hover:underline" to="/">
               {String(boardName?.value)}
             </Link>
-            <p className="text-lg">{String(boardDescription?.value)}</p> */}
+            <p className="text-lg">{String(boardDescription?.value)}</p>
           </span>
         </Edges>
       </nav>

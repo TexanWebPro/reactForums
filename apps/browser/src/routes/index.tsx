@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { IndexForumDisplayView } from "@reactforums/common/views/IndexForumDisplay";
+import { IndexForumDisplayView } from "../views/IndexForumDisplay";
 
 export const Route = createFileRoute("/")({
   component: App,

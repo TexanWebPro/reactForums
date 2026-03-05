@@ -1,7 +1,7 @@
 // import { forumService } from "@/api/client";
 // import Breadcrumbs from "@/components/Breadcrumbs";
-import { Category } from "@reactforums/common/components/Category";
-import { ForumComponent } from "@reactforums/common/components/Forum";
+import { Category } from "@/components/Category";
+import { ForumComponent } from "@/components/Forum";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ForumTreeNode } from "@reactforums/core";

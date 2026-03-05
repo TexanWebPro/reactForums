@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { UserDashboardView } from "@reactforums/common/views/UserDashboard";
+import { UserDashboardView } from "../views/UserDashboard";
 
 export const Route = createFileRoute("/user-dashboard")({
   component: RouteComponent,

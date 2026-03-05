@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { MessagesView } from "@reactforums/common/views/Messages";
+import { MessagesView } from "../views/Messages";
 
 export const Route = createFileRoute("/messages")({
   component: RouteComponent,
