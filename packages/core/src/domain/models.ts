@@ -208,9 +208,9 @@ export type Threads = Thread[];
 export interface Post {
   id: number;
   threadId: number;
-  replyToId?: number;
+  parentPostId: number | null;
   forumId: number;
-  subject?: string;
+  subject: string | null;
   icon?: number;
   userId: number;
   username: string;
@@ -219,10 +219,13 @@ export interface Post {
   ipAddress: string;
   longIpAddress: string;
   includeSignature: boolean;
-  editUId: number;
-  editedAt: Date;
-  isVisible: boolean;
+  editUserId: number | null;
+  updatedAt: Date;
+  isDraft: boolean;
+  isApproved: boolean;
 }
+
+export type Posts = Post[];
 
 export interface Reputation {
   id: number;

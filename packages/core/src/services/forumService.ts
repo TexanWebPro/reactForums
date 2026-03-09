@@ -1,4 +1,4 @@
-import { Forum, ForumTreeNode } from "../domain/models";
+import { Forums, ForumTreeNode } from "../domain/models";
 import type { ForumRepository } from "../repositories/ForumRepository";
 
 export class ForumService {
@@ -25,7 +25,7 @@ export class ForumService {
     return forumWithChildren;
   }
 
-  buildTree(forums: Forum[], parentId: number | null = null): ForumTreeNode[] {
+  buildTree(forums: Forums, parentId: number | null = null): ForumTreeNode[] {
     return forums
       .filter((f) => f.parentForumId === parentId)
       .map((f) => ({ ...f, children: this.buildTree(forums, f.id) }));

@@ -1,4 +1,5 @@
 import { ForumRepository } from "../repositories/ForumRepository";
+import { PostRepository } from "../repositories/PostRepository";
 import { SettingsRepository } from "../repositories/SettingsRepository";
 import { ThreadRepository } from "../repositories/ThreadRepository";
 import { UserRepository } from "../repositories/UserRepository";
@@ -8,6 +9,7 @@ export interface ReactForumsAdapter {
   user: UserRepository;
   forum: ForumRepository;
   thread: ThreadRepository;
+  post: PostRepository;
 }
 
 export interface ReactForumsAdapterInput {
@@ -15,4 +17,5 @@ export interface ReactForumsAdapterInput {
   user: UserRepository;
   forum: ForumRepository;
   thread: ThreadRepository;
+  post: PostRepository;
 }

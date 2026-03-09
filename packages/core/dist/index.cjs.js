@@ -127,38 +127,27 @@ var ThreadService = class {
 };
 
 // src/services/postService.ts
-var posts = [
-  {
-    id: 1,
-    threadId: 1,
-    forumId: 2,
-    userId: 1,
-    username: "Elegant Totality",
-    createdAt: /* @__PURE__ */ new Date(),
-    content: "Lorem, y'know?",
-    ipAddress: "IP address",
-    longIpAddress: "Long IP address",
-    includeSignature: true,
-    editUId: 1,
-    editedAt: /* @__PURE__ */ new Date(),
-    isVisible: true
-  }
-];
 var PostService = class {
-  constructor() {
+  constructor(repository) {
+    this.repository = repository;
   }
-  getPostById(postId) {
-    const post = posts.find((p) => p.id === postId);
+  async getPostById(postId) {
+    const post = await this.repository.getPostById(postId);
     return post;
   }
-  getNPostsInThread(postId, _n) {
-    const allPosts = posts.filter((post) => post.threadId === postId);
+  async getNPostsInThread(postId, n) {
+    const allPosts = await this.repository.getNPostsInThread(postId, n);
     return allPosts;
   }
-  getThreadById(postId) {
-    const post = posts.find((p) => p.id === postId);
-    return post;
+  async getPostReplies(postId) {
+    const allReplies = await this.repository.getPostReplies(postId);
+    return allReplies;
   }
+  // buildTree(posts: Posts, parentId: number | null = null): PostTreeNode[] {
+  //   return posts
+  //     .filter((p) => p.parentPostId === parentId)
+  //     .map((p) => ({ ...p, children: this.buildTree(posts, p.id) }));
+  // }
 };
 
 // src/services/statsService.ts
@@ -289,11 +278,15 @@ function createForumAdapter(input) {
   if (!input.thread) {
     throw new Error("createForumAdapter: 'thread' repository is required");
   }
+  if (!input.post) {
+    throw new Error("createForumAdapter: 'post' repository is required");
+  }
   return {
     setting: input.setting,
     user: input.user,
     forum: input.forum,
-    thread: input.thread
+    thread: input.thread,
+    post: input.post
   };
 }
 // Annotate the CommonJS export names for ESM import in node:

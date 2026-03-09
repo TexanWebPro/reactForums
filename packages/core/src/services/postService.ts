@@ -1,38 +1,30 @@
-import { Post } from "../domain/models";
-
-const posts = [
-  {
-    id: 1,
-    threadId: 1,
-    forumId: 2,
-    userId: 1,
-    username: "Elegant Totality",
-    createdAt: new Date(),
-    content: "Lorem, y'know?",
-    ipAddress: "IP address",
-    longIpAddress: "Long IP address",
-    includeSignature: true,
-    editUId: 1,
-    editedAt: new Date(),
-    isVisible: true,
-  },
-];
+import { Post, Posts } from "../domain/models";
+import type { PostRepository } from "../repositories/PostRepository";
 
 export class PostService {
-  constructor() {}
+  constructor(private repository: PostRepository) {}
 
-  getPostById(postId: number | null) {
-    const post = posts.find((p) => p.id === postId);
+  async getPostById(postId: number): Promise<Post | undefined> {
+    const post = await this.repository.getPostById(postId);
     return post;
   }
 
-  getNPostsInThread(postId: number, _n: number): Post[] {
-    const allPosts = posts.filter((post) => post.threadId === postId);
+  async getNPostsInThread(
+    postId: number,
+    n: number,
+  ): Promise<Posts | undefined> {
+    const allPosts = await this.repository.getNPostsInThread(postId, n);
     return allPosts;
   }
 
-  getThreadById(postId: number): Post | undefined {
-    const post = posts.find((p) => p.id === postId);
-    return post;
+  async getPostReplies(postId: number): Promise<Posts | undefined> {
+    const allReplies = await this.repository.getPostReplies(postId);
+    return allReplies;
   }
+
+  // buildTree(posts: Posts, parentId: number | null = null): PostTreeNode[] {
+  //   return posts
+  //     .filter((p) => p.parentPostId === parentId)
+  //     .map((p) => ({ ...p, children: this.buildTree(posts, p.id) }));
+  // }
 }

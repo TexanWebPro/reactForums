@@ -172,9 +172,9 @@ type Threads = Thread[];
 interface Post {
     id: number;
     threadId: number;
-    replyToId?: number;
+    parentPostId: number | null;
     forumId: number;
-    subject?: string;
+    subject: string | null;
     icon?: number;
     userId: number;
     username: string;
@@ -183,10 +183,12 @@ interface Post {
     ipAddress: string;
     longIpAddress: string;
     includeSignature: boolean;
-    editUId: number;
-    editedAt: Date;
-    isVisible: boolean;
+    editUserId: number | null;
+    updatedAt: Date;
+    isDraft: boolean;
+    isApproved: boolean;
 }
+type Posts = Post[];
 interface Reputation {
     id: number;
     userId: number;
@@ -231,7 +233,7 @@ declare class ForumService {
     constructor(repository: ForumRepository);
     listAllForumsByCategory(): Promise<ForumTreeNode[]>;
     getBreadcrumbForumHierarchy(id: number): Promise<ForumTreeNode | undefined>;
-    buildTree(forums: Forum[], parentId?: number | null): ForumTreeNode[];
+    buildTree(forums: Forums, parentId?: number | null): ForumTreeNode[];
 }
 
 interface ThreadRepository {
@@ -246,25 +248,18 @@ declare class ThreadService {
     getThreadById(threadId: number): Promise<Thread | undefined>;
 }
 
+interface PostRepository {
+    getNPostsInThread(threadId: number, limit: number): Promise<Posts | undefined>;
+    getPostById(postId: number): Promise<Post | undefined>;
+    getPostReplies(postId: number): Promise<Posts | undefined>;
+}
+
 declare class PostService {
-    constructor();
-    getPostById(postId: number | null): {
-        id: number;
-        threadId: number;
-        forumId: number;
-        userId: number;
-        username: string;
-        createdAt: Date;
-        content: string;
-        ipAddress: string;
-        longIpAddress: string;
-        includeSignature: boolean;
-        editUId: number;
-        editedAt: Date;
-        isVisible: boolean;
-    };
-    getNPostsInThread(postId: number, _n: number): Post[];
-    getThreadById(postId: number): Post | undefined;
+    private repository;
+    constructor(repository: PostRepository);
+    getPostById(postId: number): Promise<Post | undefined>;
+    getNPostsInThread(postId: number, n: number): Promise<Posts | undefined>;
+    getPostReplies(postId: number): Promise<Posts | undefined>;
 }
 
 declare class StatsService {
@@ -309,14 +304,16 @@ interface ReactForumsAdapter {
     user: UserRepository;
     forum: ForumRepository;
     thread: ThreadRepository;
+    post: PostRepository;
 }
 interface ReactForumsAdapterInput {
     setting: SettingsRepository;
     user: UserRepository;
     forum: ForumRepository;
     thread: ThreadRepository;
+    post: PostRepository;
 }
 
 declare function createForumAdapter(input: ReactForumsAdapterInput): ReactForumsAdapter;
 
-export { type CustomProfileField, type CustomProfileFields, type CustomProfileFieldsValue, type Forum, type ForumRepository, ForumService, type ForumStats, type ForumTreeNode, type Forums, type OptionsCode, type Post, PostService, ProfileFieldsService, type ReactForumsAdapter, type ReactForumsAdapterInput, type Reputation, type Reputations, type Setting, SettingKey, type Settings, type SettingsRepository, SettingsService, StatsService, type Thread, type ThreadRepository, ThreadService, type Threads, type User, type UserProfileFieldValues, type UserRepository, UserService, type UserWithProfileFieldValues, type Users, createForumAdapter };
+export { type CustomProfileField, type CustomProfileFields, type CustomProfileFieldsValue, type Forum, type ForumRepository, ForumService, type ForumStats, type ForumTreeNode, type Forums, type OptionsCode, type Post, type PostRepository, PostService, type Posts, ProfileFieldsService, type ReactForumsAdapter, type ReactForumsAdapterInput, type Reputation, type Reputations, type Setting, SettingKey, type Settings, type SettingsRepository, SettingsService, StatsService, type Thread, type ThreadRepository, ThreadService, type Threads, type User, type UserProfileFieldValues, type UserRepository, UserService, type UserWithProfileFieldValues, type Users, createForumAdapter };

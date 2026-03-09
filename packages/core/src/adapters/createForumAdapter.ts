@@ -15,11 +15,15 @@ export function createForumAdapter(
   if (!input.thread) {
     throw new Error("createForumAdapter: 'thread' repository is required");
   }
+  if (!input.post) {
+    throw new Error("createForumAdapter: 'post' repository is required");
+  }
 
   return {
     setting: input.setting,
     user: input.user,
     forum: input.forum,
     thread: input.thread,
+    post: input.post,
   };
 }
