@@ -20,7 +20,7 @@ export const ServerRoute = createServerFileRoute(
     }
 
     const threads = await threadService.getLastNThreadsInForum(
-      Number(forumId),
+      Number(normalized),
       Number(limit) ?? 10,
     );
 

@@ -1,11 +1,33 @@
-// import { postService } from "@/api/client";
-import { Post } from "./Post";
+import { useQuery } from "@tanstack/react-query";
+import { Post } from "@/components/posts/Post";
 import { Button } from "./ui/Button";
-import type { Thread } from "@reactforums/core";
+import type { Posts, Thread } from "@reactforums/core";
+import React from "react";
 
 export function ThreadComponent(props: { thread: Thread }) {
   const { thread } = props;
-  // const posts = postService.getNPostsInThread(thread.id, 10);
+  const postsPerPage = 10;
+  async function fetchPostByThreadId(id: number) {
+    const res = await fetch(
+      `/api/posts/query/by-thread?threadId=${encodeURIComponent(id)}&limit=${encodeURIComponent(postsPerPage)}`,
+    );
+    const body = await res.json().catch(() => null);
+
+    if (!res.ok)
+      throw new Error(body?.error ?? `Request failed (${res.status})`);
+    return body as Posts;
+  }
+
+  const { data: posts } = useQuery({
+    queryKey: [`thread-${thread.id}-posts`],
+    queryFn: async () => {
+      const res = await fetchPostByThreadId(Number(thread.firstPostId));
+      return res;
+    },
+  });
+
+  if (!thread) return;
+  if (!posts) return;
 
   return (
     <div className="flex flex-col items-end justify-between">
@@ -19,13 +41,13 @@ export function ThreadComponent(props: { thread: Thread }) {
         {thread.subject}
       </span>
       <div className="flex w-full flex-col mb-4 border-2 border-sky-800 border-t-0 rounded-b-lg">
-        {/* {posts.map((post) => {
+        {posts.map((post) => {
           return (
-            <>
+            <React.Fragment key={`${post.forumId}-${post.threadId}-${post.id}`}>
               <Post {...post} />
-            </>
+            </React.Fragment>
           );
-        })} */}
+        })}
       </div>
 
       <Button
