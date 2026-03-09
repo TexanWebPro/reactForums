@@ -43,4 +43,14 @@ declare function seedThreads(db: PgTransaction<NodePgQueryResultHKT, Record<stri
  */
 declare function seedSettings(db: PgTransaction<NodePgQueryResultHKT, Record<string, unknown>, ExtractTablesWithRelations<Record<string, unknown>>>): Promise<void>;
 
-export { seedCore, seedForums, seedSettings, seedThreads };
+/**
+ * Seeds the forum with default posts.
+ *
+ * Rules:
+ * - Must be idempotent
+ * - Must not assume any existing data
+ * - Must not delete or mutate user-created records
+ */
+declare function seedPosts(db: PgTransaction<NodePgQueryResultHKT, Record<string, unknown>, ExtractTablesWithRelations<Record<string, unknown>>>): Promise<void>;
+
+export { seedCore, seedForums, seedPosts, seedSettings, seedThreads };

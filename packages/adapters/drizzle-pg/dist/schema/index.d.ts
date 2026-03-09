@@ -1,5 +1,159 @@
 import * as drizzle_orm_pg_core from 'drizzle-orm/pg-core';
 
+declare const settingSchema: drizzle_orm_pg_core.PgTableWithColumns<{
+    name: "rf_settings";
+    schema: undefined;
+    columns: {
+        id: drizzle_orm_pg_core.PgColumn<{
+            name: "id";
+            tableName: "rf_settings";
+            dataType: "number";
+            columnType: "PgSerial";
+            data: number;
+            driverParam: number;
+            notNull: true;
+            hasDefault: true;
+            isPrimaryKey: true;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        name: drizzle_orm_pg_core.PgColumn<{
+            name: "name";
+            tableName: "rf_settings";
+            dataType: "string";
+            columnType: "PgVarchar";
+            data: string;
+            driverParam: string;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {
+            length: number | undefined;
+        }>;
+        title: drizzle_orm_pg_core.PgColumn<{
+            name: "title";
+            tableName: "rf_settings";
+            dataType: "string";
+            columnType: "PgVarchar";
+            data: string;
+            driverParam: string;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {
+            length: number | undefined;
+        }>;
+        value: drizzle_orm_pg_core.PgColumn<{
+            name: "value";
+            tableName: "rf_settings";
+            dataType: "string";
+            columnType: "PgVarchar";
+            data: string;
+            driverParam: string;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {
+            length: number | undefined;
+        }>;
+        description: drizzle_orm_pg_core.PgColumn<{
+            name: "description";
+            tableName: "rf_settings";
+            dataType: "string";
+            columnType: "PgVarchar";
+            data: string;
+            driverParam: string;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {
+            length: number | undefined;
+        }>;
+        optionsCode: drizzle_orm_pg_core.PgColumn<{
+            name: "options_code";
+            tableName: "rf_settings";
+            dataType: "string";
+            columnType: "PgVarchar";
+            data: string;
+            driverParam: string;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {
+            length: number | undefined;
+        }>;
+        groupId: drizzle_orm_pg_core.PgColumn<{
+            name: "groupd_id";
+            tableName: "rf_settings";
+            dataType: "number";
+            columnType: "PgInteger";
+            data: number;
+            driverParam: string | number;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        displayOrder: drizzle_orm_pg_core.PgColumn<{
+            name: "display_order";
+            tableName: "rf_settings";
+            dataType: "number";
+            columnType: "PgInteger";
+            data: number;
+            driverParam: string | number;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+    };
+    dialect: "pg";
+}>;
+
 declare const userSchema: drizzle_orm_pg_core.PgTableWithColumns<{
     name: "rf_users";
     schema: undefined;
@@ -1581,13 +1735,13 @@ declare const threadSchema: drizzle_orm_pg_core.PgTableWithColumns<{
     dialect: "pg";
 }>;
 
-declare const settingSchema: drizzle_orm_pg_core.PgTableWithColumns<{
-    name: "rf_settings";
+declare const postSchema: drizzle_orm_pg_core.PgTableWithColumns<{
+    name: "rf_posts";
     schema: undefined;
     columns: {
         id: drizzle_orm_pg_core.PgColumn<{
             name: "id";
-            tableName: "rf_settings";
+            tableName: "rf_posts";
             dataType: "number";
             columnType: "PgSerial";
             data: number;
@@ -1602,104 +1756,9 @@ declare const settingSchema: drizzle_orm_pg_core.PgTableWithColumns<{
             identity: undefined;
             generated: undefined;
         }, {}, {}>;
-        name: drizzle_orm_pg_core.PgColumn<{
-            name: "name";
-            tableName: "rf_settings";
-            dataType: "string";
-            columnType: "PgVarchar";
-            data: string;
-            driverParam: string;
-            notNull: true;
-            hasDefault: false;
-            isPrimaryKey: false;
-            isAutoincrement: false;
-            hasRuntimeDefault: false;
-            enumValues: [string, ...string[]];
-            baseColumn: never;
-            identity: undefined;
-            generated: undefined;
-        }, {}, {
-            length: number | undefined;
-        }>;
-        title: drizzle_orm_pg_core.PgColumn<{
-            name: "title";
-            tableName: "rf_settings";
-            dataType: "string";
-            columnType: "PgVarchar";
-            data: string;
-            driverParam: string;
-            notNull: true;
-            hasDefault: false;
-            isPrimaryKey: false;
-            isAutoincrement: false;
-            hasRuntimeDefault: false;
-            enumValues: [string, ...string[]];
-            baseColumn: never;
-            identity: undefined;
-            generated: undefined;
-        }, {}, {
-            length: number | undefined;
-        }>;
-        value: drizzle_orm_pg_core.PgColumn<{
-            name: "value";
-            tableName: "rf_settings";
-            dataType: "string";
-            columnType: "PgVarchar";
-            data: string;
-            driverParam: string;
-            notNull: true;
-            hasDefault: false;
-            isPrimaryKey: false;
-            isAutoincrement: false;
-            hasRuntimeDefault: false;
-            enumValues: [string, ...string[]];
-            baseColumn: never;
-            identity: undefined;
-            generated: undefined;
-        }, {}, {
-            length: number | undefined;
-        }>;
-        description: drizzle_orm_pg_core.PgColumn<{
-            name: "description";
-            tableName: "rf_settings";
-            dataType: "string";
-            columnType: "PgVarchar";
-            data: string;
-            driverParam: string;
-            notNull: true;
-            hasDefault: false;
-            isPrimaryKey: false;
-            isAutoincrement: false;
-            hasRuntimeDefault: false;
-            enumValues: [string, ...string[]];
-            baseColumn: never;
-            identity: undefined;
-            generated: undefined;
-        }, {}, {
-            length: number | undefined;
-        }>;
-        optionsCode: drizzle_orm_pg_core.PgColumn<{
-            name: "options_code";
-            tableName: "rf_settings";
-            dataType: "string";
-            columnType: "PgVarchar";
-            data: string;
-            driverParam: string;
-            notNull: true;
-            hasDefault: false;
-            isPrimaryKey: false;
-            isAutoincrement: false;
-            hasRuntimeDefault: false;
-            enumValues: [string, ...string[]];
-            baseColumn: never;
-            identity: undefined;
-            generated: undefined;
-        }, {}, {
-            length: number | undefined;
-        }>;
-        groupId: drizzle_orm_pg_core.PgColumn<{
-            name: "groupd_id";
-            tableName: "rf_settings";
+        threadId: drizzle_orm_pg_core.PgColumn<{
+            name: "thread_id";
+            tableName: "rf_posts";
             dataType: "number";
             columnType: "PgInteger";
             data: number;
@@ -1714,14 +1773,298 @@ declare const settingSchema: drizzle_orm_pg_core.PgTableWithColumns<{
             identity: undefined;
             generated: undefined;
         }, {}, {}>;
-        displayOrder: drizzle_orm_pg_core.PgColumn<{
-            name: "display_order";
-            tableName: "rf_settings";
+        parentPostId: drizzle_orm_pg_core.PgColumn<{
+            name: "parent_post_id";
+            tableName: "rf_posts";
+            dataType: "number";
+            columnType: "PgInteger";
+            data: number;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        forumId: drizzle_orm_pg_core.PgColumn<{
+            name: "forum_id";
+            tableName: "rf_posts";
             dataType: "number";
             columnType: "PgInteger";
             data: number;
             driverParam: string | number;
             notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        subject: drizzle_orm_pg_core.PgColumn<{
+            name: "subject";
+            tableName: "rf_posts";
+            dataType: "string";
+            columnType: "PgVarchar";
+            data: string;
+            driverParam: string;
+            notNull: false;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {
+            length: number | undefined;
+        }>;
+        iconId: drizzle_orm_pg_core.PgColumn<{
+            name: "icon_id";
+            tableName: "rf_posts";
+            dataType: "string";
+            columnType: "PgVarchar";
+            data: string;
+            driverParam: string;
+            notNull: false;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {
+            length: number | undefined;
+        }>;
+        userId: drizzle_orm_pg_core.PgColumn<{
+            name: "user_id";
+            tableName: "rf_posts";
+            dataType: "number";
+            columnType: "PgInteger";
+            data: number;
+            driverParam: string | number;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        username: drizzle_orm_pg_core.PgColumn<{
+            name: "username";
+            tableName: "rf_posts";
+            dataType: "string";
+            columnType: "PgVarchar";
+            data: string;
+            driverParam: string;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {
+            length: number | undefined;
+        }>;
+        createdAt: drizzle_orm_pg_core.PgColumn<{
+            name: "created_at";
+            tableName: "rf_posts";
+            dataType: "date";
+            columnType: "PgTimestamp";
+            data: Date;
+            driverParam: string;
+            notNull: true;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        editUserId: drizzle_orm_pg_core.PgColumn<{
+            name: "edit_user_id";
+            tableName: "rf_posts";
+            dataType: "number";
+            columnType: "PgInteger";
+            data: number;
+            driverParam: string | number;
+            notNull: false;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        updatedAt: drizzle_orm_pg_core.PgColumn<{
+            name: "updated_at";
+            tableName: "rf_posts";
+            dataType: "date";
+            columnType: "PgTimestamp";
+            data: Date;
+            driverParam: string;
+            notNull: true;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        isDraft: drizzle_orm_pg_core.PgColumn<{
+            name: "is_draft";
+            tableName: "rf_posts";
+            dataType: "boolean";
+            columnType: "PgBoolean";
+            data: boolean;
+            driverParam: boolean;
+            notNull: true;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        isApproved: drizzle_orm_pg_core.PgColumn<{
+            name: "is_approved";
+            tableName: "rf_posts";
+            dataType: "boolean";
+            columnType: "PgBoolean";
+            data: boolean;
+            driverParam: boolean;
+            notNull: true;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        content: drizzle_orm_pg_core.PgColumn<{
+            name: "content";
+            tableName: "rf_posts";
+            dataType: "string";
+            columnType: "PgVarchar";
+            data: string;
+            driverParam: string;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {
+            length: number | undefined;
+        }>;
+        ipAddress: drizzle_orm_pg_core.PgColumn<{
+            name: "ip_address";
+            tableName: "rf_posts";
+            dataType: "string";
+            columnType: "PgVarchar";
+            data: string;
+            driverParam: string;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {
+            length: number | undefined;
+        }>;
+        longIpAddress: drizzle_orm_pg_core.PgColumn<{
+            name: "long_ip_address";
+            tableName: "rf_posts";
+            dataType: "string";
+            columnType: "PgVarchar";
+            data: string;
+            driverParam: string;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {
+            length: number | undefined;
+        }>;
+        includeSignature: drizzle_orm_pg_core.PgColumn<{
+            name: "include_signature";
+            tableName: "rf_posts";
+            dataType: "boolean";
+            columnType: "PgBoolean";
+            data: boolean;
+            driverParam: boolean;
+            notNull: true;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        isDeleted: drizzle_orm_pg_core.PgColumn<{
+            name: "is_deleted";
+            tableName: "rf_posts";
+            dataType: "boolean";
+            columnType: "PgBoolean";
+            data: boolean;
+            driverParam: boolean;
+            notNull: true;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        deletedAt: drizzle_orm_pg_core.PgColumn<{
+            name: "deleted_at";
+            tableName: "rf_posts";
+            dataType: "date";
+            columnType: "PgTimestamp";
+            data: Date;
+            driverParam: string;
+            notNull: false;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
@@ -1735,4 +2078,4 @@ declare const settingSchema: drizzle_orm_pg_core.PgTableWithColumns<{
     dialect: "pg";
 }>;
 
-export { forumSchema, settingSchema, threadSchema, userSchema };
+export { forumSchema, postSchema, settingSchema, threadSchema, userSchema };

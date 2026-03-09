@@ -3,6 +3,7 @@ import { seedForums } from "./forums";
 import { seedThreads } from "./threads";
 import { seedUsers } from "./users";
 import { seedSettings } from "./settings";
+import { seedPosts } from "./posts";
 
 /**
  * Runs all core seeds in a single transaction.
@@ -23,5 +24,7 @@ export async function seedCore(db: DrizzlePgDatabase) {
     await seedForums(tx);
     // 3. Seed threads
     await seedThreads(tx);
+    // 4. Seed posts
+    await seedPosts(tx);
   });
 }
