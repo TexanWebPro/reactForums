@@ -1,5 +1,5 @@
 import { createServerFileRoute } from "@tanstack/react-start/server";
-import { settingsService } from "../../_server/services";
+import { settingsService } from "@/server/services";
 import { json } from "@tanstack/react-start";
 import { SettingKey } from "@reactforums/core";
 

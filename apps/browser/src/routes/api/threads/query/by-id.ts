@@ -1,5 +1,5 @@
 import { createServerFileRoute } from "@tanstack/react-start/server";
-import { forumService, threadService } from "../../_server/services";
+import { forumService, threadService } from "@/server/services";
 import { json } from "@tanstack/react-start";
 
 export const ServerRoute = createServerFileRoute(
