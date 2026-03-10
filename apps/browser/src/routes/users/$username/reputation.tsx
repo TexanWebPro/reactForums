@@ -13,7 +13,7 @@ import {
 import type { Reputation, User } from "@reactforums/core";
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/users/$userId/reputation")({
+export const Route = createFileRoute("/users/$username/reputation")({
   // loader: async ({ params }) => {
   //   const user = userService.getUserByUsername(params.userId);
   //   if (!user) {

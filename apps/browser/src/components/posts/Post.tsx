@@ -1,30 +1,16 @@
-// import { userService } from "@/api/client";
-import type { Post, User } from "@reactforums/core";
-import { PostContent } from "./PostContent";
 import { useQuery } from "@tanstack/react-query";
+import { PostContent } from "./PostContent";
 import { UserInfoBar } from "./UserInfoBar";
 import { PostOptions } from "./PostOptions";
 import { UserSignatureInPost } from "./UserSignatureInPost";
+import { userQueries } from "@/features/users/users.query";
+import type { Post } from "@reactforums/core";
 
 export function Post(post: Post) {
   const { userId } = post;
-  async function fetchUserById(id: number): Promise<User> {
-    const res = await fetch(
-      `/api/users/query/by-id?id=${encodeURIComponent(id)}`,
-    );
-    const body = await res.json().catch(() => null);
-
-    if (!res.ok)
-      throw new Error(body?.error ?? `Request failed (${res.status})`);
-    return body as User;
-  }
 
   const { data: userInfo } = useQuery({
-    queryKey: [`user-${userId}`],
-    queryFn: async () => {
-      const res = await fetchUserById(userId);
-      return res;
-    },
+    ...userQueries.byId(userId),
   });
 
   if (!userInfo) return;

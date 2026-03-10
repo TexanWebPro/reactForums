@@ -1,9 +1,8 @@
-// import { forumService, threadService } from "@/api/client";
 // import Breadcrumbs from "@/components/Breadcrumbs";
 import { ThreadComponent } from "@/components/Thread";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Thread } from "@reactforums/core";
+import { threadQueries } from "@/features/threads/threads.query";
 
 export const Route = createFileRoute("/forum/$forumId/thread/$threadId")({
   loader: async ({ params }) => {
@@ -37,23 +36,9 @@ export const Route = createFileRoute("/forum/$forumId/thread/$threadId")({
 
 function RouteComponent() {
   const { params } = Route.useLoaderData();
-  async function fetchThreadById(id: string): Promise<Thread> {
-    const res = await fetch(
-      `/api/threads/query/by-id?id=${encodeURIComponent(id)}`,
-    );
-    const body = await res.json().catch(() => null);
-
-    if (!res.ok)
-      throw new Error(body?.error ?? `Request failed (${res.status})`);
-    return body as Thread;
-  }
 
   const { data: thread } = useQuery({
-    queryKey: [`thread-${params.threadId}`],
-    queryFn: async () => {
-      const res = await fetchThreadById(params.threadId);
-      return res;
-    },
+    ...threadQueries.byId(Number(params.threadId)),
   });
 
   if (!thread) return;

@@ -1,4 +1,4 @@
-import { User } from "@reactforums/core";
+import { userQueries } from "@/features/users/users.query";
 import { useQuery } from "@tanstack/react-query";
 
 export function PostContent(props: {
@@ -29,23 +29,9 @@ export function PostContent(props: {
 
 function EditLine(props: { editUserId: number; updatedAt: Date }) {
   const { editUserId, updatedAt } = props;
-  async function fetchUserById(id: number): Promise<User> {
-    const res = await fetch(
-      `/api/users/query/by-id?id=${encodeURIComponent(id)}`,
-    );
-    const body = await res.json().catch(() => null);
-
-    if (!res.ok)
-      throw new Error(body?.error ?? `Request failed (${res.status})`);
-    return body as User;
-  }
 
   const { data: userInfo } = useQuery({
-    queryKey: [`user-${editUserId}`],
-    queryFn: async () => {
-      const res = await fetchUserById(editUserId);
-      return res;
-    },
+    ...userQueries.byId(editUserId),
   });
 
   if (!userInfo) return;

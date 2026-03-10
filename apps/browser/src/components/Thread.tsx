@@ -1,29 +1,16 @@
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Post } from "@/components/posts/Post";
 import { Button } from "./ui/Button";
-import type { Posts, Thread } from "@reactforums/core";
-import React from "react";
+import { postQueries } from "@/features/posts/posts.query";
+import type { Thread } from "@reactforums/core";
 
 export function ThreadComponent(props: { thread: Thread }) {
   const { thread } = props;
   const postsPerPage = 10;
-  async function fetchPostByThreadId(id: number) {
-    const res = await fetch(
-      `/api/posts/query/by-thread?threadId=${encodeURIComponent(id)}&limit=${encodeURIComponent(postsPerPage)}`,
-    );
-    const body = await res.json().catch(() => null);
-
-    if (!res.ok)
-      throw new Error(body?.error ?? `Request failed (${res.status})`);
-    return body as Posts;
-  }
 
   const { data: posts } = useQuery({
-    queryKey: [`thread-${thread.id}-posts`],
-    queryFn: async () => {
-      const res = await fetchPostByThreadId(Number(thread.firstPostId));
-      return res;
-    },
+    ...postQueries.byThreadId(thread.id, postsPerPage),
   });
 
   if (!thread) return;

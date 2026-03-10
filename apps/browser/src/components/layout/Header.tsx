@@ -1,30 +1,16 @@
-import { Link } from "@tanstack/react-router";
-import Edges from "./Edges";
-import { SettingKey, Setting } from "@reactforums/core";
+import { SettingKey } from "@reactforums/core";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
+import { settingQueries } from "@/features/settings/settings.query";
+import Edges from "./Edges";
 
 export default function Header() {
-  async function fetchSettingByName(name: SettingKey): Promise<Setting> {
-    const res = await fetch(
-      `/api/settings/query/by-name?name=${encodeURIComponent(name)}`,
-    );
-    const body = await res.json().catch(() => null);
-
-    if (!res.ok)
-      throw new Error(body?.error ?? `Request failed (${res.status})`);
-    return body as Setting;
-  }
-
   const {
     data: boardName,
     isLoading,
     error,
   } = useQuery({
-    queryKey: [`setting-${SettingKey.BoardName}`],
-    queryFn: async () => {
-      const res = await fetchSettingByName(SettingKey.BoardName);
-      return res;
-    },
+    ...settingQueries.byName(SettingKey.BoardName),
   });
 
   const {
@@ -32,11 +18,7 @@ export default function Header() {
     isLoading: boardDescriptionLoading,
     error: boardDescriptionError,
   } = useQuery({
-    queryKey: [`setting-${SettingKey.BoardDescription}`],
-    queryFn: async () => {
-      const res = await fetchSettingByName(SettingKey.BoardDescription);
-      return res;
-    },
+    ...settingQueries.byName(SettingKey.BoardDescription),
   });
 
   if (isLoading || boardDescriptionLoading) return "Loading";
@@ -60,7 +42,10 @@ export default function Header() {
           <div className="flex flex-row items-center justify-between gap-4">
             <span>
               Welcome back,{" "}
-              <Link to="/users/$userId" params={{ userId: "Elegant Totality" }}>
+              <Link
+                to="/users/$username"
+                params={{ username: "Elegant Totality" }}
+              >
                 Elegant Totality
               </Link>
             </span>

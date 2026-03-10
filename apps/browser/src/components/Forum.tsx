@@ -4,28 +4,15 @@ import {
   formatDateTimeForForumDisplay,
   formatLastPostDateTime,
 } from "../../../common/utils/dates";
-import type { Forum, Thread, Threads } from "@reactforums/core";
+import type { Forum, Thread } from "@reactforums/core";
 import { useQuery } from "@tanstack/react-query";
+import { threadQueries } from "@/features/threads/threads.query";
 
 export function ForumComponent(forum: Forum) {
   const threadsPerPage = 10;
-  async function fetchThreadsByForumId(id: number): Promise<Threads> {
-    const res = await fetch(
-      `/api/threads/query/by-forum?forumId=${encodeURIComponent(id)}&limit=${encodeURIComponent(threadsPerPage)}`,
-    );
-    const body = await res.json().catch(() => null);
-
-    if (!res.ok)
-      throw new Error(body?.error ?? `Request failed (${res.status})`);
-    return body as Threads;
-  }
 
   const { data: threads } = useQuery({
-    queryKey: [`${forum.id}-threads-list`],
-    queryFn: async () => {
-      const res = await fetchThreadsByForumId(forum.id);
-      return res;
-    },
+    ...threadQueries.byForumId(forum.id, threadsPerPage),
   });
 
   if (!threads) return;

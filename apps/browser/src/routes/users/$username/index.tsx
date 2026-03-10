@@ -1,11 +1,11 @@
 // import { profileFieldsService, userService } from "@/api/client";
+import { userQueries } from "@/features/users/users.query";
 import { formatDateTimeForUserProfile } from "@reactforums/common/utils/dates";
 import { reputationClassStyle } from "@reactforums/common/utils/reputation";
-import { User, UserWithProfileFieldValues } from "@reactforums/core";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/users/$userId/")({
+export const Route = createFileRoute("/users/$username/")({
   loader: async ({ params }) => {
     return { params };
   },
@@ -15,23 +15,8 @@ export const Route = createFileRoute("/users/$userId/")({
 function RouteComponent() {
   const { params } = Route.useLoaderData();
 
-  async function fetchUserByUsername(username: string): Promise<User> {
-    const res = await fetch(
-      `/api/users/query/by-username?username=${encodeURIComponent(username)}`,
-    );
-    const body = await res.json().catch(() => null);
-
-    if (!res.ok)
-      throw new Error(body?.error ?? `Request failed (${res.status})`);
-    return body as User;
-  }
-
   const { data } = useQuery({
-    queryKey: [`user-${params.userId}`],
-    queryFn: async () => {
-      const res = await fetchUserByUsername(params.userId);
-      return res;
-    },
+    ...userQueries.byUsername(params.username),
   });
 
   // TODO: redirect
@@ -118,8 +103,8 @@ function RouteComponent() {
               <div className="border-b-2 border-stone-200 p-2">
                 <span className="font-bold">Reputation:</span>{" "}
                 <Link
-                  to="/users/$userId/reputation"
-                  params={{ userId: data.username }}
+                  to="/users/$username/reputation"
+                  params={{ username: data.username }}
                   className={`font-bold ${reputationClassStyle(data.reputation)}`}
                 >
                   {data.reputation}

@@ -21,9 +21,9 @@ import { Route as MemberlistRouteImport } from './routes/memberlist'
 import { Route as HelpRouteImport } from './routes/help'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
-import { Route as UsersUserIdIndexRouteImport } from './routes/users/$userId/index'
+import { Route as UsersUsernameIndexRouteImport } from './routes/users/$username/index'
 import { Route as ForumForumIdIndexRouteImport } from './routes/forum/$forumId/index'
-import { Route as UsersUserIdReputationRouteImport } from './routes/users/$userId/reputation'
+import { Route as UsersUsernameReputationRouteImport } from './routes/users/$username/reputation'
 import { Route as ForumForumIdThreadReplyRouteImport } from './routes/forum/$forumId/thread/reply'
 import { Route as ForumForumIdThreadNewRouteImport } from './routes/forum/$forumId/thread/new'
 import { Route as ForumForumIdThreadThreadIdRouteImport } from './routes/forum/$forumId/thread/$threadId'
@@ -90,9 +90,9 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UsersUserIdIndexRoute = UsersUserIdIndexRouteImport.update({
-  id: '/users/$userId/',
-  path: '/users/$userId/',
+const UsersUsernameIndexRoute = UsersUsernameIndexRouteImport.update({
+  id: '/users/$username/',
+  path: '/users/$username/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForumForumIdIndexRoute = ForumForumIdIndexRouteImport.update({
@@ -100,9 +100,9 @@ const ForumForumIdIndexRoute = ForumForumIdIndexRouteImport.update({
   path: '/forum/$forumId/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UsersUserIdReputationRoute = UsersUserIdReputationRouteImport.update({
-  id: '/users/$userId/reputation',
-  path: '/users/$userId/reputation',
+const UsersUsernameReputationRoute = UsersUsernameReputationRouteImport.update({
+  id: '/users/$username/reputation',
+  path: '/users/$username/reputation',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForumForumIdThreadReplyRoute = ForumForumIdThreadReplyRouteImport.update({
@@ -191,9 +191,9 @@ export interface FileRoutesByFullPath {
   '/team': typeof TeamRoute
   '/user-dashboard': typeof UserDashboardRoute
   '/admin': typeof AdminIndexRoute
-  '/users/$userId/reputation': typeof UsersUserIdReputationRoute
+  '/users/$username/reputation': typeof UsersUsernameReputationRoute
   '/forum/$forumId': typeof ForumForumIdIndexRoute
-  '/users/$userId': typeof UsersUserIdIndexRoute
+  '/users/$username': typeof UsersUsernameIndexRoute
   '/forum/$forumId/thread/$threadId': typeof ForumForumIdThreadThreadIdRouteWithChildren
   '/forum/$forumId/thread/new': typeof ForumForumIdThreadNewRoute
   '/forum/$forumId/thread/reply': typeof ForumForumIdThreadReplyRoute
@@ -210,9 +210,9 @@ export interface FileRoutesByTo {
   '/team': typeof TeamRoute
   '/user-dashboard': typeof UserDashboardRoute
   '/admin': typeof AdminIndexRoute
-  '/users/$userId/reputation': typeof UsersUserIdReputationRoute
+  '/users/$username/reputation': typeof UsersUsernameReputationRoute
   '/forum/$forumId': typeof ForumForumIdIndexRoute
-  '/users/$userId': typeof UsersUserIdIndexRoute
+  '/users/$username': typeof UsersUsernameIndexRoute
   '/forum/$forumId/thread/$threadId': typeof ForumForumIdThreadThreadIdRouteWithChildren
   '/forum/$forumId/thread/new': typeof ForumForumIdThreadNewRoute
   '/forum/$forumId/thread/reply': typeof ForumForumIdThreadReplyRoute
@@ -230,9 +230,9 @@ export interface FileRoutesById {
   '/team': typeof TeamRoute
   '/user-dashboard': typeof UserDashboardRoute
   '/admin/': typeof AdminIndexRoute
-  '/users/$userId/reputation': typeof UsersUserIdReputationRoute
+  '/users/$username/reputation': typeof UsersUsernameReputationRoute
   '/forum/$forumId/': typeof ForumForumIdIndexRoute
-  '/users/$userId/': typeof UsersUserIdIndexRoute
+  '/users/$username/': typeof UsersUsernameIndexRoute
   '/forum/$forumId/thread/$threadId': typeof ForumForumIdThreadThreadIdRouteWithChildren
   '/forum/$forumId/thread/new': typeof ForumForumIdThreadNewRoute
   '/forum/$forumId/thread/reply': typeof ForumForumIdThreadReplyRoute
@@ -251,9 +251,9 @@ export interface FileRouteTypes {
     | '/team'
     | '/user-dashboard'
     | '/admin'
-    | '/users/$userId/reputation'
+    | '/users/$username/reputation'
     | '/forum/$forumId'
-    | '/users/$userId'
+    | '/users/$username'
     | '/forum/$forumId/thread/$threadId'
     | '/forum/$forumId/thread/new'
     | '/forum/$forumId/thread/reply'
@@ -270,9 +270,9 @@ export interface FileRouteTypes {
     | '/team'
     | '/user-dashboard'
     | '/admin'
-    | '/users/$userId/reputation'
+    | '/users/$username/reputation'
     | '/forum/$forumId'
-    | '/users/$userId'
+    | '/users/$username'
     | '/forum/$forumId/thread/$threadId'
     | '/forum/$forumId/thread/new'
     | '/forum/$forumId/thread/reply'
@@ -289,9 +289,9 @@ export interface FileRouteTypes {
     | '/team'
     | '/user-dashboard'
     | '/admin/'
-    | '/users/$userId/reputation'
+    | '/users/$username/reputation'
     | '/forum/$forumId/'
-    | '/users/$userId/'
+    | '/users/$username/'
     | '/forum/$forumId/thread/$threadId'
     | '/forum/$forumId/thread/new'
     | '/forum/$forumId/thread/reply'
@@ -309,9 +309,9 @@ export interface RootRouteChildren {
   TeamRoute: typeof TeamRoute
   UserDashboardRoute: typeof UserDashboardRoute
   AdminIndexRoute: typeof AdminIndexRoute
-  UsersUserIdReputationRoute: typeof UsersUserIdReputationRoute
+  UsersUsernameReputationRoute: typeof UsersUsernameReputationRoute
   ForumForumIdIndexRoute: typeof ForumForumIdIndexRoute
-  UsersUserIdIndexRoute: typeof UsersUserIdIndexRoute
+  UsersUsernameIndexRoute: typeof UsersUsernameIndexRoute
   ForumForumIdThreadThreadIdRoute: typeof ForumForumIdThreadThreadIdRouteWithChildren
   ForumForumIdThreadNewRoute: typeof ForumForumIdThreadNewRoute
   ForumForumIdThreadReplyRoute: typeof ForumForumIdThreadReplyRoute
@@ -470,11 +470,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/users/$userId/': {
-      id: '/users/$userId/'
-      path: '/users/$userId'
-      fullPath: '/users/$userId'
-      preLoaderRoute: typeof UsersUserIdIndexRouteImport
+    '/users/$username/': {
+      id: '/users/$username/'
+      path: '/users/$username'
+      fullPath: '/users/$username'
+      preLoaderRoute: typeof UsersUsernameIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forum/$forumId/': {
@@ -484,11 +484,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForumForumIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/users/$userId/reputation': {
-      id: '/users/$userId/reputation'
-      path: '/users/$userId/reputation'
-      fullPath: '/users/$userId/reputation'
-      preLoaderRoute: typeof UsersUserIdReputationRouteImport
+    '/users/$username/reputation': {
+      id: '/users/$username/reputation'
+      path: '/users/$username/reputation'
+      fullPath: '/users/$username/reputation'
+      preLoaderRoute: typeof UsersUsernameReputationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forum/$forumId/thread/reply': {
@@ -615,9 +615,9 @@ const rootRouteChildren: RootRouteChildren = {
   TeamRoute: TeamRoute,
   UserDashboardRoute: UserDashboardRoute,
   AdminIndexRoute: AdminIndexRoute,
-  UsersUserIdReputationRoute: UsersUserIdReputationRoute,
+  UsersUsernameReputationRoute: UsersUsernameReputationRoute,
   ForumForumIdIndexRoute: ForumForumIdIndexRoute,
-  UsersUserIdIndexRoute: UsersUserIdIndexRoute,
+  UsersUsernameIndexRoute: UsersUsernameIndexRoute,
   ForumForumIdThreadThreadIdRoute: ForumForumIdThreadThreadIdRouteWithChildren,
   ForumForumIdThreadNewRoute: ForumForumIdThreadNewRoute,
   ForumForumIdThreadReplyRoute: ForumForumIdThreadReplyRoute,
