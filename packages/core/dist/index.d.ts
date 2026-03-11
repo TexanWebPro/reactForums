@@ -292,12 +292,14 @@ declare class UserService {
 interface SettingsRepository {
     getAllSettings(): Promise<Settings>;
     getSettingByName(name: string): Promise<Setting | undefined>;
+    getSettingsByNames(names: string[]): Promise<Settings | undefined>;
 }
 
 declare class SettingsService {
     private repository;
     constructor(repository: SettingsRepository);
     getByName(name: SettingKey): Promise<Setting | undefined>;
+    getByNames(names: SettingKey[]): Promise<Settings | undefined>;
 }
 
 declare class ProfileFieldsService {

@@ -221,6 +221,10 @@ var SettingsService = class {
     const setting = await this.repository.getSettingByName(name);
     return setting;
   }
+  async getByNames(names) {
+    const settings = await this.repository.getSettingsByNames(names);
+    return settings;
+  }
 };
 
 // src/services/profileFieldsService.ts

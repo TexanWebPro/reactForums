@@ -1,4 +1,4 @@
-import { Setting, SettingKey } from "../domain/models";
+import { Setting, SettingKey, Settings } from "../domain/models";
 import { SettingsRepository } from "../repositories/SettingsRepository";
 
 export class SettingsService {
@@ -7,5 +7,10 @@ export class SettingsService {
   async getByName(name: SettingKey): Promise<Setting | undefined> {
     const setting = await this.repository.getSettingByName(name);
     return setting;
+  }
+
+  async getByNames(names: SettingKey[]): Promise<Settings | undefined> {
+    const settings = await this.repository.getSettingsByNames(names);
+    return settings;
   }
 }
