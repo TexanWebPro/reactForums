@@ -101,9 +101,10 @@ interface User {
 }
 type Users = User[];
 interface ForumStats {
+    latestUser: Pick<User, "username">;
     threadCount: number;
     postCount: number;
-    memberCount: number;
+    userCount: number;
     mostOnlineAtOnce: number;
     mostOnlineAtOnceDate: Date;
 }
@@ -239,6 +240,7 @@ declare class ForumService {
 interface ThreadRepository {
     getAllThreadsInForum(forumId: number, limit: number): Promise<Threads>;
     getThreadById(threadId: number): Promise<Thread | undefined>;
+    countVisibleThreads(): Promise<number>;
 }
 
 declare class ThreadService {
@@ -252,6 +254,7 @@ interface PostRepository {
     getNPostsInThread(threadId: number, limit: number): Promise<Posts | undefined>;
     getPostById(postId: number): Promise<Post | undefined>;
     getPostReplies(postId: number): Promise<Posts | undefined>;
+    countVisiblePosts(): Promise<number>;
 }
 
 declare class PostService {
@@ -262,17 +265,20 @@ declare class PostService {
     getPostReplies(postId: number): Promise<Posts | undefined>;
 }
 
-declare class StatsService {
-    constructor();
-    getGlobalStats(): ForumStats;
-    rebuildStats(): void;
-}
-
 interface UserRepository {
     getLatestUser(): Promise<Pick<User, "username">>;
     getAllUsers(): Promise<Users>;
     getUserById(id: number): Promise<User>;
     getUserByUsername(username: string): Promise<User>;
+    countVisibleUsers(): Promise<number>;
+}
+
+declare class StatsService {
+    private users;
+    private threads;
+    private posts;
+    constructor(users: UserRepository, threads: ThreadRepository, posts: PostRepository);
+    getGlobalStats(): Promise<ForumStats>;
 }
 
 declare class UserService {

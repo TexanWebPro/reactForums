@@ -1,20 +1,30 @@
 import { ForumStats } from "../domain/models";
+import { UserRepository } from "../repositories/UserRepository";
+import { ThreadRepository } from "../repositories/ThreadRepository";
+import { PostRepository } from "../repositories/PostRepository";
 
 export class StatsService {
-  constructor() {}
+  constructor(
+    private users: UserRepository,
+    private threads: ThreadRepository,
+    private posts: PostRepository,
+  ) {}
 
-  getGlobalStats(): ForumStats {
+  async getGlobalStats(): Promise<ForumStats> {
+    const [userCount, threadCount, postCount, latestUser] = await Promise.all([
+      this.users.countVisibleUsers(),
+      this.threads.countVisibleThreads(),
+      this.posts.countVisiblePosts(),
+      this.users.getLatestUser(),
+    ]);
+
     return {
-      threadCount: 16,
-      postCount: 140,
-      memberCount: 4136121,
-      mostOnlineAtOnce: 42749,
-      mostOnlineAtOnceDate: new Date(),
+      latestUser,
+      userCount,
+      threadCount,
+      postCount,
+      mostOnlineAtOnce: 42749, // TODO: update after AuthService
+      mostOnlineAtOnceDate: new Date(), // TODO: update after AuthService
     };
-  }
-
-  // recalculate totals if data is out of sync
-  rebuildStats() {
-    return;
   }
 }

@@ -10,6 +10,7 @@ export interface UserRepository {
   getAllUsers(): Promise<Users>;
   getUserById(id: number): Promise<User>;
   getUserByUsername(username: string): Promise<User>;
+  countVisibleUsers(): Promise<number>;
   // getCustomProfileFieldsByUserId(
   //   id: number,
   // ): Promise<CustomProfileFieldsValue[]>;

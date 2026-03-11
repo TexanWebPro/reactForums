@@ -131,9 +131,10 @@ export interface User {
 export type Users = User[];
 
 export interface ForumStats {
+  latestUser: Pick<User, "username">;
   threadCount: number;
   postCount: number;
-  memberCount: number;
+  userCount: number;
   mostOnlineAtOnce: number;
   mostOnlineAtOnceDate: Date;
 }

@@ -7,4 +7,5 @@ export interface PostRepository {
   ): Promise<Posts | undefined>;
   getPostById(postId: number): Promise<Post | undefined>;
   getPostReplies(postId: number): Promise<Posts | undefined>;
+  countVisiblePosts(): Promise<number>;
 }

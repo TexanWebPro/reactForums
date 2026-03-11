@@ -152,20 +152,28 @@ var PostService = class {
 
 // src/services/statsService.ts
 var StatsService = class {
-  constructor() {
+  constructor(users, threads, posts) {
+    this.users = users;
+    this.threads = threads;
+    this.posts = posts;
   }
-  getGlobalStats() {
+  async getGlobalStats() {
+    const [userCount, threadCount, postCount, latestUser] = await Promise.all([
+      this.users.countVisibleUsers(),
+      this.threads.countVisibleThreads(),
+      this.posts.countVisiblePosts(),
+      this.users.getLatestUser()
+    ]);
     return {
-      threadCount: 16,
-      postCount: 140,
-      memberCount: 4136121,
+      latestUser,
+      userCount,
+      threadCount,
+      postCount,
       mostOnlineAtOnce: 42749,
+      // TODO: update after AuthService
       mostOnlineAtOnceDate: /* @__PURE__ */ new Date()
+      // TODO: update after AuthService
     };
-  }
-  // recalculate totals if data is out of sync
-  rebuildStats() {
-    return;
   }
 };
 
