@@ -177,13 +177,19 @@ var postSchema = pgTable5("rf_posts", {
 });
 
 // src/repositories/setting.ts
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 var DrizzleSettingRepository = class {
   db;
   schema;
   constructor(db, schema) {
     this.db = db;
     this.schema = schema;
+  }
+  async getSettingsByNames(names) {
+    const settingsTable = this.schema.settings;
+    const settings = await this.db.select().from(settingsTable).where(inArray(settingsTable.name, names));
+    if (!settings) return;
+    return settings.map((setting) => this.mapDbSettingToSetting(setting));
   }
   async getAllSettings() {
     const settingsTable = this.schema.settings;

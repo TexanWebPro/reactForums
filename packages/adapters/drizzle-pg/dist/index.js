@@ -181,6 +181,12 @@ var DrizzleSettingRepository = class {
     this.db = db;
     this.schema = schema;
   }
+  async getSettingsByNames(names) {
+    const settingsTable = this.schema.settings;
+    const settings = await this.db.select().from(settingsTable).where((0, import_drizzle_orm4.inArray)(settingsTable.name, names));
+    if (!settings) return;
+    return settings.map((setting) => this.mapDbSettingToSetting(setting));
+  }
   async getAllSettings() {
     const settingsTable = this.schema.settings;
     const allSettings = await this.db.select().from(settingsTable);
