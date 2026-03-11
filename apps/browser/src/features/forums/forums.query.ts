@@ -1,9 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import {
-  fetchForumBreadcrumbById,
-  fetchForumById,
-  fetchForumsByCategory,
-} from "./forums.api";
+import { fetchForumById, fetchForumsByCategory } from "./forums.api";
 
 export const forumKeys = {
   all: ["forums"] as const,
@@ -23,11 +19,5 @@ export const forumQueries = {
     queryOptions({
       queryKey: forumKeys.byCategory(),
       queryFn: () => fetchForumsByCategory(),
-    }),
-
-  breadcrumbById: (id: number) =>
-    queryOptions({
-      queryKey: forumKeys.breadcrumbById(id),
-      queryFn: () => fetchForumBreadcrumbById(id),
     }),
 };

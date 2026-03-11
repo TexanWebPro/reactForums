@@ -1,4 +1,6 @@
 // import { profileFieldsService, userService } from "@/api/client";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { fetchUserByUsername } from "@/features/users/users.api";
 import { userQueries } from "@/features/users/users.query";
 import { formatDateTimeForUserProfile } from "@reactforums/common/utils/dates";
 import { reputationClassStyle } from "@reactforums/common/utils/reputation";
@@ -7,13 +9,23 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/users/$username/")({
   loader: async ({ params }) => {
-    return { params };
+    const user = await fetchUserByUsername(params.username);
+
+    // build hierarchy
+    const crumbs = [
+      {
+        label: user.username,
+        href: `/users/${user.username}`,
+      },
+    ];
+
+    return { params, crumbs };
   },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { params } = Route.useLoaderData();
+  const { params, crumbs } = Route.useLoaderData();
 
   const { data } = useQuery({
     ...userQueries.byUsername(params.username),
@@ -24,10 +36,7 @@ function RouteComponent() {
 
   return (
     <div>
-      <span className="text-sm font-bold flex flex-row items-center justify-start gap-2 pb-4">
-        <Link to="/">rF Community Forums</Link>
-        <p>{`-> Profile of ${data.username}`}</p>
-      </span>
+      <Breadcrumbs crumbs={crumbs} />
 
       <div>
         <div className="flex flex-row items-center justify-between text-sm p-4 border-2 border-stone-200">
