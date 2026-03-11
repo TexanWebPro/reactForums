@@ -1,25 +1,32 @@
-// import { statsService, userService } from "@/api/client";
 import { Link } from "@tanstack/react-router";
 import { ForumStats } from "@reactforums/core";
 import { ForumStatsView } from "../../../common/models";
 import { formatNumber } from "../../../common/utils/numbers";
 import { formatDateTimeForStatsDisplay } from "../../../common/utils/dates";
+import { useQuery } from "@tanstack/react-query";
+import { statsQueries } from "@/features/stats/stats.query";
 
 export function Stats() {
-  // const unformattedStats = statsService.getGlobalStats();
-  // const latestUser = userService.latestUser();
+  const { data, isLoading, error } = useQuery({
+    ...statsQueries.globalStats(),
+  });
 
   function formatStats(stats: ForumStats): ForumStatsView {
     return {
+      latestUser: stats.latestUser,
       postCount: formatNumber(stats.postCount),
       threadCount: formatNumber(stats.threadCount),
-      memberCount: formatNumber(stats.memberCount),
+      memberCount: formatNumber(stats.userCount),
       mostOnlineAtOnce: formatNumber(stats.mostOnlineAtOnce),
       mostOnlineAtOnceDate: stats.mostOnlineAtOnceDate,
     };
   }
 
-  // const boardStats = formatStats(unformattedStats);
+  if (isLoading) return;
+  if (error) return;
+  if (!data) return;
+
+  const boardStats = formatStats(data);
 
   return (
     <>
@@ -29,7 +36,7 @@ export function Stats() {
         </span>
 
         <div className="p-4 border-2 border-stone-300 rounded-b-lg flex flex-col items-start justify-between text-sm gap-2">
-          {/* <p>
+          <p>
             Our members have made a total of {boardStats.postCount} posts in{" "}
             {boardStats.threadCount} threads.
           </p>
@@ -37,13 +44,13 @@ export function Stats() {
           <p>
             Please welcome our newest member,{" "}
             <Link to="/" className="text-sky-700 font-bold">
-              {latestUser.username}
+              {boardStats.latestUser.username}
             </Link>
           </p>
           <p>
             The most users online at one time was {boardStats.mostOnlineAtOnce}{" "}
             on {formatDateTimeForStatsDisplay(boardStats.mostOnlineAtOnceDate)}
-          </p> */}
+          </p>
         </div>
       </div>
     </>

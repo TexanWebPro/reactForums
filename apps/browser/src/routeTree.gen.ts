@@ -32,6 +32,7 @@ import { ServerRoute as ApiUsersQueryByUsernameServerRouteImport } from './route
 import { ServerRoute as ApiUsersQueryByIdServerRouteImport } from './routes/api/users/query/by-id'
 import { ServerRoute as ApiThreadsQueryByIdServerRouteImport } from './routes/api/threads/query/by-id'
 import { ServerRoute as ApiThreadsQueryByForumServerRouteImport } from './routes/api/threads/query/by-forum'
+import { ServerRoute as ApiStatsQueryAllStatsServerRouteImport } from './routes/api/stats/query/all-stats'
 import { ServerRoute as ApiSettingsQueryByNameServerRouteImport } from './routes/api/settings/query/by-name'
 import { ServerRoute as ApiPostsQueryByThreadServerRouteImport } from './routes/api/posts/query/by-thread'
 import { ServerRoute as ApiPostsQueryByIdServerRouteImport } from './routes/api/posts/query/by-id'
@@ -148,6 +149,12 @@ const ApiThreadsQueryByForumServerRoute =
   ApiThreadsQueryByForumServerRouteImport.update({
     id: '/api/threads/query/by-forum',
     path: '/api/threads/query/by-forum',
+    getParentRoute: () => rootServerRouteImport,
+  } as any)
+const ApiStatsQueryAllStatsServerRoute =
+  ApiStatsQueryAllStatsServerRouteImport.update({
+    id: '/api/stats/query/all-stats',
+    path: '/api/stats/query/all-stats',
     getParentRoute: () => rootServerRouteImport,
   } as any)
 const ApiSettingsQueryByNameServerRoute =
@@ -322,6 +329,7 @@ export interface FileServerRoutesByFullPath {
   '/api/posts/query/by-id': typeof ApiPostsQueryByIdServerRoute
   '/api/posts/query/by-thread': typeof ApiPostsQueryByThreadServerRoute
   '/api/settings/query/by-name': typeof ApiSettingsQueryByNameServerRoute
+  '/api/stats/query/all-stats': typeof ApiStatsQueryAllStatsServerRoute
   '/api/threads/query/by-forum': typeof ApiThreadsQueryByForumServerRoute
   '/api/threads/query/by-id': typeof ApiThreadsQueryByIdServerRoute
   '/api/users/query/by-id': typeof ApiUsersQueryByIdServerRoute
@@ -333,6 +341,7 @@ export interface FileServerRoutesByTo {
   '/api/posts/query/by-id': typeof ApiPostsQueryByIdServerRoute
   '/api/posts/query/by-thread': typeof ApiPostsQueryByThreadServerRoute
   '/api/settings/query/by-name': typeof ApiSettingsQueryByNameServerRoute
+  '/api/stats/query/all-stats': typeof ApiStatsQueryAllStatsServerRoute
   '/api/threads/query/by-forum': typeof ApiThreadsQueryByForumServerRoute
   '/api/threads/query/by-id': typeof ApiThreadsQueryByIdServerRoute
   '/api/users/query/by-id': typeof ApiUsersQueryByIdServerRoute
@@ -345,6 +354,7 @@ export interface FileServerRoutesById {
   '/api/posts/query/by-id': typeof ApiPostsQueryByIdServerRoute
   '/api/posts/query/by-thread': typeof ApiPostsQueryByThreadServerRoute
   '/api/settings/query/by-name': typeof ApiSettingsQueryByNameServerRoute
+  '/api/stats/query/all-stats': typeof ApiStatsQueryAllStatsServerRoute
   '/api/threads/query/by-forum': typeof ApiThreadsQueryByForumServerRoute
   '/api/threads/query/by-id': typeof ApiThreadsQueryByIdServerRoute
   '/api/users/query/by-id': typeof ApiUsersQueryByIdServerRoute
@@ -358,6 +368,7 @@ export interface FileServerRouteTypes {
     | '/api/posts/query/by-id'
     | '/api/posts/query/by-thread'
     | '/api/settings/query/by-name'
+    | '/api/stats/query/all-stats'
     | '/api/threads/query/by-forum'
     | '/api/threads/query/by-id'
     | '/api/users/query/by-id'
@@ -369,6 +380,7 @@ export interface FileServerRouteTypes {
     | '/api/posts/query/by-id'
     | '/api/posts/query/by-thread'
     | '/api/settings/query/by-name'
+    | '/api/stats/query/all-stats'
     | '/api/threads/query/by-forum'
     | '/api/threads/query/by-id'
     | '/api/users/query/by-id'
@@ -380,6 +392,7 @@ export interface FileServerRouteTypes {
     | '/api/posts/query/by-id'
     | '/api/posts/query/by-thread'
     | '/api/settings/query/by-name'
+    | '/api/stats/query/all-stats'
     | '/api/threads/query/by-forum'
     | '/api/threads/query/by-id'
     | '/api/users/query/by-id'
@@ -392,6 +405,7 @@ export interface RootServerRouteChildren {
   ApiPostsQueryByIdServerRoute: typeof ApiPostsQueryByIdServerRoute
   ApiPostsQueryByThreadServerRoute: typeof ApiPostsQueryByThreadServerRoute
   ApiSettingsQueryByNameServerRoute: typeof ApiSettingsQueryByNameServerRoute
+  ApiStatsQueryAllStatsServerRoute: typeof ApiStatsQueryAllStatsServerRoute
   ApiThreadsQueryByForumServerRoute: typeof ApiThreadsQueryByForumServerRoute
   ApiThreadsQueryByIdServerRoute: typeof ApiThreadsQueryByIdServerRoute
   ApiUsersQueryByIdServerRoute: typeof ApiUsersQueryByIdServerRoute
@@ -551,6 +565,13 @@ declare module '@tanstack/react-start/server' {
       preLoaderRoute: typeof ApiThreadsQueryByForumServerRouteImport
       parentRoute: typeof rootServerRouteImport
     }
+    '/api/stats/query/all-stats': {
+      id: '/api/stats/query/all-stats'
+      path: '/api/stats/query/all-stats'
+      fullPath: '/api/stats/query/all-stats'
+      preLoaderRoute: typeof ApiStatsQueryAllStatsServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
     '/api/settings/query/by-name': {
       id: '/api/settings/query/by-name'
       path: '/api/settings/query/by-name'
@@ -631,6 +652,7 @@ const rootServerRouteChildren: RootServerRouteChildren = {
   ApiPostsQueryByIdServerRoute: ApiPostsQueryByIdServerRoute,
   ApiPostsQueryByThreadServerRoute: ApiPostsQueryByThreadServerRoute,
   ApiSettingsQueryByNameServerRoute: ApiSettingsQueryByNameServerRoute,
+  ApiStatsQueryAllStatsServerRoute: ApiStatsQueryAllStatsServerRoute,
   ApiThreadsQueryByForumServerRoute: ApiThreadsQueryByForumServerRoute,
   ApiThreadsQueryByIdServerRoute: ApiThreadsQueryByIdServerRoute,
   ApiUsersQueryByIdServerRoute: ApiUsersQueryByIdServerRoute,
