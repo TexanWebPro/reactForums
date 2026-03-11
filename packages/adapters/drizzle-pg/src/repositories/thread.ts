@@ -14,6 +14,14 @@ export class DrizzleThreadRepository<TSchema extends ReactForumsDrizzleSchema>
     this.schema = schema;
   }
 
+  async countVisibleThreads(): Promise<number> {
+    const threadsTable = this.schema.threads;
+    const threads = await this.db.$count(threadsTable);
+
+    // TODO: clean this up to account for non-visible threads (isDraft=true;isApproved=false)
+    return threads;
+  }
+
   async getAllThreadsInForum(forumId: number, limit: number): Promise<Threads> {
     const threadsTable = this.schema.threads;
     const threads = await this.db

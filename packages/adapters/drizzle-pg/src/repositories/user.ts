@@ -19,6 +19,14 @@ export class DrizzleUserRepository<TSchema extends ReactForumsDrizzleSchema>
     this.schema = schema;
   }
 
+  async countVisibleUsers(): Promise<number> {
+    const usersTable = this.schema.users;
+    const users = await this.db.$count(usersTable);
+
+    // TODO: clean this up after adding user account activation
+    return users;
+  }
+
   async getAllUsers(): Promise<Users> {
     const usersTable = this.schema.users;
     const users = await this.db.select().from(usersTable);

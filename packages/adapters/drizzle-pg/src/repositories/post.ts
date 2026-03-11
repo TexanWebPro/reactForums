@@ -14,6 +14,14 @@ export class DrizzlePostRepository<TSchema extends ReactForumsDrizzleSchema>
     this.schema = schema;
   }
 
+  async countVisiblePosts(): Promise<number> {
+    const postsTable = this.schema.posts;
+    const posts = await this.db.$count(postsTable);
+
+    // TODO: clean this up to account for non-visible posts (isDraft=true;isApproved=false)
+    return posts;
+  }
+
   async getNPostsInThread(
     threadId: number,
     limit: number,

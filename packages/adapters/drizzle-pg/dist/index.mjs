@@ -217,6 +217,11 @@ var DrizzleUserRepository = class {
     this.db = db;
     this.schema = schema;
   }
+  async countVisibleUsers() {
+    const usersTable = this.schema.users;
+    const users = await this.db.$count(usersTable);
+    return users;
+  }
   async getAllUsers() {
     const usersTable = this.schema.users;
     const users = await this.db.select().from(usersTable);
@@ -286,6 +291,11 @@ var DrizzleThreadRepository = class {
     this.db = db;
     this.schema = schema;
   }
+  async countVisibleThreads() {
+    const threadsTable = this.schema.threads;
+    const threads = await this.db.$count(threadsTable);
+    return threads;
+  }
   async getAllThreadsInForum(forumId, limit) {
     const threadsTable = this.schema.threads;
     const threads = await this.db.select().from(threadsTable).where(eq4(threadsTable.forumId, forumId)).limit(limit);
@@ -314,6 +324,11 @@ var DrizzlePostRepository = class {
   constructor(db, schema) {
     this.db = db;
     this.schema = schema;
+  }
+  async countVisiblePosts() {
+    const postsTable = this.schema.posts;
+    const posts = await this.db.$count(postsTable);
+    return posts;
   }
   async getNPostsInThread(threadId, limit) {
     const postsTable = this.schema.posts;
