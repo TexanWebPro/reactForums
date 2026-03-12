@@ -131,7 +131,8 @@ export default function Header() {
               Mod CP
             </Link>
             <Link
-              to="/"
+              to="/admin"
+              target="_blank"
               className="flex flex-row items-center justify-between gap-1"
             >
               <img

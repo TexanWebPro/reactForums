@@ -1,6 +1,11 @@
 /// <reference types="vite/client" />
 import * as React from "react";
-import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
+import {
+  HeadContent,
+  Scripts,
+  createRootRoute,
+  useMatches,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { DefaultCatchBoundary } from "@/components/DefaultCatchBoundary";
@@ -9,6 +14,7 @@ import { Layout } from "@/components/layout";
 import appCss from "@/styles/app.css?url";
 import { seo } from "@/utils/seo";
 import { SettingKey } from "@reactforums/core";
+import { AdminLayout } from "@/components/layout/admin";
 
 export const Route = createRootRoute({
   head: async () => {
@@ -76,6 +82,10 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   const queryClient = new QueryClient();
+  const useAdminLayout = useMatches({
+    select: (matches) =>
+      !matches.some((m) => m.staticData?.adminLayout === true),
+  });
 
   return (
     <html>
@@ -84,7 +94,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <QueryClientProvider client={queryClient}>
-          <Layout>{children}</Layout>
+          {useAdminLayout ? (
+            <Layout>{children}</Layout>
+          ) : (
+            <AdminLayout>{children}</AdminLayout>
+          )}
           <TanStackRouterDevtools position="bottom-right" />
           <Scripts />
         </QueryClientProvider>
