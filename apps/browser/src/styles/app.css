@@ -19,4 +19,8 @@
   .using-mouse * {
     outline: none !important;
   }
+
+  :root {
+    --popover: #d6d3d1;
+  }
 }

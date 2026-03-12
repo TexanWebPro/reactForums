@@ -15,6 +15,7 @@ import appCss from "@/styles/app.css?url";
 import { seo } from "@/utils/seo";
 import { SettingKey } from "@reactforums/core";
 import { AdminLayout } from "@/components/layout/admin";
+import { Toaster } from "@/components/ui/sonner";
 
 export const Route = createRootRoute({
   head: async () => {
@@ -94,12 +95,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <QueryClientProvider client={queryClient}>
+          <Toaster />
           {useAdminLayout ? (
             <Layout>{children}</Layout>
           ) : (
             <AdminLayout>{children}</AdminLayout>
           )}
-          <TanStackRouterDevtools position="bottom-right" />
+          <TanStackRouterDevtools position="bottom-left" />
           <Scripts />
         </QueryClientProvider>
       </body>

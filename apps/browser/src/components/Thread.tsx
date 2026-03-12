@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Post } from "@/components/posts/Post";
-import { Button } from "./ui/Button";
+import { Button } from "./Button";
 import { postQueries } from "@/features/posts/posts.query";
 import type { Thread } from "@reactforums/core";
 

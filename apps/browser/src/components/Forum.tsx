@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Button } from "./ui/Button";
+import { Button } from "./Button";
 import {
   formatDateTimeForForumDisplay,
   formatLastPostDateTime,
