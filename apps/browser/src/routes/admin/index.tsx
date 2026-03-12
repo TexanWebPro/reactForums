@@ -1,3 +1,4 @@
+import { AdminCP } from "@/components/admin/AdminCP";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/admin/")({
@@ -7,5 +8,9 @@ export const Route = createFileRoute("/admin/")({
 });
 
 function RouteComponent() {
-  return <div>Hello "/admin/"!</div>;
+  return (
+    <>
+      <AdminCP />
+    </>
+  );
 }

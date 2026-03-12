@@ -8,7 +8,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
       <AdminHeader />
       <div className="flex flex-row gap-4">
         <AdminSidebarNav />
-        {children}
+        <div className="px-4 py-10 w-full">{children}</div>
       </div>
     </div>
   );
