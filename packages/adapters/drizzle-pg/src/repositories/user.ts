@@ -1,4 +1,5 @@
 import {
+  CreateUserInput,
   CustomProfileFieldsValue,
   User,
   UserRepository,
@@ -17,6 +18,17 @@ export class DrizzleUserRepository<TSchema extends ReactForumsDrizzleSchema>
   constructor(db: DrizzlePgDatabase, schema: TSchema) {
     this.db = db;
     this.schema = schema;
+  }
+
+  async createUser(input: CreateUserInput): Promise<User | undefined> {
+    const usersTable = this.schema.users;
+    const users = await this.db
+      .insert(usersTable)
+      .values({ ...input })
+      .returning();
+    const user = users[0];
+    if (!user) return;
+    return user as User;
   }
 
   async countVisibleUsers(): Promise<number> {

@@ -223,6 +223,13 @@ var DrizzleUserRepository = class {
     this.db = db;
     this.schema = schema;
   }
+  async createUser(input) {
+    const usersTable = this.schema.users;
+    const users = await this.db.insert(usersTable).values({ ...input }).returning();
+    const user = users[0];
+    if (!user) return;
+    return user;
+  }
   async countVisibleUsers() {
     const usersTable = this.schema.users;
     const users = await this.db.$count(usersTable);
