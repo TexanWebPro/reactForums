@@ -1,4 +1,5 @@
 import {
+  CreateUserInput,
   Reputation,
   User,
   UserProfileFieldValues,
@@ -22,6 +23,12 @@ export class UserService {
 
   async getUserByUsername(username: string): Promise<User | undefined> {
     const user = await this.repository.getUserByUsername(username);
+    if (!user) return;
+    return user;
+  }
+
+  async create(input: CreateUserInput): Promise<User | undefined> {
+    const user = await this.repository.createUser(input);
     if (!user) return;
     return user;
   }

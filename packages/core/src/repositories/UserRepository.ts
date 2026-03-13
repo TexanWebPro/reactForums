@@ -1,4 +1,5 @@
 import {
+  CreateUserInput,
   CustomProfileFieldsValue,
   Reputations,
   User,
@@ -16,4 +17,5 @@ export interface UserRepository {
   // ): Promise<CustomProfileFieldsValue[]>;
 
   // getUserReputations(userId: number): Promise<Reputations>;
+  createUser(input: CreateUserInput): Promise<User | undefined>;
 }

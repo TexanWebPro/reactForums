@@ -163,6 +163,11 @@ var UserService = class {
     if (!user) return;
     return user;
   }
+  async create(input) {
+    const user = await this.repository.createUser(input);
+    if (!user) return;
+    return user;
+  }
   // async getUserForProfileView(
   //   username: string,
   // ): Promise<UserWithProfileFieldValues | undefined> {

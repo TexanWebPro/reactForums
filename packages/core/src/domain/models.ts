@@ -89,6 +89,14 @@ export type OptionsCode =
 
 export type Settings = Setting[];
 
+export type CreateUserInput = {
+  username: string;
+  email: string;
+  password: string;
+  registrationIp: string;
+  lastIp: string;
+};
+
 export interface User {
   id: number;
   username: string;
@@ -266,3 +274,5 @@ export type UserProfileFieldValues = CustomProfileFieldsValue[];
 export type UserWithProfileFieldValues = User & {
   profileFields: UserProfileFieldValues;
 };
+
+export interface Message {}
