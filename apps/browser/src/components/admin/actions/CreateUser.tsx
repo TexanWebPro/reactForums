@@ -12,31 +12,27 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { useMutation } from "@tanstack/react-query";
+import { userMutations } from "@/features/users/users.query";
 
 const formSchema = z.object({
   username: z
     .string()
-    .min(5, "Bug title must be at least 5 characters.")
-    .max(32, "Bug title must be at most 32 characters."),
+    .min(5, "Username must be at least 5 characters.")
+    .max(32, "Username must be at most 32 characters."),
   email: z
     .string()
     .email()
-    .min(5, "Bug title must be at least 5 characters.")
-    .max(32, "Bug title must be at most 32 characters."),
+    .min(5, "Email must be at least 5 characters.")
+    .max(32, "Email must be at most 32 characters."),
 });
 
 export function CreateUser() {
-  const form = useForm({
-    defaultValues: {
-      username: "",
-      email: "",
-    },
-    validators: {
-      onSubmit: formSchema,
-    },
-    onSubmit: async ({ value }) => {
+  const createUserMutation = useMutation({
+    ...userMutations.create(),
+    onSuccess: (user) => {
       toast.success(
-        `You submitted the following values: ${value.username}, ${value.email}`,
+        `You've created a new user: ${user.username}, with the email ${user.email}`,
         {
           position: "bottom-right",
           classNames: {
@@ -47,6 +43,36 @@ export function CreateUser() {
           } as React.CSSProperties,
         },
       );
+    },
+    onError: (error) => {
+      toast.error(`Something went wrong: ${error.message}.`, {
+        position: "bottom-right",
+        classNames: {
+          content: "flex flex-col gap-2",
+        },
+        style: {
+          "--border-radius": "calc(var(--radius)  + 4px)",
+        } as React.CSSProperties,
+      });
+    },
+  });
+
+  const form = useForm({
+    defaultValues: {
+      username: "",
+      email: "",
+    },
+    validators: {
+      onSubmit: formSchema,
+    },
+    onSubmit: async ({ value }) => {
+      await createUserMutation.mutateAsync({
+        username: value.username,
+        email: value.email,
+        password: "pleaseClap",
+        registrationIp: "000.000.000",
+        lastIp: "000.000.000.000",
+      });
     },
   });
 
@@ -138,5 +164,3 @@ export function CreateUser() {
     </Card>
   );
 }
-
-// style="--front-toast-height: 51.5px; --width: 356px; --gap: 14px; --normal-bg: var(--popover); --normal-text: var(--popover-foreground); --normal-border: var(--border); --border-radius: var(--radius); --offset-top: 24px; --offset-right: 24px; --offset-bottom: 24px; --offset-left: 24px; --mobile-offset-top: 16px; --mobile-offset-right: 16px; --mobile-offset-bottom: 16px; --mobile-offset-left: 16px;"
