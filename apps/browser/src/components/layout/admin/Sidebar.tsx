@@ -1,12 +1,18 @@
 import { Link } from "@tanstack/react-router";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 export function AdminSidebarNav() {
+  // TODO: add open/close menu icons to collapsable menus
   return (
     <div className="w-1/6 bg-stone-200 flex flex-col text-sm">
       <span className="bg-sky-600 w-full p-4 py-2 font-bold text-stone-50 border-2 border-sky-800 flex flex-row items-center justify-start gap-2">
         Control Panel Menu
       </span>
-      <span className="flex flex-col items-start justify-between gap-2 w-full border-2 border-t-0 border-stone-400 rounded-b-lg">
+      <span className="flex flex-col items-start min-h-screen w-full border-2 border-t-0 border-stone-400 rounded-b-lg">
         <Link
           to="/user-dashboard"
           className="flex flex-row items-start justify-end gap-2 hover:underline px-4 pb-2 pt-4"
@@ -18,11 +24,14 @@ export function AdminSidebarNav() {
           />
           Administrator Control Panel
         </Link>
-        <span className="flex flex-col items-start justify-between gap-2 w-full border-t-2 border-stone-400">
-          <span className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400">
+        <Collapsible
+          className="flex flex-col items-start justify-between w-full border-t-2 border-stone-400"
+          defaultOpen
+        >
+          <CollapsibleTrigger className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400 text-left">
             Community
-          </span>
-          <span className="flex flex-col items-start justify-between gap-2 px-4 py-2">
+          </CollapsibleTrigger>
+          <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
               className="flex flex-row items-start justify-end gap-2 hover:underline"
@@ -67,13 +76,13 @@ export function AdminSidebarNav() {
               />
               Attachments
             </Link>
-          </span>
-        </span>
-        <span className="flex flex-col items-start justify-between gap-2 w-full border-t-2 border-stone-400">
-          <span className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400">
+          </CollapsibleContent>
+        </Collapsible>
+        <Collapsible className="flex flex-col items-start justify-between w-full border-t-2 border-stone-400">
+          <CollapsibleTrigger className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400 text-left">
             Members
-          </span>
-          <span className="flex flex-col items-start justify-between gap-2 px-4 py-2">
+          </CollapsibleTrigger>
+          <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
               className="flex flex-row items-start justify-end gap-2 hover:underline"
@@ -129,13 +138,13 @@ export function AdminSidebarNav() {
               />
               Warnings
             </Link>
-          </span>
-        </span>
-        <span className="flex flex-col items-start justify-between gap-2 w-full border-t-2 border-stone-400">
-          <span className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400">
+          </CollapsibleContent>
+        </Collapsible>
+        <Collapsible className="flex flex-col items-start justify-between w-full border-t-2 border-stone-400">
+          <CollapsibleTrigger className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400 text-left">
             Moderation
-          </span>
-          <span className="flex flex-col items-start justify-between gap-2 px-4 py-2">
+          </CollapsibleTrigger>
+          <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
               className="flex flex-row items-start justify-end gap-2 hover:underline"
@@ -191,13 +200,13 @@ export function AdminSidebarNav() {
               />
               Moderator Logs
             </Link>
-          </span>
-        </span>
-        <span className="flex flex-col items-start justify-between gap-2 w-full border-t-2 border-stone-400">
-          <span className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400">
+          </CollapsibleContent>
+        </Collapsible>
+        <Collapsible className="flex flex-col items-start justify-between w-full border-t-2 border-stone-400">
+          <CollapsibleTrigger className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400 text-left">
             Messaging
-          </span>
-          <span className="flex flex-col items-start justify-between gap-2 px-4 py-2">
+          </CollapsibleTrigger>
+          <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
               className="flex flex-row items-start justify-end gap-2 hover:underline"
@@ -231,13 +240,13 @@ export function AdminSidebarNav() {
               />
               Mailboxes
             </Link>
-          </span>
-        </span>
-        <span className="flex flex-col items-start justify-between gap-2 w-full border-t-2 border-stone-400">
-          <span className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400">
+          </CollapsibleContent>
+        </Collapsible>
+        <Collapsible className="flex flex-col items-start justify-between w-full border-t-2 border-stone-400">
+          <CollapsibleTrigger className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400 text-left">
             Customization
-          </span>
-          <span className="flex flex-col items-start justify-between gap-2 px-4 py-2">
+          </CollapsibleTrigger>
+          <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
               className="flex flex-row items-start justify-end gap-2 hover:underline"
@@ -293,13 +302,13 @@ export function AdminSidebarNav() {
               />
               Homepage
             </Link>
-          </span>
-        </span>
-        <span className="flex flex-col items-start justify-between gap-2 w-full border-t-2 border-stone-400">
-          <span className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400">
+          </CollapsibleContent>
+        </Collapsible>
+        <Collapsible className="flex flex-col items-start justify-between w-full border-t-2 border-stone-400">
+          <CollapsibleTrigger className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400 text-left">
             Configuration
-          </span>
-          <span className="flex flex-col items-start justify-between gap-2 px-4 py-2">
+          </CollapsibleTrigger>
+          <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
               className="flex flex-row items-start justify-end gap-2 hover:underline"
@@ -366,13 +375,13 @@ export function AdminSidebarNav() {
               />
               Caching
             </Link>
-          </span>
-        </span>
-        <span className="flex flex-col items-start justify-between gap-2 w-full border-t-2 border-stone-400">
-          <span className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400">
+          </CollapsibleContent>
+        </Collapsible>
+        <Collapsible className="flex flex-col items-start justify-between w-full border-t-2 border-stone-400">
+          <CollapsibleTrigger className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400 text-left">
             Extensions
-          </span>
-          <span className="flex flex-col items-start justify-between gap-2 px-4 py-2">
+          </CollapsibleTrigger>
+          <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
               className="flex flex-row items-start justify-end gap-2 hover:underline"
@@ -384,13 +393,13 @@ export function AdminSidebarNav() {
               />
               Plugins
             </Link>
-          </span>
-        </span>
-        <span className="flex flex-col items-start justify-between gap-2 w-full border-t-2 border-stone-400">
-          <span className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400">
+          </CollapsibleContent>
+        </Collapsible>
+        <Collapsible className="flex flex-col items-start justify-between w-full border-t-2 border-stone-400">
+          <CollapsibleTrigger className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400 text-left">
             System
-          </span>
-          <span className="flex flex-col items-start justify-between gap-2 px-4 py-2">
+          </CollapsibleTrigger>
+          <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
               className="flex flex-row items-start justify-end gap-2 hover:underline"
@@ -435,13 +444,13 @@ export function AdminSidebarNav() {
               />
               Database Health
             </Link>
-          </span>
-        </span>
-        <span className="flex flex-col items-start justify-between gap-2 w-full border-t-2 border-stone-400">
-          <span className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400">
+          </CollapsibleContent>
+        </Collapsible>
+        <Collapsible className="flex flex-col items-start justify-between w-full border-t-2 border-stone-400">
+          <CollapsibleTrigger className="bg-stone-300 w-full px-4 py-2 font-bold border-b-2 border-stone-400 text-left">
             Administration
-          </span>
-          <span className="flex flex-col items-start justify-between gap-2 px-4 py-2">
+          </CollapsibleTrigger>
+          <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
               className="flex flex-row items-start justify-end gap-2 hover:underline"
@@ -486,8 +495,8 @@ export function AdminSidebarNav() {
               />
               Audit Log
             </Link>
-          </span>
-        </span>
+          </CollapsibleContent>
+        </Collapsible>
       </span>
     </div>
   );
