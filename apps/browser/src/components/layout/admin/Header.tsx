@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import { CreateUserModal } from "@/components/admin/actions/CreateUserModal";
+import { Link } from "@tanstack/react-router";
 
 export default function AdminHeader() {
   const [openDialog, setOpenDialog] = useState<
@@ -52,7 +53,9 @@ export default function AdminHeader() {
                   <DropdownMenuItem>Announcement</DropdownMenuItem>
                   <DropdownMenuItem>Private Mail</DropdownMenuItem>
                   <DropdownMenuItem>Thread</DropdownMenuItem>
-                  <DropdownMenuItem>Forum</DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link to="/admin/forums">Forum</Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem onSelect={() => setOpenDialog("user")}>
                     User
                   </DropdownMenuItem>

@@ -21,6 +21,7 @@ import { Route as MemberlistRouteImport } from './routes/memberlist'
 import { Route as HelpRouteImport } from './routes/help'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminForumsRouteImport } from './routes/admin/forums'
 import { Route as UsersUsernameIndexRouteImport } from './routes/users/$username/index'
 import { Route as ForumForumIdIndexRouteImport } from './routes/forum/$forumId/index'
 import { Route as UsersUsernameReputationRouteImport } from './routes/users/$username/reputation'
@@ -91,6 +92,11 @@ const IndexRoute = IndexRouteImport.update({
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminForumsRoute = AdminForumsRouteImport.update({
+  id: '/admin/forums',
+  path: '/admin/forums',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UsersUsernameIndexRoute = UsersUsernameIndexRouteImport.update({
@@ -211,6 +217,7 @@ export interface FileRoutesByFullPath {
   '/search': typeof SearchRoute
   '/team': typeof TeamRoute
   '/user-dashboard': typeof UserDashboardRoute
+  '/admin/forums': typeof AdminForumsRoute
   '/admin': typeof AdminIndexRoute
   '/users/$username/reputation': typeof UsersUsernameReputationRoute
   '/forum/$forumId': typeof ForumForumIdIndexRoute
@@ -230,6 +237,7 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/team': typeof TeamRoute
   '/user-dashboard': typeof UserDashboardRoute
+  '/admin/forums': typeof AdminForumsRoute
   '/admin': typeof AdminIndexRoute
   '/users/$username/reputation': typeof UsersUsernameReputationRoute
   '/forum/$forumId': typeof ForumForumIdIndexRoute
@@ -250,6 +258,7 @@ export interface FileRoutesById {
   '/search': typeof SearchRoute
   '/team': typeof TeamRoute
   '/user-dashboard': typeof UserDashboardRoute
+  '/admin/forums': typeof AdminForumsRoute
   '/admin/': typeof AdminIndexRoute
   '/users/$username/reputation': typeof UsersUsernameReputationRoute
   '/forum/$forumId/': typeof ForumForumIdIndexRoute
@@ -271,6 +280,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/team'
     | '/user-dashboard'
+    | '/admin/forums'
     | '/admin'
     | '/users/$username/reputation'
     | '/forum/$forumId'
@@ -290,6 +300,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/team'
     | '/user-dashboard'
+    | '/admin/forums'
     | '/admin'
     | '/users/$username/reputation'
     | '/forum/$forumId'
@@ -309,6 +320,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/team'
     | '/user-dashboard'
+    | '/admin/forums'
     | '/admin/'
     | '/users/$username/reputation'
     | '/forum/$forumId/'
@@ -329,6 +341,7 @@ export interface RootRouteChildren {
   SearchRoute: typeof SearchRoute
   TeamRoute: typeof TeamRoute
   UserDashboardRoute: typeof UserDashboardRoute
+  AdminForumsRoute: typeof AdminForumsRoute
   AdminIndexRoute: typeof AdminIndexRoute
   UsersUsernameReputationRoute: typeof UsersUsernameReputationRoute
   ForumForumIdIndexRoute: typeof ForumForumIdIndexRoute
@@ -512,6 +525,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/forums': {
+      id: '/admin/forums'
+      path: '/admin/forums'
+      fullPath: '/admin/forums'
+      preLoaderRoute: typeof AdminForumsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/users/$username/': {
       id: '/users/$username/'
       path: '/users/$username'
@@ -677,6 +697,7 @@ const rootRouteChildren: RootRouteChildren = {
   SearchRoute: SearchRoute,
   TeamRoute: TeamRoute,
   UserDashboardRoute: UserDashboardRoute,
+  AdminForumsRoute: AdminForumsRoute,
   AdminIndexRoute: AdminIndexRoute,
   UsersUsernameReputationRoute: UsersUsernameReputationRoute,
   ForumForumIdIndexRoute: ForumForumIdIndexRoute,

@@ -43,7 +43,11 @@ export function Stats() {
           <p>We currently have {boardStats.memberCount} members registered.</p>
           <p>
             Please welcome our newest member,{" "}
-            <Link to="/" className="text-sky-700 font-bold">
+            <Link
+              to="/users/$username"
+              params={{ username: boardStats.latestUser.username }}
+              className="text-sky-700 font-bold"
+            >
               {boardStats.latestUser.username}
             </Link>
           </p>
