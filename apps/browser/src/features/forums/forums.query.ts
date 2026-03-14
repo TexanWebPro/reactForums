@@ -1,5 +1,10 @@
-import { queryOptions } from "@tanstack/react-query";
-import { fetchForumById, fetchForumsByCategory } from "./forums.api";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
+import {
+  fetchForumById,
+  fetchForumsByCategory,
+  createForum,
+} from "./forums.api";
+import { CreateForumInput } from "@reactforums/core";
 
 export const forumKeys = {
   all: ["forums"] as const,
@@ -19,5 +24,15 @@ export const forumQueries = {
     queryOptions({
       queryKey: forumKeys.byCategory(),
       queryFn: () => fetchForumsByCategory(),
+    }),
+};
+
+export const forumMutations = {
+  create: () =>
+    mutationOptions({
+      mutationFn: (input: CreateForumInput) => createForum(input),
+      onSuccess: () => {
+        // cache invalidation
+      },
     }),
 };

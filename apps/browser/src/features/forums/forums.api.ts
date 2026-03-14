@@ -1,5 +1,10 @@
-import type { Forum, Forums, ForumTreeNode } from "@reactforums/core";
-import { getJson } from "@/lib/http";
+import type {
+  CreateForumInput,
+  Forum,
+  Forums,
+  ForumTreeNode,
+} from "@reactforums/core";
+import { getJson, postJson } from "@/lib/http";
 
 export async function fetchForumById(
   id: number,
@@ -9,4 +14,8 @@ export async function fetchForumById(
 
 export async function fetchForumsByCategory(): Promise<Forums> {
   return getJson<Forums>(`/api/forums/query/by-category`);
+}
+
+export async function createForum(input: CreateForumInput): Promise<Forum> {
+  return postJson<Forum, CreateForumInput>("/api/forums/command/create", input);
 }

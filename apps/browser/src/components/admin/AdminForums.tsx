@@ -1,7 +1,8 @@
 import { ForumTreeNode } from "@reactforums/core";
 import { Link } from "@tanstack/react-router";
-import { ForumDisplay } from "../ForumDisplay";
 import { Button } from "../ui/button";
+// import {useSortable} from '@dnd-kit/react/sortable';
+// useSortable to allow drag and drop for displayOrder updating.
 
 export function AdminForums(props: { forums: ForumTreeNode[] }) {
   const { forums } = props;
@@ -11,14 +12,16 @@ export function AdminForums(props: { forums: ForumTreeNode[] }) {
       <div className="w-full bg-stone-200 flex flex-col rounded-lg text-sm">
         <span className="bg-sky-600 w-full p-4 py-2 font-bold text-stone-50 border-2 border-sky-800 rounded-t-lg flex flex-row items-center justify-between gap-2">
           <span>Forums</span>
-          <Button className="border-2 border-black">
-            <img
-              src="/images/icons/plus-white.svg"
-              alt="Create"
-              className="h-4"
-            />
-            Add New
-          </Button>
+          <Link to="/admin/forums/new">
+            <Button className="border-2 border-black">
+              <img
+                src="/images/icons/plus-white.svg"
+                alt="Create"
+                className="h-4"
+              />
+              Add New
+            </Button>
+          </Link>
         </span>
         <div className="flex flex-col items-center justify-between text-sm p-4 border-2 border-t-0 border-stone-500 bg-stone-200 rounded-b-lg">
           {forums?.map((forum) => {
@@ -52,8 +55,17 @@ function CategoryDisplay(props: {
   return (
     <>
       <div className="w-full bg-stone-200 flex flex-col rounded-lg text-sm mb-4">
-        <span className="bg-sky-600 w-full p-4 py-2 font-bold text-stone-50 border-2 border-sky-800 rounded-lg flex flex-row items-center justify-start gap-2">
+        <span className="bg-sky-600 w-full p-4 py-2 font-bold text-stone-50 border-2 border-sky-800 rounded-lg flex flex-row items-center justify-between gap-2">
           <span className="hover:underline text-lg">{categoryName}</span>
+          <span>
+            <Link to="/" className="text-sky-700 font-bold">
+              <img
+                src="/images/icons/pencil.svg"
+                alt="Edit Forum"
+                className="h-4"
+              />
+            </Link>
+          </span>
         </span>
         {forums.map((board, i) => {
           return (
