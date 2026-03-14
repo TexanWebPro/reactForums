@@ -15,9 +15,9 @@ export const forumSchema = pgTable("rf_forums", {
   description: text("description").notNull(),
   linkTo: text("link_to"),
   password: text("password"),
-  displayOrder: integer("display_order").notNull(),
-  threadCount: integer("thread_count").notNull(),
-  postCount: integer("post_count").notNull(),
+  displayOrder: integer("display_order").notNull().default(0),
+  threadCount: integer("thread_count").notNull().default(0),
+  postCount: integer("post_count").notNull().default(0),
   lastPostTime: date("last_post_time"),
   lastPostAuthor: text("last_post_author"), // lastPostAuthor: "uuid", // user ID
   lastPostThreadId: integer("last_post_thread_id"),

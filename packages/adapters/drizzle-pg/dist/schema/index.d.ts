@@ -935,7 +935,7 @@ declare const forumSchema: drizzle_orm_pg_core.PgTableWithColumns<{
             data: number;
             driverParam: string | number;
             notNull: true;
-            hasDefault: false;
+            hasDefault: true;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
@@ -952,7 +952,7 @@ declare const forumSchema: drizzle_orm_pg_core.PgTableWithColumns<{
             data: number;
             driverParam: string | number;
             notNull: true;
-            hasDefault: false;
+            hasDefault: true;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
@@ -969,7 +969,7 @@ declare const forumSchema: drizzle_orm_pg_core.PgTableWithColumns<{
             data: number;
             driverParam: string | number;
             notNull: true;
-            hasDefault: false;
+            hasDefault: true;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;

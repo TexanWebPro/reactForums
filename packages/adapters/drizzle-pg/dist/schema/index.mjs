@@ -77,9 +77,9 @@ var forumSchema = pgTable3("rf_forums", {
   description: text("description").notNull(),
   linkTo: text("link_to"),
   password: text("password"),
-  displayOrder: integer3("display_order").notNull(),
-  threadCount: integer3("thread_count").notNull(),
-  postCount: integer3("post_count").notNull(),
+  displayOrder: integer3("display_order").notNull().default(0),
+  threadCount: integer3("thread_count").notNull().default(0),
+  postCount: integer3("post_count").notNull().default(0),
   lastPostTime: date("last_post_time"),
   lastPostAuthor: text("last_post_author"),
   // lastPostAuthor: "uuid", // user ID

@@ -80,9 +80,9 @@ var forumSchema = pgTable3("rf_forums", {
   description: text("description").notNull(),
   linkTo: text("link_to"),
   password: text("password"),
-  displayOrder: integer3("display_order").notNull(),
-  threadCount: integer3("thread_count").notNull(),
-  postCount: integer3("post_count").notNull(),
+  displayOrder: integer3("display_order").notNull().default(0),
+  threadCount: integer3("thread_count").notNull().default(0),
+  postCount: integer3("post_count").notNull().default(0),
   lastPostTime: date("last_post_time"),
   lastPostAuthor: text("last_post_author"),
   // lastPostAuthor: "uuid", // user ID
@@ -269,6 +269,13 @@ var DrizzleForumRepository = class {
   constructor(db, schema) {
     this.db = db;
     this.schema = schema;
+  }
+  async createForum(input) {
+    const forumsTable = this.schema.forums;
+    const forums = await this.db.insert(forumsTable).values(input).returning();
+    const forum = forums[0];
+    if (!forum) return;
+    return this.mapDbForumToForum(forum);
   }
   async getAllForums() {
     const forumsTable = this.schema.forums;

@@ -1,4 +1,9 @@
-import { Forum, ForumRepository, Forums } from "@reactforums/core";
+import {
+  CreateForumInput,
+  Forum,
+  ForumRepository,
+  Forums,
+} from "@reactforums/core";
 import { eq } from "drizzle-orm";
 import { DrizzlePgDatabase } from "src/types";
 import { ReactForumsDrizzleSchema } from "src";
@@ -13,6 +18,16 @@ export class DrizzleForumRepository<TSchema extends ReactForumsDrizzleSchema>
     this.db = db;
     this.schema = schema;
   }
+
+  async createForum(input: CreateForumInput): Promise<Forum | undefined> {
+    const forumsTable = this.schema.forums;
+    const forums = await this.db.insert(forumsTable).values(input).returning();
+
+    const forum = forums[0];
+    if (!forum) return;
+    return this.mapDbForumToForum(forum);
+  }
+
   async getAllForums(): Promise<Forums> {
     const forumsTable = this.schema.forums;
     const forums = await this.db.select().from(forumsTable);

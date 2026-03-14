@@ -946,7 +946,7 @@ declare const defaultSchema: {
                 data: number;
                 driverParam: string | number;
                 notNull: true;
-                hasDefault: false;
+                hasDefault: true;
                 isPrimaryKey: false;
                 isAutoincrement: false;
                 hasRuntimeDefault: false;
@@ -963,7 +963,7 @@ declare const defaultSchema: {
                 data: number;
                 driverParam: string | number;
                 notNull: true;
-                hasDefault: false;
+                hasDefault: true;
                 isPrimaryKey: false;
                 isAutoincrement: false;
                 hasRuntimeDefault: false;
@@ -980,7 +980,7 @@ declare const defaultSchema: {
                 data: number;
                 driverParam: string | number;
                 notNull: true;
-                hasDefault: false;
+                hasDefault: true;
                 isPrimaryKey: false;
                 isAutoincrement: false;
                 hasRuntimeDefault: false;
