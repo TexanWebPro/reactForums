@@ -178,6 +178,13 @@ export interface Forum {
 
 export type Forums = Forum[];
 
+export interface CreateForumInput {
+  isCategory: boolean;
+  parentForumId?: number;
+  name: string;
+  description: string;
+}
+
 export interface ForumTreeNode extends Forum {
   children?: ForumTreeNode[];
 }

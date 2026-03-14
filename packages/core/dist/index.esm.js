@@ -73,6 +73,10 @@ var ForumService = class {
     };
     return forumWithChildren;
   }
+  async create(input) {
+    const forum = await this.repository.createForum(input);
+    return forum;
+  }
   buildTree(forums, parentId = null) {
     return forums.filter((f) => f.parentForumId === parentId).map((f) => ({ ...f, children: this.buildTree(forums, f.id) }));
   }

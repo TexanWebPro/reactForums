@@ -1,4 +1,9 @@
-import { Forums, ForumTreeNode } from "../domain/models";
+import {
+  CreateForumInput,
+  Forum,
+  Forums,
+  ForumTreeNode,
+} from "../domain/models";
 import type { ForumRepository } from "../repositories/ForumRepository";
 
 export class ForumService {
@@ -23,6 +28,11 @@ export class ForumService {
       children: this.buildTree(forums, forum.id),
     };
     return forumWithChildren;
+  }
+
+  async create(input: CreateForumInput): Promise<Forum | undefined> {
+    const forum = await this.repository.createForum(input);
+    return forum;
   }
 
   buildTree(forums: Forums, parentId: number | null = null): ForumTreeNode[] {
