@@ -95,6 +95,10 @@ var ThreadService = class {
     const threads = await this.repository.getThreadById(threadId);
     return threads;
   }
+  async create(input) {
+    const thread = await this.repository.createThread(input);
+    return thread;
+  }
 };
 
 // src/services/postService.ts

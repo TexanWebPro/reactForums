@@ -221,6 +221,13 @@ export interface Thread {
 
 export type Threads = Thread[];
 
+export interface CreateThreadInput {
+  forumId: number;
+  subject: string;
+  userId: number;
+  username: string;
+}
+
 export interface Post {
   id: number;
   threadId: number;

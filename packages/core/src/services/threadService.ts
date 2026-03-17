@@ -1,4 +1,4 @@
-import { Thread, Threads } from "../domain/models";
+import { CreateThreadInput, Thread, Threads } from "../domain/models";
 import type { ThreadRepository } from "../repositories/ThreadRepository";
 
 export class ThreadService {
@@ -15,5 +15,10 @@ export class ThreadService {
   async getThreadById(threadId: number): Promise<Thread | undefined> {
     const threads = await this.repository.getThreadById(threadId);
     return threads;
+  }
+
+  async create(input: CreateThreadInput): Promise<Thread | undefined> {
+    const thread = await this.repository.createThread(input);
+    return thread;
   }
 }

@@ -183,6 +183,12 @@ interface Thread {
     deletedAt: Date | null;
 }
 type Threads = Thread[];
+interface CreateThreadInput {
+    forumId: number;
+    subject: string;
+    userId: number;
+    username: string;
+}
 interface Post {
     id: number;
     threadId: number;
@@ -255,6 +261,7 @@ declare class ForumService {
 }
 
 interface ThreadRepository {
+    createThread(input: CreateThreadInput): Promise<Thread | undefined>;
     getAllThreadsInForum(forumId: number, limit: number): Promise<Threads>;
     getThreadById(threadId: number): Promise<Thread | undefined>;
     countVisibleThreads(): Promise<number>;
@@ -265,6 +272,7 @@ declare class ThreadService {
     constructor(repository: ThreadRepository);
     getLastNThreadsInForum(forumId: number, limit: number): Promise<Threads>;
     getThreadById(threadId: number): Promise<Thread | undefined>;
+    create(input: CreateThreadInput): Promise<Thread | undefined>;
 }
 
 interface PostRepository {
@@ -343,4 +351,4 @@ interface ReactForumsAdapterInput {
 
 declare function createForumAdapter(input: ReactForumsAdapterInput): ReactForumsAdapter;
 
-export { type CreateForumInput, type CreateUserInput, type CustomProfileField, type CustomProfileFields, type CustomProfileFieldsValue, type Forum, type ForumRepository, ForumService, type ForumStats, type ForumTreeNode, type Forums, type Message, type OptionsCode, type Post, type PostRepository, PostService, type Posts, ProfileFieldsService, type ReactForumsAdapter, type ReactForumsAdapterInput, type Reputation, type Reputations, type Setting, SettingKey, type Settings, type SettingsRepository, SettingsService, StatsService, type Thread, type ThreadRepository, ThreadService, type Threads, type User, type UserProfileFieldValues, type UserRepository, UserService, type UserWithProfileFieldValues, type Users, createForumAdapter };
+export { type CreateForumInput, type CreateThreadInput, type CreateUserInput, type CustomProfileField, type CustomProfileFields, type CustomProfileFieldsValue, type Forum, type ForumRepository, ForumService, type ForumStats, type ForumTreeNode, type Forums, type Message, type OptionsCode, type Post, type PostRepository, PostService, type Posts, ProfileFieldsService, type ReactForumsAdapter, type ReactForumsAdapterInput, type Reputation, type Reputations, type Setting, SettingKey, type Settings, type SettingsRepository, SettingsService, StatsService, type Thread, type ThreadRepository, ThreadService, type Threads, type User, type UserProfileFieldValues, type UserRepository, UserService, type UserWithProfileFieldValues, type Users, createForumAdapter };
