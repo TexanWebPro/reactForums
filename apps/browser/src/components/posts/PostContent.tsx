@@ -1,4 +1,5 @@
 import { userQueries } from "@/features/users/users.query";
+import { parseHtml } from "@/utils/parseHtml";
 import { useQuery } from "@tanstack/react-query";
 
 export function PostContent(props: {
@@ -22,7 +23,7 @@ export function PostContent(props: {
         )}
       </span>
 
-      <div className="p-4 text-base">{content}</div>
+      <div className="p-4 text-base">{parseHtml(content)}</div>
     </>
   );
 }

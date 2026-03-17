@@ -42,6 +42,7 @@ import { ServerRoute as ApiSettingsQueryByNamesServerRouteImport } from './route
 import { ServerRoute as ApiSettingsQueryByNameServerRouteImport } from './routes/api/settings/query/by-name'
 import { ServerRoute as ApiPostsQueryByThreadServerRouteImport } from './routes/api/posts/query/by-thread'
 import { ServerRoute as ApiPostsQueryByIdServerRouteImport } from './routes/api/posts/query/by-id'
+import { ServerRoute as ApiPostsCommandCreateServerRouteImport } from './routes/api/posts/command/create'
 import { ServerRoute as ApiForumsQueryByIdServerRouteImport } from './routes/api/forums/query/by-id'
 import { ServerRoute as ApiForumsQueryByCategoryServerRouteImport } from './routes/api/forums/query/by-category'
 import { ServerRoute as ApiForumsCommandCreateServerRouteImport } from './routes/api/forums/command/create'
@@ -214,6 +215,12 @@ const ApiPostsQueryByIdServerRoute = ApiPostsQueryByIdServerRouteImport.update({
   path: '/api/posts/query/by-id',
   getParentRoute: () => rootServerRouteImport,
 } as any)
+const ApiPostsCommandCreateServerRoute =
+  ApiPostsCommandCreateServerRouteImport.update({
+    id: '/api/posts/command/create',
+    path: '/api/posts/command/create',
+    getParentRoute: () => rootServerRouteImport,
+  } as any)
 const ApiForumsQueryByIdServerRoute =
   ApiForumsQueryByIdServerRouteImport.update({
     id: '/api/forums/query/by-id',
@@ -394,6 +401,7 @@ export interface FileServerRoutesByFullPath {
   '/api/forums/command/create': typeof ApiForumsCommandCreateServerRoute
   '/api/forums/query/by-category': typeof ApiForumsQueryByCategoryServerRoute
   '/api/forums/query/by-id': typeof ApiForumsQueryByIdServerRoute
+  '/api/posts/command/create': typeof ApiPostsCommandCreateServerRoute
   '/api/posts/query/by-id': typeof ApiPostsQueryByIdServerRoute
   '/api/posts/query/by-thread': typeof ApiPostsQueryByThreadServerRoute
   '/api/settings/query/by-name': typeof ApiSettingsQueryByNameServerRoute
@@ -410,6 +418,7 @@ export interface FileServerRoutesByTo {
   '/api/forums/command/create': typeof ApiForumsCommandCreateServerRoute
   '/api/forums/query/by-category': typeof ApiForumsQueryByCategoryServerRoute
   '/api/forums/query/by-id': typeof ApiForumsQueryByIdServerRoute
+  '/api/posts/command/create': typeof ApiPostsCommandCreateServerRoute
   '/api/posts/query/by-id': typeof ApiPostsQueryByIdServerRoute
   '/api/posts/query/by-thread': typeof ApiPostsQueryByThreadServerRoute
   '/api/settings/query/by-name': typeof ApiSettingsQueryByNameServerRoute
@@ -427,6 +436,7 @@ export interface FileServerRoutesById {
   '/api/forums/command/create': typeof ApiForumsCommandCreateServerRoute
   '/api/forums/query/by-category': typeof ApiForumsQueryByCategoryServerRoute
   '/api/forums/query/by-id': typeof ApiForumsQueryByIdServerRoute
+  '/api/posts/command/create': typeof ApiPostsCommandCreateServerRoute
   '/api/posts/query/by-id': typeof ApiPostsQueryByIdServerRoute
   '/api/posts/query/by-thread': typeof ApiPostsQueryByThreadServerRoute
   '/api/settings/query/by-name': typeof ApiSettingsQueryByNameServerRoute
@@ -445,6 +455,7 @@ export interface FileServerRouteTypes {
     | '/api/forums/command/create'
     | '/api/forums/query/by-category'
     | '/api/forums/query/by-id'
+    | '/api/posts/command/create'
     | '/api/posts/query/by-id'
     | '/api/posts/query/by-thread'
     | '/api/settings/query/by-name'
@@ -461,6 +472,7 @@ export interface FileServerRouteTypes {
     | '/api/forums/command/create'
     | '/api/forums/query/by-category'
     | '/api/forums/query/by-id'
+    | '/api/posts/command/create'
     | '/api/posts/query/by-id'
     | '/api/posts/query/by-thread'
     | '/api/settings/query/by-name'
@@ -477,6 +489,7 @@ export interface FileServerRouteTypes {
     | '/api/forums/command/create'
     | '/api/forums/query/by-category'
     | '/api/forums/query/by-id'
+    | '/api/posts/command/create'
     | '/api/posts/query/by-id'
     | '/api/posts/query/by-thread'
     | '/api/settings/query/by-name'
@@ -494,6 +507,7 @@ export interface RootServerRouteChildren {
   ApiForumsCommandCreateServerRoute: typeof ApiForumsCommandCreateServerRoute
   ApiForumsQueryByCategoryServerRoute: typeof ApiForumsQueryByCategoryServerRoute
   ApiForumsQueryByIdServerRoute: typeof ApiForumsQueryByIdServerRoute
+  ApiPostsCommandCreateServerRoute: typeof ApiPostsCommandCreateServerRoute
   ApiPostsQueryByIdServerRoute: typeof ApiPostsQueryByIdServerRoute
   ApiPostsQueryByThreadServerRoute: typeof ApiPostsQueryByThreadServerRoute
   ApiSettingsQueryByNameServerRoute: typeof ApiSettingsQueryByNameServerRoute
@@ -730,6 +744,13 @@ declare module '@tanstack/react-start/server' {
       preLoaderRoute: typeof ApiPostsQueryByIdServerRouteImport
       parentRoute: typeof rootServerRouteImport
     }
+    '/api/posts/command/create': {
+      id: '/api/posts/command/create'
+      path: '/api/posts/command/create'
+      fullPath: '/api/posts/command/create'
+      preLoaderRoute: typeof ApiPostsCommandCreateServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
     '/api/forums/query/by-id': {
       id: '/api/forums/query/by-id'
       path: '/api/forums/query/by-id'
@@ -797,6 +818,7 @@ const rootServerRouteChildren: RootServerRouteChildren = {
   ApiForumsCommandCreateServerRoute: ApiForumsCommandCreateServerRoute,
   ApiForumsQueryByCategoryServerRoute: ApiForumsQueryByCategoryServerRoute,
   ApiForumsQueryByIdServerRoute: ApiForumsQueryByIdServerRoute,
+  ApiPostsCommandCreateServerRoute: ApiPostsCommandCreateServerRoute,
   ApiPostsQueryByIdServerRoute: ApiPostsQueryByIdServerRoute,
   ApiPostsQueryByThreadServerRoute: ApiPostsQueryByThreadServerRoute,
   ApiSettingsQueryByNameServerRoute: ApiSettingsQueryByNameServerRoute,

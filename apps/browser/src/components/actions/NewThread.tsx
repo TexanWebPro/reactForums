@@ -1,17 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "@tanstack/react-form";
-import { Link } from "@tanstack/react-router";
 import * as z from "zod";
 import { toast } from "sonner";
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  FieldTitle,
-} from "@/components/ui/field";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 // import { TextEditor } from "@/components/ui/text-editor";
 import { threadMutations } from "@/features/threads/threads.query";

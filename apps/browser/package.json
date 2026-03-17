@@ -12,6 +12,9 @@
     "db:seed": "ts-node scripts/seed.ts"
   },
   "dependencies": {
+    "@lexical/html": "^0.41.0",
+    "@lexical/react": "^0.41.0",
+    "@lexical/utils": "^0.41.0",
     "@reactforums/adapter-drizzle-pg": "workspace:*",
     "@reactforums/core": "workspace:*",
     "@tanstack/react-form": "^1.28.5",
@@ -21,6 +24,8 @@
     "@tanstack/react-start": "^1.131.49",
     "class-variance-authority": "^0.7.1",
     "drizzle-orm": "^0.45.1",
+    "html-react-parser": "^5.2.17",
+    "lexical": "^0.41.0",
     "pg": "^8.17.2",
     "radix-ui": "^1.4.3",
     "react": "^19.0.0",

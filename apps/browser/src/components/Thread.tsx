@@ -4,6 +4,7 @@ import { Post } from "@/components/posts/Post";
 import { Button } from "./Button";
 import { postQueries } from "@/features/posts/posts.query";
 import type { Thread } from "@reactforums/core";
+import QuickReply from "./actions/QuickReply";
 
 export function ThreadComponent(props: { thread: Thread }) {
   const { thread } = props;
@@ -42,6 +43,7 @@ export function ThreadComponent(props: { thread: Thread }) {
         linkTo="/forum/$forumId/thread/reply"
         params={{ forumId: thread.forumId }}
       />
+      <QuickReply />
     </div>
   );
 }

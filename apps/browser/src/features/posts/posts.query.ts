@@ -1,5 +1,6 @@
-import { queryOptions } from "@tanstack/react-query";
-import { fetchPostById, fetchPostsByThreadId } from "./posts.api";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
+import { createPost, fetchPostById, fetchPostsByThreadId } from "./posts.api";
+import { CreatePostInput } from "@reactforums/core";
 
 export const postKeys = {
   all: ["posts"] as const,
@@ -22,16 +23,12 @@ export const postQueries = {
     }),
 };
 
-// export const postMutations = {
-//   create: (queryClient: QueryClient) =>
-//     mutationOptions({
-//       mutationFn: (input: CreatePostInput) => createPost(input),
-//       onSuccess: async (createdPost) => {
-//         queryClient.setQueryData(postKeys.byId(createdPost.id), createdPost);
-
-//         await queryClient.invalidateQueries({
-//           queryKey: postKeys.byThreadId(createdPost.threadId),
-//         });
-//       },
-//     }),
-// };
+export const postMutations = {
+  create: () =>
+    mutationOptions({
+      mutationFn: (input: CreatePostInput) => createPost(input),
+      onSuccess: async () => {
+        // cache invalidation
+      },
+    }),
+};
