@@ -348,6 +348,13 @@ var DrizzlePostRepository = class {
     this.db = db;
     this.schema = schema;
   }
+  async createPost(input) {
+    const postsTable = this.schema.posts;
+    const posts = await this.db.insert(postsTable).values(input).returning();
+    const post = posts[0];
+    if (!post) return;
+    return post;
+  }
   async countVisiblePosts() {
     const postsTable = this.schema.posts;
     const posts = await this.db.$count(postsTable);

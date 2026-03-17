@@ -1,4 +1,9 @@
-import { Post, PostRepository, Posts } from "@reactforums/core";
+import {
+  CreatePostInput,
+  Post,
+  PostRepository,
+  Posts,
+} from "@reactforums/core";
 import { DrizzlePgDatabase } from "src/types";
 import { ReactForumsDrizzleSchema } from "src";
 import { eq } from "drizzle-orm";
@@ -12,6 +17,15 @@ export class DrizzlePostRepository<TSchema extends ReactForumsDrizzleSchema>
   constructor(db: DrizzlePgDatabase, schema: TSchema) {
     this.db = db;
     this.schema = schema;
+  }
+
+  async createPost(input: CreatePostInput): Promise<Post | undefined> {
+    const postsTable = this.schema.posts;
+    const posts = await this.db.insert(postsTable).values(input).returning();
+
+    const post = posts[0];
+    if (!post) return;
+    return post;
   }
 
   async countVisiblePosts(): Promise<number> {
