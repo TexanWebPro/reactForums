@@ -24,15 +24,21 @@ export function Category(props: {
         </span>
 
         {forums.map((board, i) => {
+          const isFirst = i === 0;
+          const isLast = i === forums.length - 1;
+          const isOnly = forums.length === 1;
+
           return (
             <div key={`${board.name}-${board.id}`}>
               <div
                 className={`${
-                  i === 0
-                    ? "border-y-0" // no top/bottom border for first entry
-                    : i === forums.length - 1
-                      ? "rounded-b-lg border-t-0" // border rounded for last entry
-                      : "" // border for all others
+                  isOnly
+                    ? "rounded-b-lg border-t-0"
+                    : isFirst
+                      ? "border-y-0" // no top/bottom border for first entry
+                      : isLast
+                        ? "rounded-b-lg border-t-0" // border rounded for last entry
+                        : "" // border for all others
                 } p-4 border-2 border-stone-300 grid grid-cols-4 items-center justify-between text-sm`}
               >
                 <span className="flex flex-col col-span-2 items-start justify-between">

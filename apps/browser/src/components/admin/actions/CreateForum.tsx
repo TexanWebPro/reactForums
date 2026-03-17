@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { forumMutations, forumQueries } from "@/features/forums/forums.query";
-import { CreateForumInput } from "@reactforums/core";
+import { CreateForumInput, ForumTreeNode } from "@reactforums/core";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import {
@@ -26,6 +26,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { useNavigate } from "@tanstack/react-router";
 
 const formSchema = z.object({
   name: z
@@ -40,6 +41,7 @@ const formSchema = z.object({
 });
 
 export function CreateForum() {
+  const navigate = useNavigate();
   const createForumMutation = useMutation({
     ...forumMutations.create(),
     onSuccess: (forum) => {
@@ -52,6 +54,8 @@ export function CreateForum() {
           "--border-radius": "calc(var(--radius)  + 4px)",
         } as React.CSSProperties,
       });
+
+      navigate({ from: "/admin/forums/new", to: "/admin/forums" });
     },
     onError: (error) => {
       toast.error(`Something went wrong: ${error.message}.`, {
@@ -89,6 +93,25 @@ export function CreateForum() {
   const { data: allForums } = useQuery({
     ...forumQueries.byCategory(),
   });
+
+  function renderForumOptions(
+    forums: ForumTreeNode[],
+    depth = 0,
+  ): React.ReactNode[] {
+    return forums.flatMap((forum) => {
+      const item = (
+        <SelectItem key={forum.id} value={forum.id.toString()}>
+          {`${"— ".repeat(depth)}${forum.name}`}
+        </SelectItem>
+      );
+
+      const children = forum.children
+        ? renderForumOptions(forum.children, depth + 1)
+        : [];
+
+      return [item, ...children];
+    });
+  }
 
   if (!allForums) return;
 
@@ -226,36 +249,7 @@ export function CreateForum() {
                       position={"popper"}
                     >
                       <SelectItem value="none">- No Parent -</SelectItem>
-                      {allForums.map((category) => {
-                        return (
-                          <React.Fragment key={category.id}>
-                            <SelectItem value={category.id.toString()}>
-                              {category.name}
-                            </SelectItem>
-                            {category.children?.map((forum) => {
-                              return (
-                                <React.Fragment key={forum.id}>
-                                  <SelectItem value={forum.id.toString()}>
-                                    &nbsp;&nbsp; - {forum.name}
-                                  </SelectItem>
-                                  {forum.children?.map((childForum) => {
-                                    return (
-                                      <React.Fragment key={childForum.id}>
-                                        <SelectItem
-                                          value={childForum.id.toString()}
-                                        >
-                                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -{" "}
-                                          {childForum.name}
-                                        </SelectItem>
-                                      </React.Fragment>
-                                    );
-                                  })}
-                                </React.Fragment>
-                              );
-                            })}
-                          </React.Fragment>
-                        );
-                      })}
+                      {renderForumOptions(allForums)}
                     </SelectContent>
                   </Select>
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}
