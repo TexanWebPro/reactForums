@@ -209,6 +209,15 @@ interface Post {
     isApproved: boolean;
 }
 type Posts = Post[];
+interface CreatePostInput {
+    threadId: number;
+    forumId: number;
+    userId: number;
+    username: string;
+    content: string;
+    ipAddress: string;
+    longIpAddress: string;
+}
 interface Reputation {
     id: number;
     userId: number;
@@ -276,6 +285,7 @@ declare class ThreadService {
 }
 
 interface PostRepository {
+    createPost(input: CreatePostInput): Promise<Post | undefined>;
     getNPostsInThread(threadId: number, limit: number): Promise<Posts | undefined>;
     getPostById(postId: number): Promise<Post | undefined>;
     getPostReplies(postId: number): Promise<Posts | undefined>;
@@ -288,6 +298,7 @@ declare class PostService {
     getPostById(postId: number): Promise<Post | undefined>;
     getNPostsInThread(postId: number, n: number): Promise<Posts | undefined>;
     getPostReplies(postId: number): Promise<Posts | undefined>;
+    create(input: CreatePostInput): Promise<Post | undefined>;
 }
 
 interface UserRepository {
@@ -351,4 +362,4 @@ interface ReactForumsAdapterInput {
 
 declare function createForumAdapter(input: ReactForumsAdapterInput): ReactForumsAdapter;
 
-export { type CreateForumInput, type CreateThreadInput, type CreateUserInput, type CustomProfileField, type CustomProfileFields, type CustomProfileFieldsValue, type Forum, type ForumRepository, ForumService, type ForumStats, type ForumTreeNode, type Forums, type Message, type OptionsCode, type Post, type PostRepository, PostService, type Posts, ProfileFieldsService, type ReactForumsAdapter, type ReactForumsAdapterInput, type Reputation, type Reputations, type Setting, SettingKey, type Settings, type SettingsRepository, SettingsService, StatsService, type Thread, type ThreadRepository, ThreadService, type Threads, type User, type UserProfileFieldValues, type UserRepository, UserService, type UserWithProfileFieldValues, type Users, createForumAdapter };
+export { type CreateForumInput, type CreatePostInput, type CreateThreadInput, type CreateUserInput, type CustomProfileField, type CustomProfileFields, type CustomProfileFieldsValue, type Forum, type ForumRepository, ForumService, type ForumStats, type ForumTreeNode, type Forums, type Message, type OptionsCode, type Post, type PostRepository, PostService, type Posts, ProfileFieldsService, type ReactForumsAdapter, type ReactForumsAdapterInput, type Reputation, type Reputations, type Setting, SettingKey, type Settings, type SettingsRepository, SettingsService, StatsService, type Thread, type ThreadRepository, ThreadService, type Threads, type User, type UserProfileFieldValues, type UserRepository, UserService, type UserWithProfileFieldValues, type Users, createForumAdapter };

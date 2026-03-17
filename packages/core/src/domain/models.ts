@@ -250,6 +250,16 @@ export interface Post {
 
 export type Posts = Post[];
 
+export interface CreatePostInput {
+  threadId: number;
+  forumId: number;
+  userId: number;
+  username: string;
+  content: string;
+  ipAddress: string;
+  longIpAddress: string;
+}
+
 export interface Reputation {
   id: number;
   userId: number; // id of the user receiving the reputation

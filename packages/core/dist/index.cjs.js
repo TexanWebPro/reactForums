@@ -151,6 +151,10 @@ var PostService = class {
     const allReplies = await this.repository.getPostReplies(postId);
     return allReplies;
   }
+  async create(input) {
+    const post = await this.repository.createPost(input);
+    return post;
+  }
   // buildTree(posts: Posts, parentId: number | null = null): PostTreeNode[] {
   //   return posts
   //     .filter((p) => p.parentPostId === parentId)

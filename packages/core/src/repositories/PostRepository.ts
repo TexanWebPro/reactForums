@@ -1,6 +1,7 @@
-import { Post, Posts } from "../domain/models";
+import { CreatePostInput, Post, Posts } from "../domain/models";
 
 export interface PostRepository {
+  createPost(input: CreatePostInput): Promise<Post | undefined>;
   getNPostsInThread(
     threadId: number,
     limit: number,

@@ -1,4 +1,4 @@
-import { Post, Posts } from "../domain/models";
+import { CreatePostInput, Post, Posts } from "../domain/models";
 import type { PostRepository } from "../repositories/PostRepository";
 
 export class PostService {
@@ -20,6 +20,11 @@ export class PostService {
   async getPostReplies(postId: number): Promise<Posts | undefined> {
     const allReplies = await this.repository.getPostReplies(postId);
     return allReplies;
+  }
+
+  async create(input: CreatePostInput): Promise<Post | undefined> {
+    const post = await this.repository.createPost(input);
+    return post;
   }
 
   // buildTree(posts: Posts, parentId: number | null = null): PostTreeNode[] {
