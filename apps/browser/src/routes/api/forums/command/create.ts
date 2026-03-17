@@ -28,7 +28,7 @@ export const ServerRoute = createServerFileRoute(
       return json({ error: "`description` cannot be empty" }, { status: 400 });
     }
 
-    if (!isCategory) {
+    if (isCategory === undefined || isCategory === null) {
       return json({ error: "`isCategory` cannot be empty" }, { status: 400 });
     }
 

@@ -8,14 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog } from "@/components/ui/dialog";
 import { useState } from "react";
 import { CreateUserModal } from "@/components/admin/actions/CreateUserModal";
 import { Link } from "@tanstack/react-router";
@@ -50,13 +43,24 @@ export default function AdminHeader() {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-stone-300">
                 <DropdownMenuGroup>
-                  <DropdownMenuItem>Announcement</DropdownMenuItem>
-                  <DropdownMenuItem>Private Mail</DropdownMenuItem>
-                  <DropdownMenuItem>Thread</DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to="/admin/forums">Forum</Link>
+                  <DropdownMenuItem className="hover:cursor-pointer">
+                    Announcement
                   </DropdownMenuItem>
-                  <DropdownMenuItem onSelect={() => setOpenDialog("user")}>
+                  <DropdownMenuItem className="hover:cursor-pointer">
+                    Private Mail
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="hover:cursor-pointer">
+                    Thread
+                  </DropdownMenuItem>
+                  <Link to="/admin/forums/new">
+                    <DropdownMenuItem className="hover:cursor-pointer">
+                      Forum
+                    </DropdownMenuItem>
+                  </Link>
+                  <DropdownMenuItem
+                    onSelect={() => setOpenDialog("user")}
+                    className="hover:cursor-pointer"
+                  >
                     User
                   </DropdownMenuItem>
                 </DropdownMenuGroup>

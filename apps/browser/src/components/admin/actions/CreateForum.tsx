@@ -5,12 +5,6 @@ import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
-import {
   Field,
   FieldContent,
   FieldDescription,
@@ -20,11 +14,18 @@ import {
   FieldTitle,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { useMutation } from "@tanstack/react-query";
-import { forumMutations } from "@/features/forums/forums.query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { forumMutations, forumQueries } from "@/features/forums/forums.query";
 import { CreateForumInput } from "@reactforums/core";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 
 const formSchema = z.object({
   name: z
@@ -84,6 +85,12 @@ export function CreateForum() {
       });
     },
   });
+
+  const { data: allForums } = useQuery({
+    ...forumQueries.byCategory(),
+  });
+
+  if (!allForums) return;
 
   return (
     <div className="border-0">
@@ -185,6 +192,72 @@ export function CreateForum() {
                       className=""
                     />
                   </FieldLabel>
+                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                </Field>
+              );
+            }}
+          />
+          <form.Field
+            name="parentForumId"
+            children={(field) => {
+              const isInvalid =
+                field.state.meta.isTouched && !field.state.meta.isValid;
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>Parent Forum</FieldLabel>
+                  <Select
+                    name={field.name}
+                    value={field.state.value?.toString() ?? "none"}
+                    onValueChange={(value) =>
+                      field.handleChange(
+                        value === "none" ? undefined : Number(value),
+                      )
+                    }
+                  >
+                    <SelectTrigger
+                      id="form-tanstack-select-language"
+                      aria-invalid={isInvalid}
+                      className="max-w-56 placeholder:text-slate-700  bg-stone-300 border-sky-800"
+                    >
+                      <SelectValue placeholder="Select a forum" />
+                    </SelectTrigger>
+                    <SelectContent
+                      className="bg-stone-300 min-w-56 border-sky-800"
+                      position={"popper"}
+                    >
+                      <SelectItem value="none">- No Parent -</SelectItem>
+                      {allForums.map((category) => {
+                        return (
+                          <React.Fragment key={category.id}>
+                            <SelectItem value={category.id.toString()}>
+                              {category.name}
+                            </SelectItem>
+                            {category.children?.map((forum) => {
+                              return (
+                                <React.Fragment key={forum.id}>
+                                  <SelectItem value={forum.id.toString()}>
+                                    &nbsp;&nbsp; - {forum.name}
+                                  </SelectItem>
+                                  {forum.children?.map((childForum) => {
+                                    return (
+                                      <React.Fragment key={childForum.id}>
+                                        <SelectItem
+                                          value={childForum.id.toString()}
+                                        >
+                                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -{" "}
+                                          {childForum.name}
+                                        </SelectItem>
+                                      </React.Fragment>
+                                    );
+                                  })}
+                                </React.Fragment>
+                              );
+                            })}
+                          </React.Fragment>
+                        );
+                      })}
+                    </SelectContent>
+                  </Select>
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}
                 </Field>
               );

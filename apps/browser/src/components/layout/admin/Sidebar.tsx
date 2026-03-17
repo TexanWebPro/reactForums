@@ -14,7 +14,7 @@ export function AdminSidebarNav() {
       </span>
       <span className="flex flex-col items-start min-h-screen w-full border-2 border-t-0 border-stone-400 rounded-b-lg">
         <Link
-          to="/user-dashboard"
+          to="/admin"
           className="flex flex-row items-start justify-end gap-2 hover:underline px-4 pb-2 pt-4"
         >
           <img
@@ -33,7 +33,7 @@ export function AdminSidebarNav() {
           </CollapsibleTrigger>
           <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
-              to="/"
+              to="/admin/forums"
               className="flex flex-row items-start justify-end gap-2 hover:underline"
             >
               <img

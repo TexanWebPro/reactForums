@@ -12,8 +12,8 @@ export async function fetchForumById(
   return getJson<Forum>(`/api/forums/query/by-id?id=${encodeURIComponent(id)}`);
 }
 
-export async function fetchForumsByCategory(): Promise<Forums> {
-  return getJson<Forums>(`/api/forums/query/by-category`);
+export async function fetchForumsByCategory(): Promise<ForumTreeNode[]> {
+  return getJson<ForumTreeNode[]>(`/api/forums/query/by-category`);
 }
 
 export async function createForum(input: CreateForumInput): Promise<Forum> {
