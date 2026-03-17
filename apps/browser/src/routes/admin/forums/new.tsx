@@ -1,4 +1,4 @@
-import { CreateForum } from "@/components/admin/actions/CreateForum";
+import { CreateForum } from "@/components/actions/CreateForum";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/admin/forums/new")({

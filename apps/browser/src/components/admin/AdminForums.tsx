@@ -11,7 +11,7 @@ export function AdminForums(props: { forums: ForumTreeNode[] }) {
     <div className="flex flex-col gap-10 items-center justify-between">
       <div className="w-full bg-stone-200 flex flex-col rounded-lg text-sm">
         <span className="bg-sky-600 w-full p-4 py-2 font-bold text-stone-50 border-2 border-sky-800 rounded-t-lg flex flex-row items-center justify-between gap-2">
-          <span>Forums</span>
+          <span className="text-lg">Forums</span>
           <Link to="/admin/forums/new">
             <Button className="border-2 border-black">
               <img
@@ -58,7 +58,11 @@ function CategoryDisplay(props: {
         <span className="bg-sky-600 w-full p-4 py-2 font-bold text-stone-50 border-2 border-sky-800 rounded-lg flex flex-row items-center justify-between gap-2">
           <span className="hover:underline text-lg">{categoryName}</span>
           <span>
-            <Link to="/" className="text-sky-700 font-bold">
+            <Link
+              to="/admin/forums/$forumId/edit"
+              params={{ forumId: categoryId.toString() }}
+              className="text-sky-700 font-bold"
+            >
               <img
                 src="/images/icons/pencil.svg"
                 alt="Edit Forum"
@@ -83,7 +87,11 @@ function CategoryDisplay(props: {
                 </span>
                 <span className="flex flex-col items-end justify-between">
                   <span>
-                    <Link to="/" className="text-sky-700 font-bold">
+                    <Link
+                      to="/admin/forums/$forumId/edit"
+                      params={{ forumId: board.id.toString() }}
+                      className="text-sky-700 font-bold"
+                    >
                       <img
                         src="/images/icons/pencil.svg"
                         alt="Edit Forum"
@@ -105,7 +113,10 @@ function CategoryDisplay(props: {
                           <span>{childBoard.name}</span>
                           <span className="flex flex-col items-end justify-between">
                             <span>
-                              <Link to="/" className="text-sky-700 font-bold">
+                              <Link
+                                to="/admin/forums/$forumId/edit"
+                                params={{ forumId: childBoard.id.toString() }}
+                              >
                                 <img
                                   src="/images/icons/pencil.svg"
                                   alt="Edit Forum"

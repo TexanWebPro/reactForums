@@ -29,12 +29,14 @@ import { Route as AdminForumsNewRouteImport } from './routes/admin/forums/new'
 import { Route as ForumForumIdThreadReplyRouteImport } from './routes/forum/$forumId/thread/reply'
 import { Route as ForumForumIdThreadNewRouteImport } from './routes/forum/$forumId/thread/new'
 import { Route as ForumForumIdThreadThreadIdRouteImport } from './routes/forum/$forumId/thread/$threadId'
+import { Route as AdminForumsForumIdEditRouteImport } from './routes/admin/forums/$forumId/edit'
 import { Route as ForumForumIdThreadThreadIdPostIdRouteImport } from './routes/forum/$forumId/thread/$threadId.$postId'
 import { ServerRoute as ApiUsersQueryByUsernameServerRouteImport } from './routes/api/users/query/by-username'
 import { ServerRoute as ApiUsersQueryByIdServerRouteImport } from './routes/api/users/query/by-id'
 import { ServerRoute as ApiUsersCommandCreateServerRouteImport } from './routes/api/users/command/create'
 import { ServerRoute as ApiThreadsQueryByIdServerRouteImport } from './routes/api/threads/query/by-id'
 import { ServerRoute as ApiThreadsQueryByForumServerRouteImport } from './routes/api/threads/query/by-forum'
+import { ServerRoute as ApiThreadsCommandCreateServerRouteImport } from './routes/api/threads/command/create'
 import { ServerRoute as ApiStatsQueryAllStatsServerRouteImport } from './routes/api/stats/query/all-stats'
 import { ServerRoute as ApiSettingsQueryByNamesServerRouteImport } from './routes/api/settings/query/by-names'
 import { ServerRoute as ApiSettingsQueryByNameServerRouteImport } from './routes/api/settings/query/by-name'
@@ -137,6 +139,11 @@ const ForumForumIdThreadThreadIdRoute =
     path: '/forum/$forumId/thread/$threadId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AdminForumsForumIdEditRoute = AdminForumsForumIdEditRouteImport.update({
+  id: '/admin/forums/$forumId/edit',
+  path: '/admin/forums/$forumId/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ForumForumIdThreadThreadIdPostIdRoute =
   ForumForumIdThreadThreadIdPostIdRouteImport.update({
     id: '/$postId',
@@ -170,6 +177,12 @@ const ApiThreadsQueryByForumServerRoute =
   ApiThreadsQueryByForumServerRouteImport.update({
     id: '/api/threads/query/by-forum',
     path: '/api/threads/query/by-forum',
+    getParentRoute: () => rootServerRouteImport,
+  } as any)
+const ApiThreadsCommandCreateServerRoute =
+  ApiThreadsCommandCreateServerRouteImport.update({
+    id: '/api/threads/command/create',
+    path: '/api/threads/command/create',
     getParentRoute: () => rootServerRouteImport,
   } as any)
 const ApiStatsQueryAllStatsServerRoute =
@@ -236,6 +249,7 @@ export interface FileRoutesByFullPath {
   '/admin/forums': typeof AdminForumsIndexRoute
   '/forum/$forumId': typeof ForumForumIdIndexRoute
   '/users/$username': typeof UsersUsernameIndexRoute
+  '/admin/forums/$forumId/edit': typeof AdminForumsForumIdEditRoute
   '/forum/$forumId/thread/$threadId': typeof ForumForumIdThreadThreadIdRouteWithChildren
   '/forum/$forumId/thread/new': typeof ForumForumIdThreadNewRoute
   '/forum/$forumId/thread/reply': typeof ForumForumIdThreadReplyRoute
@@ -257,6 +271,7 @@ export interface FileRoutesByTo {
   '/admin/forums': typeof AdminForumsIndexRoute
   '/forum/$forumId': typeof ForumForumIdIndexRoute
   '/users/$username': typeof UsersUsernameIndexRoute
+  '/admin/forums/$forumId/edit': typeof AdminForumsForumIdEditRoute
   '/forum/$forumId/thread/$threadId': typeof ForumForumIdThreadThreadIdRouteWithChildren
   '/forum/$forumId/thread/new': typeof ForumForumIdThreadNewRoute
   '/forum/$forumId/thread/reply': typeof ForumForumIdThreadReplyRoute
@@ -279,6 +294,7 @@ export interface FileRoutesById {
   '/admin/forums/': typeof AdminForumsIndexRoute
   '/forum/$forumId/': typeof ForumForumIdIndexRoute
   '/users/$username/': typeof UsersUsernameIndexRoute
+  '/admin/forums/$forumId/edit': typeof AdminForumsForumIdEditRoute
   '/forum/$forumId/thread/$threadId': typeof ForumForumIdThreadThreadIdRouteWithChildren
   '/forum/$forumId/thread/new': typeof ForumForumIdThreadNewRoute
   '/forum/$forumId/thread/reply': typeof ForumForumIdThreadReplyRoute
@@ -302,6 +318,7 @@ export interface FileRouteTypes {
     | '/admin/forums'
     | '/forum/$forumId'
     | '/users/$username'
+    | '/admin/forums/$forumId/edit'
     | '/forum/$forumId/thread/$threadId'
     | '/forum/$forumId/thread/new'
     | '/forum/$forumId/thread/reply'
@@ -323,6 +340,7 @@ export interface FileRouteTypes {
     | '/admin/forums'
     | '/forum/$forumId'
     | '/users/$username'
+    | '/admin/forums/$forumId/edit'
     | '/forum/$forumId/thread/$threadId'
     | '/forum/$forumId/thread/new'
     | '/forum/$forumId/thread/reply'
@@ -344,6 +362,7 @@ export interface FileRouteTypes {
     | '/admin/forums/'
     | '/forum/$forumId/'
     | '/users/$username/'
+    | '/admin/forums/$forumId/edit'
     | '/forum/$forumId/thread/$threadId'
     | '/forum/$forumId/thread/new'
     | '/forum/$forumId/thread/reply'
@@ -366,6 +385,7 @@ export interface RootRouteChildren {
   AdminForumsIndexRoute: typeof AdminForumsIndexRoute
   ForumForumIdIndexRoute: typeof ForumForumIdIndexRoute
   UsersUsernameIndexRoute: typeof UsersUsernameIndexRoute
+  AdminForumsForumIdEditRoute: typeof AdminForumsForumIdEditRoute
   ForumForumIdThreadThreadIdRoute: typeof ForumForumIdThreadThreadIdRouteWithChildren
   ForumForumIdThreadNewRoute: typeof ForumForumIdThreadNewRoute
   ForumForumIdThreadReplyRoute: typeof ForumForumIdThreadReplyRoute
@@ -379,6 +399,7 @@ export interface FileServerRoutesByFullPath {
   '/api/settings/query/by-name': typeof ApiSettingsQueryByNameServerRoute
   '/api/settings/query/by-names': typeof ApiSettingsQueryByNamesServerRoute
   '/api/stats/query/all-stats': typeof ApiStatsQueryAllStatsServerRoute
+  '/api/threads/command/create': typeof ApiThreadsCommandCreateServerRoute
   '/api/threads/query/by-forum': typeof ApiThreadsQueryByForumServerRoute
   '/api/threads/query/by-id': typeof ApiThreadsQueryByIdServerRoute
   '/api/users/command/create': typeof ApiUsersCommandCreateServerRoute
@@ -394,6 +415,7 @@ export interface FileServerRoutesByTo {
   '/api/settings/query/by-name': typeof ApiSettingsQueryByNameServerRoute
   '/api/settings/query/by-names': typeof ApiSettingsQueryByNamesServerRoute
   '/api/stats/query/all-stats': typeof ApiStatsQueryAllStatsServerRoute
+  '/api/threads/command/create': typeof ApiThreadsCommandCreateServerRoute
   '/api/threads/query/by-forum': typeof ApiThreadsQueryByForumServerRoute
   '/api/threads/query/by-id': typeof ApiThreadsQueryByIdServerRoute
   '/api/users/command/create': typeof ApiUsersCommandCreateServerRoute
@@ -410,6 +432,7 @@ export interface FileServerRoutesById {
   '/api/settings/query/by-name': typeof ApiSettingsQueryByNameServerRoute
   '/api/settings/query/by-names': typeof ApiSettingsQueryByNamesServerRoute
   '/api/stats/query/all-stats': typeof ApiStatsQueryAllStatsServerRoute
+  '/api/threads/command/create': typeof ApiThreadsCommandCreateServerRoute
   '/api/threads/query/by-forum': typeof ApiThreadsQueryByForumServerRoute
   '/api/threads/query/by-id': typeof ApiThreadsQueryByIdServerRoute
   '/api/users/command/create': typeof ApiUsersCommandCreateServerRoute
@@ -427,6 +450,7 @@ export interface FileServerRouteTypes {
     | '/api/settings/query/by-name'
     | '/api/settings/query/by-names'
     | '/api/stats/query/all-stats'
+    | '/api/threads/command/create'
     | '/api/threads/query/by-forum'
     | '/api/threads/query/by-id'
     | '/api/users/command/create'
@@ -442,6 +466,7 @@ export interface FileServerRouteTypes {
     | '/api/settings/query/by-name'
     | '/api/settings/query/by-names'
     | '/api/stats/query/all-stats'
+    | '/api/threads/command/create'
     | '/api/threads/query/by-forum'
     | '/api/threads/query/by-id'
     | '/api/users/command/create'
@@ -457,6 +482,7 @@ export interface FileServerRouteTypes {
     | '/api/settings/query/by-name'
     | '/api/settings/query/by-names'
     | '/api/stats/query/all-stats'
+    | '/api/threads/command/create'
     | '/api/threads/query/by-forum'
     | '/api/threads/query/by-id'
     | '/api/users/command/create'
@@ -473,6 +499,7 @@ export interface RootServerRouteChildren {
   ApiSettingsQueryByNameServerRoute: typeof ApiSettingsQueryByNameServerRoute
   ApiSettingsQueryByNamesServerRoute: typeof ApiSettingsQueryByNamesServerRoute
   ApiStatsQueryAllStatsServerRoute: typeof ApiStatsQueryAllStatsServerRoute
+  ApiThreadsCommandCreateServerRoute: typeof ApiThreadsCommandCreateServerRoute
   ApiThreadsQueryByForumServerRoute: typeof ApiThreadsQueryByForumServerRoute
   ApiThreadsQueryByIdServerRoute: typeof ApiThreadsQueryByIdServerRoute
   ApiUsersCommandCreateServerRoute: typeof ApiUsersCommandCreateServerRoute
@@ -608,6 +635,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForumForumIdThreadThreadIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/forums/$forumId/edit': {
+      id: '/admin/forums/$forumId/edit'
+      path: '/admin/forums/$forumId/edit'
+      fullPath: '/admin/forums/$forumId/edit'
+      preLoaderRoute: typeof AdminForumsForumIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/forum/$forumId/thread/$threadId/$postId': {
       id: '/forum/$forumId/thread/$threadId/$postId'
       path: '/$postId'
@@ -652,6 +686,13 @@ declare module '@tanstack/react-start/server' {
       path: '/api/threads/query/by-forum'
       fullPath: '/api/threads/query/by-forum'
       preLoaderRoute: typeof ApiThreadsQueryByForumServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/threads/command/create': {
+      id: '/api/threads/command/create'
+      path: '/api/threads/command/create'
+      fullPath: '/api/threads/command/create'
+      preLoaderRoute: typeof ApiThreadsCommandCreateServerRouteImport
       parentRoute: typeof rootServerRouteImport
     }
     '/api/stats/query/all-stats': {
@@ -744,6 +785,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminForumsIndexRoute: AdminForumsIndexRoute,
   ForumForumIdIndexRoute: ForumForumIdIndexRoute,
   UsersUsernameIndexRoute: UsersUsernameIndexRoute,
+  AdminForumsForumIdEditRoute: AdminForumsForumIdEditRoute,
   ForumForumIdThreadThreadIdRoute: ForumForumIdThreadThreadIdRouteWithChildren,
   ForumForumIdThreadNewRoute: ForumForumIdThreadNewRoute,
   ForumForumIdThreadReplyRoute: ForumForumIdThreadReplyRoute,
@@ -760,6 +802,7 @@ const rootServerRouteChildren: RootServerRouteChildren = {
   ApiSettingsQueryByNameServerRoute: ApiSettingsQueryByNameServerRoute,
   ApiSettingsQueryByNamesServerRoute: ApiSettingsQueryByNamesServerRoute,
   ApiStatsQueryAllStatsServerRoute: ApiStatsQueryAllStatsServerRoute,
+  ApiThreadsCommandCreateServerRoute: ApiThreadsCommandCreateServerRoute,
   ApiThreadsQueryByForumServerRoute: ApiThreadsQueryByForumServerRoute,
   ApiThreadsQueryByIdServerRoute: ApiThreadsQueryByIdServerRoute,
   ApiUsersCommandCreateServerRoute: ApiUsersCommandCreateServerRoute,

@@ -1,5 +1,5 @@
-import type { Thread } from "@reactforums/core";
-import { getJson } from "@/lib/http";
+import type { CreateThreadInput, Thread } from "@reactforums/core";
+import { getJson, postJson } from "@/lib/http";
 
 export async function fetchThreadById(id: number): Promise<Thread> {
   return getJson<Thread>(
@@ -18,4 +18,11 @@ export async function fetchThreadsByForumId(
 
 export async function fetchRecentThreads(): Promise<Thread[]> {
   return getJson<Thread[]>(`/api/threads/query/recent`);
+}
+
+export async function createThread(input: CreateThreadInput): Promise<Thread> {
+  return postJson<Thread, CreateThreadInput>(
+    "/api/threads/command/create",
+    input,
+  );
 }

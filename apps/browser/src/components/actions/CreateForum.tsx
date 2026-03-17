@@ -121,7 +121,7 @@ export function CreateForum() {
         <h2 className="font-bold">Create A New Forum</h2>
       </span>
       <form
-        id="bug-report-form"
+        id="create-new-forum"
         onSubmit={(e) => {
           e.preventDefault();
           form.handleSubmit();
@@ -273,7 +273,7 @@ export function CreateForum() {
         </Button>
         <Button
           type="submit"
-          form="bug-report-form"
+          form="create-new-forum"
           className="bg-black text-white"
         >
           Submit

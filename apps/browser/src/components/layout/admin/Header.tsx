@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Dialog } from "@/components/ui/dialog";
 import { useState } from "react";
-import { CreateUserModal } from "@/components/admin/actions/CreateUserModal";
+import { CreateUserModal } from "@/components/actions/CreateUserModal";
 import { Link } from "@tanstack/react-router";
 
 export default function AdminHeader() {

@@ -106,7 +106,13 @@ export function Category(props: {
                                       />
                                     </>
                                   )}
-                                  <Link to="/" className="hover:underline">
+                                  <Link
+                                    to="/forum/$forumId"
+                                    params={{
+                                      forumId: childBoard.id.toString(),
+                                    }}
+                                    className="hover:underline"
+                                  >
                                     {childBoard.name}
                                   </Link>
                                 </span>

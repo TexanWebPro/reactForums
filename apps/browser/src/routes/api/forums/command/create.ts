@@ -33,18 +33,18 @@ export const ServerRoute = createServerFileRoute(
     }
 
     try {
-      const user = (await forumService.create({
+      const forum = (await forumService.create({
         name,
         description,
         isCategory,
         parentForumId,
       })) as Forum | null;
 
-      if (!user) {
-        return json({ error: "Failed to create user" }, { status: 500 });
+      if (!forum) {
+        return json({ error: "Failed to create forum" }, { status: 500 });
       }
 
-      return json(user, { status: 201 });
+      return json(forum, { status: 201 });
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Unexpected server error";

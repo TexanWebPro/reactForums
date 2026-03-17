@@ -1,9 +1,11 @@
-import { queryOptions } from "@tanstack/react-query";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
 import {
+  createThread,
   fetchRecentThreads,
   fetchThreadById,
   fetchThreadsByForumId,
 } from "./threads.api";
+import { CreateThreadInput } from "@reactforums/core";
 
 export const threadKeys = {
   all: ["threads"] as const,
@@ -30,5 +32,15 @@ export const threadQueries = {
     queryOptions({
       queryKey: threadKeys.recent(),
       queryFn: () => fetchRecentThreads(),
+    }),
+};
+
+export const threadMutations = {
+  create: () =>
+    mutationOptions({
+      mutationFn: (input: CreateThreadInput) => createThread(input),
+      onSuccess: () => {
+        // cache invalidation
+      },
     }),
 };
