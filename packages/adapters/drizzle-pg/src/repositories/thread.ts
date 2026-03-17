@@ -1,4 +1,9 @@
-import { Thread, ThreadRepository, Threads } from "@reactforums/core";
+import {
+  CreateThreadInput,
+  Thread,
+  ThreadRepository,
+  Threads,
+} from "@reactforums/core";
 import { eq } from "drizzle-orm";
 import { DrizzlePgDatabase } from "src/types";
 import { ReactForumsDrizzleSchema } from "src";
@@ -12,6 +17,18 @@ export class DrizzleThreadRepository<TSchema extends ReactForumsDrizzleSchema>
   constructor(db: DrizzlePgDatabase, schema: TSchema) {
     this.db = db;
     this.schema = schema;
+  }
+
+  async createThread(input: CreateThreadInput): Promise<Thread | undefined> {
+    const threadsTable = this.schema.threads;
+    const threads = await this.db
+      .insert(threadsTable)
+      .values(input)
+      .returning();
+
+    const thread = threads[0];
+    if (!thread) return;
+    return this.mapDbThreadToThread(thread);
   }
 
   async countVisibleThreads(): Promise<number> {

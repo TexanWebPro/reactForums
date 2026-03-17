@@ -311,6 +311,13 @@ var DrizzleThreadRepository = class {
     this.db = db;
     this.schema = schema;
   }
+  async createThread(input) {
+    const threadsTable = this.schema.threads;
+    const threads = await this.db.insert(threadsTable).values(input).returning();
+    const thread = threads[0];
+    if (!thread) return;
+    return this.mapDbThreadToThread(thread);
+  }
   async countVisibleThreads() {
     const threadsTable = this.schema.threads;
     const threads = await this.db.$count(threadsTable);
