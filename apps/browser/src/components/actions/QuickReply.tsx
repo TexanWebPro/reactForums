@@ -87,7 +87,7 @@ export default function QuickReply(props: {
             const isInvalid =
               field.state.meta.isTouched && !field.state.meta.isValid;
             return (
-              <Field>
+              <Field className="border-2 border-stone-300 rounded-lg">
                 <TextEditor
                   previewHeader={"title"}
                   {...field}

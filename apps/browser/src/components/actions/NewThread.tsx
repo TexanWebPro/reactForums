@@ -138,27 +138,13 @@ export default function NewThread(props: { forumId: string }) {
             );
           }}
         />
-        {/* <form.Field
-          control={form.control}
-          name="body"
-          render={({ field }) => (
-            <>
-              <FormItem className="border-2 border-stone-300 rounded-lg">
-                <FormControl>
-                  <TextEditor {...field} previewHeader={"subject"} />
-                </FormControl>
-                <FormMessage className="pl-4 font-bold text-secondary-red-500" />
-              </FormItem>
-            </>
-          )}
-        /> */}
         <form.Field
           name="content"
           children={(field) => {
             const isInvalid =
               field.state.meta.isTouched && !field.state.meta.isValid;
             return (
-              <Field>
+              <Field className="border-2 border-stone-300 rounded-lg">
                 <TextEditor
                   previewHeader={"title"}
                   {...field}

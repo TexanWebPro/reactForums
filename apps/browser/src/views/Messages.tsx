@@ -1,13 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { UserCPNav } from "../components/layout/UserCPNav";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export function MessagesView() {
   return (
     <>
-      <span className="text-sm font-bold flex flex-row items-center justify-start gap-2 pb-4">
-        <Link to="/">rF Community Forums</Link>
-        <p>{`-> Private Messages`}</p>
-      </span>
+      <Breadcrumbs crumbs={[{ label: "Private Messages" }]} />
+
       <div className="flex flex-row items-start justify-between gap-4 w-full">
         <UserCPNav />
         <span className="w-5/6 flex flex-col gap-8">
@@ -27,8 +26,8 @@ export function MessagesView() {
                 </span>
                 <span className="text-center">
                   <Link
-                    to="/users/$userId"
-                    params={{ userId: "Elegant-Totality" }}
+                    to="/users/$username"
+                    params={{ username: "Elegant-Totality" }}
                     className="text-sky-700 hover:underline"
                   >
                     Elegant Totality
