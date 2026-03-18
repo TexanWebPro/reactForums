@@ -1,18 +1,23 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
 import { toast } from "sonner";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-// import { TextEditor } from "@/components/ui/text-editor";
 import { threadMutations } from "@/features/threads/threads.query";
 import { Button } from "../ui/button";
+import { TextEditor } from "../ui/text-editor";
+import { postMutations } from "@/features/posts/posts.query";
+import { useNavigate } from "@tanstack/react-router";
 
 export default function NewThread(props: { forumId: string }) {
+  const navigate = useNavigate();
   const formSchema = z.object({
     subject: z.string().min(3),
-    body: z.string(),
+    content: z.string(),
   });
+
+  const queryClient = useQueryClient();
 
   const createThreadMutation = useMutation({
     ...threadMutations.create(),
@@ -26,8 +31,33 @@ export default function NewThread(props: { forumId: string }) {
           "--border-radius": "calc(var(--radius)  + 4px)",
         } as React.CSSProperties,
       });
+    },
+    onError: (error) => {
+      toast.error(`Something went wrong: ${error.message}.`, {
+        position: "bottom-right",
+        classNames: {
+          content: "flex flex-col gap-2",
+        },
+        style: {
+          "--border-radius": "calc(var(--radius)  + 4px)",
+        } as React.CSSProperties,
+      });
+    },
+  });
 
-      //   navigate({ from: "/", to: "/" });
+  const postsPerPage = 10; // TODO: replace with value from user settings
+  const baseMutation = postMutations.create(queryClient, postsPerPage);
+
+  const createPostMutation = useMutation({
+    ...baseMutation,
+    onSuccess: async (data, variables, onMutateResult, context) => {
+      await baseMutation.onSuccess?.(data, variables, onMutateResult, context);
+
+      navigate({
+        from: "/forum/$forumId/thread/new",
+        to: "/forum/$forumId/thread/$threadId",
+        params: { forumId: props.forumId, threadId: data.threadId.toString() },
+      });
     },
     onError: (error) => {
       toast.error(`Something went wrong: ${error.message}.`, {
@@ -45,17 +75,27 @@ export default function NewThread(props: { forumId: string }) {
   const form = useForm({
     defaultValues: {
       subject: "",
-      body: "",
+      content: "",
     },
     validators: {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      await createThreadMutation.mutateAsync({
+      const thread = await createThreadMutation.mutateAsync({
         forumId: Number(props.forumId),
         subject: value.subject,
         userId: 1, // TODO: update after user auth added
         username: "Elegant Totality", // TODO: update after user auth added
+      });
+
+      await createPostMutation.mutateAsync({
+        threadId: thread.id,
+        forumId: Number(props.forumId),
+        userId: 1, // TODO: update after user auth added
+        username: "Elegant Totality", // TODO: update after user auth added
+        content: value.content,
+        ipAddress: "000", // TODO: update after user auth added
+        longIpAddress: "000-000", // TODO: update after user auth added
       });
     },
   });
@@ -112,6 +152,24 @@ export default function NewThread(props: { forumId: string }) {
             </>
           )}
         /> */}
+        <form.Field
+          name="content"
+          children={(field) => {
+            const isInvalid =
+              field.state.meta.isTouched && !field.state.meta.isValid;
+            return (
+              <Field>
+                <TextEditor
+                  previewHeader={"title"}
+                  {...field}
+                  onChange={(value: string) => field.handleChange(value)}
+                  aria-invalid={isInvalid}
+                />
+                {isInvalid && <FieldError errors={field.state.meta.errors} />}
+              </Field>
+            );
+          }}
+        />
 
         {/* <form.Field
           control={form.control}

@@ -82,7 +82,7 @@ const editorConfig = {
 
 interface TextEditorProps {
   previewHeader: string;
-  onChange: (...event: unknown[]) => void;
+  onChange: (value: string) => void;
 }
 
 export const TextEditor = forwardRef((props: TextEditorProps, _ref) => {

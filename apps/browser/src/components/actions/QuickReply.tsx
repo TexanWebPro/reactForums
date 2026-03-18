@@ -91,14 +91,8 @@ export default function QuickReply(props: {
                 <TextEditor
                   previewHeader={"title"}
                   {...field}
-                  onChange={(e) => field.handleChange(e)}
-                  //   id={field.name}
-                  //   name={field.name}
-                  //   value={field.state.value}
-                  //   onBlur={field.handleBlur}
+                  onChange={(value: string) => field.handleChange(value)}
                   aria-invalid={isInvalid}
-                  //   placeholder="Forum Name"
-                  //   autoComplete="off"
                 />
                 {isInvalid && <FieldError errors={field.state.meta.errors} />}
               </Field>
