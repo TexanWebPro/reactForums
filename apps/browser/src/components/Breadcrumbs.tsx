@@ -2,6 +2,7 @@ import { settingQueries } from "@/features/settings/settings.query";
 import { SettingKey } from "@reactforums/core";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
+import { Skeleton } from "./ui/skeleton";
 
 export interface Crumb {
   label: string;
@@ -12,7 +13,12 @@ export default function Breadcrumbs({ crumbs }: { crumbs: Crumb[] }) {
     ...settingQueries.byNames([SettingKey.BoardName, SettingKey.BoardUrl]),
   });
 
-  if (isLoading) return <>loading</>;
+  if (isLoading)
+    return (
+      <>
+        <LoadingBreadcrumbs />
+      </>
+    );
   if (error) return <>error</>;
   if (!data) return <>no data</>;
 
@@ -39,6 +45,18 @@ export default function Breadcrumbs({ crumbs }: { crumbs: Crumb[] }) {
               {i < crumbs.length && <span className="mx-2">/</span>}
             </li>
           ))}
+        </ol>
+      </nav>
+    </>
+  );
+}
+
+function LoadingBreadcrumbs() {
+  return (
+    <>
+      <nav aria-label="Breadcrumb">
+        <ol className="text-sm font-bold flex flex-row items-center justify-start py-4">
+          <Skeleton className="h-4" />
         </ol>
       </nav>
     </>

@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { settingQueries } from "@/features/settings/settings.query";
 import Edges from "./Edges";
+import { Skeleton } from "../ui/skeleton";
 
 export default function Header() {
   const {
@@ -21,7 +22,12 @@ export default function Header() {
     ...settingQueries.byName(SettingKey.BoardDescription),
   });
 
-  if (isLoading || boardDescriptionLoading) return "Loading";
+  if (isLoading || boardDescriptionLoading)
+    return (
+      <>
+        <LoadingHeader />
+      </>
+    );
   if (error || boardDescriptionError) return "Error";
 
   return (
@@ -157,5 +163,89 @@ export default function Header() {
         </Edges>
       </div>
     </header>
+  );
+}
+
+function LoadingHeader() {
+  return (
+    <>
+      <header className="flex flex-col bg-sky-700 text-neutral-50 justify-between">
+        <nav className="text-2xl">
+          <Edges className="flex flex-row gap-4 py-8 items-center justify-between">
+            <span>
+              <Skeleton className="h-8" />
+              <Skeleton className="h-8" />
+            </span>
+          </Edges>
+        </nav>
+
+        <div className="bg-stone-950 text-stone-50 font-bold p-2">
+          <Edges className="w-full flex flex-row items-center justify-between text-sm">
+            <div className="flex flex-row items-center justify-between gap-4">
+              <span>
+                <Skeleton className="h-4" />
+              </span>
+            </div>
+            <ul className="flex flex-row items-center justify-between gap-4">
+              <li>
+                <Link
+                  to="/"
+                  className="flex flex-row items-center justify-between gap-1"
+                >
+                  <img
+                    src="/images/icons/magnifying-glass-white.svg"
+                    alt="Search"
+                    className="w-4"
+                  />
+                  Search
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/"
+                  className="flex flex-row items-center justify-between gap-1"
+                >
+                  <img
+                    src="/images/icons/users-white.svg"
+                    alt="Memberlist"
+                    className="w-4"
+                  />
+                  Memberlist
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/"
+                  className="flex flex-row items-center justify-between gap-1"
+                >
+                  <img
+                    src="/images/icons/question-mark-circle-white.svg"
+                    alt="Help"
+                    className="w-4"
+                  />
+                  Help
+                </Link>
+              </li>
+            </ul>
+          </Edges>
+        </div>
+        <div className="bg-stone-200 text-stone-950 font-bold px-2">
+          <Edges className="w-full flex flex-row items-center justify-between text-sm">
+            <div className="flex flex-row items-center justify-between gap-4">
+              <Skeleton className="h-4" />
+            </div>
+            <ul className="flex flex-row items-center justify-between gap-4">
+              <li>
+                <Link to="/">View New Replies</Link>
+              </li>
+              <li>
+                <Link to="/">View New Topics</Link>
+              </li>
+              <Skeleton className="h-4" />
+            </ul>
+          </Edges>
+        </div>
+      </header>
+    </>
   );
 }
