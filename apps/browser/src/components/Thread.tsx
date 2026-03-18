@@ -43,7 +43,11 @@ export function ThreadComponent(props: { thread: Thread }) {
         linkTo="/forum/$forumId/thread/reply"
         params={{ forumId: thread.forumId }}
       />
-      <QuickReply />
+      <QuickReply
+        forumId={thread.forumId}
+        threadId={thread.id}
+        postsPerPage={postsPerPage}
+      />
     </div>
   );
 }

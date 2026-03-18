@@ -4,17 +4,26 @@ import { toast } from "sonner";
 import { TextEditor } from "../ui/text-editor";
 import { Button } from "../ui/button";
 import { Field, FieldError } from "../ui/field";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postMutations } from "@/features/posts/posts.query";
 
-export default function QuickReply() {
+export default function QuickReply(props: {
+  forumId: number;
+  threadId: number;
+  postsPerPage: number;
+}) {
+  const queryClient = useQueryClient();
   const formSchema = z.object({
     content: z.string(),
   });
 
+  const baseMutation = postMutations.create(queryClient, props.postsPerPage);
+
   const createPostMutation = useMutation({
-    ...postMutations.create(),
-    onSuccess: () => {
+    ...baseMutation,
+    onSuccess: async (data, variables, onMutateResult, context) => {
+      await baseMutation.onSuccess?.(data, variables, onMutateResult, context);
+
       toast.success(`You've created a new post`, {
         position: "bottom-right",
         classNames: {
@@ -47,8 +56,8 @@ export default function QuickReply() {
     },
     onSubmit: async ({ value }) => {
       await createPostMutation.mutateAsync({
-        threadId: 1,
-        forumId: 1,
+        threadId: props.threadId,
+        forumId: props.forumId,
         userId: 1, // TODO: update after user auth added
         username: "Elegant Totality", // TODO: update after user auth added
         content: value.content,
