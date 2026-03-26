@@ -53,8 +53,8 @@ export function UserInfoBar(props: {
           />
           <span className="flex flex-col items-start">
             <Link
-              to="/users/$userId"
-              params={{ userId: username }}
+              to="/users/$username"
+              params={{ username: username }}
               className="text-lg text-green-800 font-bold hover:underline"
             >
               {username}
@@ -80,8 +80,8 @@ export function UserInfoBar(props: {
             <p>
               <span className="font-bold">Reputation:</span>{" "}
               <Link
-                to="/users/$userId/reputation"
-                params={{ userId: username }}
+                to="/users/$username/reputation"
+                params={{ username: username }}
                 className={`font-bold hover:underline ${reputationClassStyle(reputation)}`}
               >
                 {reputation}

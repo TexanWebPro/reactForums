@@ -153,7 +153,8 @@ export function Category(props: {
                       <span>
                         by{" "}
                         <Link
-                          to={board.lastPostAuthor || ""}
+                          to={"/users/$username"}
+                          params={{ username: board.lastPostAuthor || "" }}
                           className="text-sky-700"
                         >
                           {board.lastPostAuthor}

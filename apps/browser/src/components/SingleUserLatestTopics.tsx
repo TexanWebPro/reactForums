@@ -43,8 +43,8 @@ export function SingleUserLatestTopics() {
               </Link>
               :{" "}
               <Link
-                to="/users/$userId"
-                params={{ userId: "Elegant-Totality" }}
+                to="/users/$username"
+                params={{ username: "Elegant-Totality" }}
                 className="text-sky-700 hover:underline"
               >
                 Elegant Totality
@@ -81,8 +81,8 @@ export function SingleUserLatestTopics() {
               </Link>
               :{" "}
               <Link
-                to="/users/$userId"
-                params={{ userId: "Elegant-Totality" }}
+                to="/users/$username"
+                params={{ username: "Elegant-Totality" }}
                 className="text-sky-700 hover:underline"
               >
                 Elegant Totality
@@ -119,8 +119,8 @@ export function SingleUserLatestTopics() {
               </Link>
               :{" "}
               <Link
-                to="/users/$userId"
-                params={{ userId: "Elegant-Totality" }}
+                to="/users/$username"
+                params={{ username: "Elegant-Totality" }}
                 className="text-sky-700 hover:underline"
               >
                 Elegant Totality
@@ -157,8 +157,8 @@ export function SingleUserLatestTopics() {
               </Link>
               :{" "}
               <Link
-                to="/users/$userId"
-                params={{ userId: "Elegant-Totality" }}
+                to="/users/$username"
+                params={{ username: "Elegant-Totality" }}
                 className="text-sky-700 hover:underline"
               >
                 Elegant Totality
@@ -195,8 +195,8 @@ export function SingleUserLatestTopics() {
               </Link>
               :{" "}
               <Link
-                to="/users/$userId"
-                params={{ userId: "Elegant-Totality" }}
+                to="/users/$username"
+                params={{ username: "Elegant-Totality" }}
                 className="text-sky-700 hover:underline"
               >
                 Elegant Totality
