@@ -90,6 +90,18 @@ var ForumService = class {
   constructor(repository) {
     this.repository = repository;
   }
+  /**
+   *
+   * Create Method
+   */
+  async create(input) {
+    const forum = await this.repository.createForum(input);
+    return forum;
+  }
+  /**
+   *
+   * Read Methods
+   */
   // return forums by category, ordered by displayOrder
   async listAllForumsByCategory() {
     const forums = await this.repository.getAllForums();
@@ -106,10 +118,33 @@ var ForumService = class {
     };
     return forumWithChildren;
   }
-  async create(input) {
-    const forum = await this.repository.createForum(input);
+  /**
+   *
+   * Update Methods
+   */
+  // async UpdateForumDetails() {
+  // const forum = await this.repository.save();
+  // }
+  async updateLatestPost(forumId, thread, username) {
+    const forum = await this.repository.updateLatestPost(
+      forumId,
+      thread,
+      username
+    );
     return forum;
   }
+  async incrementStats(forumId, threadDelta, postDelta) {
+    const forum = await this.repository.incrementStats(
+      forumId,
+      threadDelta,
+      postDelta
+    );
+    return forum;
+  }
+  /**
+   *
+   * Utility Methods
+   */
   buildTree(forums, parentId = null) {
     return forums.filter((f) => f.parentForumId === parentId).map((f) => ({ ...f, children: this.buildTree(forums, f.id) }));
   }

@@ -258,14 +258,35 @@ interface ForumRepository {
     createForum(input: CreateForumInput): Promise<Forum | undefined>;
     getAllForums(): Promise<Forums>;
     getForumById(id: number): Promise<Forum | undefined>;
+    updateForum(forum: Forum): Promise<void>;
+    updateLatestPost(forumId: number, thread: Thread, username: string): Promise<void>;
+    incrementStats(forumId: number, threadDelta: number, postDelta: number): Promise<void>;
 }
 
 declare class ForumService {
     private repository;
     constructor(repository: ForumRepository);
+    /**
+     *
+     * Create Method
+     */
+    create(input: CreateForumInput): Promise<Forum | undefined>;
+    /**
+     *
+     * Read Methods
+     */
     listAllForumsByCategory(): Promise<ForumTreeNode[]>;
     getBreadcrumbForumHierarchy(id: number): Promise<ForumTreeNode | undefined>;
-    create(input: CreateForumInput): Promise<Forum | undefined>;
+    /**
+     *
+     * Update Methods
+     */
+    updateLatestPost(forumId: number, thread: Thread, username: string): Promise<void>;
+    incrementStats(forumId: number, threadDelta: number, postDelta: number): Promise<void>;
+    /**
+     *
+     * Utility Methods
+     */
     buildTree(forums: Forums, parentId?: number | null): ForumTreeNode[];
 }
 
