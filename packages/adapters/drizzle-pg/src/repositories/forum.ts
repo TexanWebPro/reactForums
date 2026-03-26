@@ -3,8 +3,9 @@ import {
   Forum,
   ForumRepository,
   Forums,
+  Thread,
 } from "@reactforums/core";
-import { eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { DrizzlePgDatabase } from "src/types";
 import { ReactForumsDrizzleSchema } from "src";
 
@@ -44,6 +45,47 @@ export class DrizzleForumRepository<TSchema extends ReactForumsDrizzleSchema>
     const forum = forums[0];
     if (!forum) return;
     return this.mapDbForumToForum(forum);
+  }
+
+  async updateForum(forum: Forum): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+
+  async updateLatestPost(
+    forumId: number,
+    thread: Thread,
+    username: string,
+  ): Promise<void> {
+    const forumsTable = this.schema.forums;
+    await this.db
+      .update(forumsTable)
+      .set({
+        lastPostAuthor: username,
+        lastPostThreadId: thread.id,
+        lastPostThreadSubject: thread.subject,
+        lastPostTime: thread.createdAt.toDateString(),
+      })
+      .where(
+        and(
+          eq(forumsTable.id, forumId),
+          sql`(${forumsTable.lastPostTime} IS NULL OR ${forumsTable.lastPostTime} < ${thread.createdAt})`,
+        ),
+      );
+  }
+
+  async incrementStats(
+    forumId: number,
+    threadDelta: number,
+    postDelta: number,
+  ): Promise<void> {
+    const forumsTable = this.schema.forums;
+    await this.db
+      .update(forumsTable)
+      .set({
+        threadCount: sql`${forumsTable.threadCount} + ${threadDelta}`,
+        postCount: sql`${forumsTable.postCount} + ${postDelta}`,
+      })
+      .where(eq(forumsTable.id, forumId));
   }
 
   mapDbForumToForum(forum: any): Forum {

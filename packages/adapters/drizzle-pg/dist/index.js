@@ -285,6 +285,30 @@ var DrizzleForumRepository = class {
     if (!forum) return;
     return this.mapDbForumToForum(forum);
   }
+  async updateForum(forum) {
+    throw new Error("Method not implemented.");
+  }
+  async updateLatestPost(forumId, thread, username) {
+    const forumsTable = this.schema.forums;
+    await this.db.update(forumsTable).set({
+      lastPostAuthor: username,
+      lastPostThreadId: thread.id,
+      lastPostThreadSubject: thread.subject,
+      lastPostTime: thread.createdAt.toDateString()
+    }).where(
+      (0, import_drizzle_orm6.and)(
+        (0, import_drizzle_orm6.eq)(forumsTable.id, forumId),
+        import_drizzle_orm6.sql`(${forumsTable.lastPostTime} IS NULL OR ${forumsTable.lastPostTime} < ${thread.createdAt})`
+      )
+    );
+  }
+  async incrementStats(forumId, threadDelta, postDelta) {
+    const forumsTable = this.schema.forums;
+    await this.db.update(forumsTable).set({
+      threadCount: import_drizzle_orm6.sql`${forumsTable.threadCount} + ${threadDelta}`,
+      postCount: import_drizzle_orm6.sql`${forumsTable.postCount} + ${postDelta}`
+    }).where((0, import_drizzle_orm6.eq)(forumsTable.id, forumId));
+  }
   mapDbForumToForum(forum) {
     return {
       ...forum,

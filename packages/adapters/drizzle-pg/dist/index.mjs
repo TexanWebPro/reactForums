@@ -262,7 +262,7 @@ var DrizzleUserRepository = class {
 };
 
 // src/repositories/forum.ts
-import { eq as eq3 } from "drizzle-orm";
+import { and, eq as eq3, sql as sql4 } from "drizzle-orm";
 var DrizzleForumRepository = class {
   db;
   schema;
@@ -288,6 +288,30 @@ var DrizzleForumRepository = class {
     const forum = forums[0];
     if (!forum) return;
     return this.mapDbForumToForum(forum);
+  }
+  async updateForum(forum) {
+    throw new Error("Method not implemented.");
+  }
+  async updateLatestPost(forumId, thread, username) {
+    const forumsTable = this.schema.forums;
+    await this.db.update(forumsTable).set({
+      lastPostAuthor: username,
+      lastPostThreadId: thread.id,
+      lastPostThreadSubject: thread.subject,
+      lastPostTime: thread.createdAt.toDateString()
+    }).where(
+      and(
+        eq3(forumsTable.id, forumId),
+        sql4`(${forumsTable.lastPostTime} IS NULL OR ${forumsTable.lastPostTime} < ${thread.createdAt})`
+      )
+    );
+  }
+  async incrementStats(forumId, threadDelta, postDelta) {
+    const forumsTable = this.schema.forums;
+    await this.db.update(forumsTable).set({
+      threadCount: sql4`${forumsTable.threadCount} + ${threadDelta}`,
+      postCount: sql4`${forumsTable.postCount} + ${postDelta}`
+    }).where(eq3(forumsTable.id, forumId));
   }
   mapDbForumToForum(forum) {
     return {
