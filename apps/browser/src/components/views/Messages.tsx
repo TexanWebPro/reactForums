@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { UserCPNav } from "../components/layout/UserCPNav";
+import { UserCPNav } from "@/components/layout/UserCPNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 export function MessagesView() {

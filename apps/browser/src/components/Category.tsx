@@ -1,3 +1,4 @@
+import { formatDateTimeForForumDisplay } from "@reactforums/common/utils/dates";
 import { ForumTreeNode } from "@reactforums/core";
 import { Link } from "@tanstack/react-router";
 
@@ -131,24 +132,35 @@ export function Category(props: {
                   <span>{board.postCount} Posts</span>
                 </span>
                 <span className="flex flex-col items-end justify-between">
-                  <span>
-                    <Link to="/" className="text-sky-700 font-bold">
-                      {board.lastPostThreadSubject}
-                    </Link>
-                  </span>
-                  <span>
-                    {/* TODO: fix date formatting */}
-                    date here
-                  </span>
-                  <span>
-                    by{" "}
-                    <Link
-                      to={board.lastPostAuthor || ""}
-                      className="text-sky-700"
-                    >
-                      {board.lastPostAuthor}
-                    </Link>
-                  </span>
+                  {!board.threadCount && board.lastPostTime === null ? (
+                    <>
+                      <span>No Posts</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>
+                        <Link to="/" className="text-sky-700 font-bold">
+                          {board.lastPostThreadSubject}
+                        </Link>
+                      </span>
+                      <span>
+                        {board.lastPostTime ? (
+                          formatDateTimeForForumDisplay(board.lastPostTime)
+                        ) : (
+                          <></>
+                        )}
+                      </span>
+                      <span>
+                        by{" "}
+                        <Link
+                          to={board.lastPostAuthor || ""}
+                          className="text-sky-700"
+                        >
+                          {board.lastPostAuthor}
+                        </Link>
+                      </span>
+                    </>
+                  )}
                 </span>
               </div>
             </div>

@@ -5,7 +5,7 @@ import {
   fetchThreadById,
   fetchThreadsByForumId,
 } from "./threads.api";
-import { CreateThreadInput } from "@reactforums/core";
+import { CreatePostInput, CreateThreadInput } from "@reactforums/core";
 
 export const threadKeys = {
   all: ["threads"] as const,
@@ -38,7 +38,9 @@ export const threadQueries = {
 export const threadMutations = {
   create: () =>
     mutationOptions({
-      mutationFn: (input: CreateThreadInput) => createThread(input),
+      mutationFn: (
+        input: CreateThreadInput & Omit<CreatePostInput, "threadId">,
+      ) => createThread(input),
       onSuccess: () => {
         // cache invalidation
       },

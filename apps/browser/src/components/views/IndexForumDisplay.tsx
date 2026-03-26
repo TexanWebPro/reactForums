@@ -1,8 +1,8 @@
 import { ForumTreeNode } from "@reactforums/core";
-import Breadcrumbs from "../components/Breadcrumbs";
-import { ForumDisplay } from "../components/ForumDisplay";
-import { ForumIconKey } from "../components/ForumIconKey";
-import { Stats } from "../components/Stats";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { ForumDisplay } from "@/components/ForumDisplay";
+import { ForumIconKey } from "@/components/ForumIconKey";
+import { Stats } from "@/components/Stats";
 
 export function IndexForumDisplayView(props: { forums: ForumTreeNode[] }) {
   return (

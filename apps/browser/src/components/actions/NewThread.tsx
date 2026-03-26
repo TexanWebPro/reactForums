@@ -17,8 +17,6 @@ export default function NewThread(props: { forumId: string }) {
     content: z.string(),
   });
 
-  const queryClient = useQueryClient();
-
   const createThreadMutation = useMutation({
     ...threadMutations.create(),
     onSuccess: (thread) => {
@@ -31,32 +29,11 @@ export default function NewThread(props: { forumId: string }) {
           "--border-radius": "calc(var(--radius)  + 4px)",
         } as React.CSSProperties,
       });
-    },
-    onError: (error) => {
-      toast.error(`Something went wrong: ${error.message}.`, {
-        position: "bottom-right",
-        classNames: {
-          content: "flex flex-col gap-2",
-        },
-        style: {
-          "--border-radius": "calc(var(--radius)  + 4px)",
-        } as React.CSSProperties,
-      });
-    },
-  });
-
-  const postsPerPage = 10; // TODO: replace with value from user settings
-  const baseMutation = postMutations.create(queryClient, postsPerPage);
-
-  const createPostMutation = useMutation({
-    ...baseMutation,
-    onSuccess: async (data, variables, onMutateResult, context) => {
-      await baseMutation.onSuccess?.(data, variables, onMutateResult, context);
 
       navigate({
         from: "/forum/$forumId/thread/new",
         to: "/forum/$forumId/thread/$threadId",
-        params: { forumId: props.forumId, threadId: data.threadId.toString() },
+        params: { forumId: props.forumId, threadId: thread.id.toString() },
       });
     },
     onError: (error) => {
@@ -81,16 +58,9 @@ export default function NewThread(props: { forumId: string }) {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      const thread = await createThreadMutation.mutateAsync({
+      await createThreadMutation.mutateAsync({
         forumId: Number(props.forumId),
         subject: value.subject,
-        userId: 1, // TODO: update after user auth added
-        username: "Elegant Totality", // TODO: update after user auth added
-      });
-
-      await createPostMutation.mutateAsync({
-        threadId: thread.id,
-        forumId: Number(props.forumId),
         userId: 1, // TODO: update after user auth added
         username: "Elegant Totality", // TODO: update after user auth added
         content: value.content,
