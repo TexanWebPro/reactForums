@@ -8,7 +8,7 @@ import { Signer } from "@aws-sdk/rds-signer";
 import { awsCredentialsProvider } from "@vercel/functions/oidc";
 import { attachDatabasePool } from "@vercel/functions";
 
-async function createPool() {
+function createPool() {
   // AWS IAM (only if configured)
   if (process.env.AWS_ROLE_ARN) {
     const signer = new Signer({
@@ -48,7 +48,7 @@ async function createPool() {
   });
 }
 
-const pool = await createPool();
+const pool = createPool();
 attachDatabasePool(pool);
 
 export const db = drizzle(pool, { schema: defaultSchema });
