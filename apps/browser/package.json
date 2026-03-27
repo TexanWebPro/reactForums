@@ -12,6 +12,7 @@
     "db:seed": "ts-node scripts/seed.ts"
   },
   "dependencies": {
+    "@aws-sdk/rds-signer": "^3.1018.0",
     "@lexical/html": "^0.41.0",
     "@lexical/react": "^0.41.0",
     "@lexical/utils": "^0.41.0",
@@ -22,6 +23,7 @@
     "@tanstack/react-router": "^1.131.49",
     "@tanstack/react-router-devtools": "^1.131.49",
     "@tanstack/react-start": "^1.131.49",
+    "@vercel/functions": "^3.4.3",
     "class-variance-authority": "^0.7.1",
     "drizzle-orm": "^0.45.1",
     "html-react-parser": "^5.2.17",
