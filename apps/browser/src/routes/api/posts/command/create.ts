@@ -1,5 +1,5 @@
 import { createServerFileRoute } from "@tanstack/react-start/server";
-import { postService } from "@/server/services";
+import { forumService, postService, threadService } from "@/server/services";
 import { json } from "@tanstack/react-start";
 import { CreatePostInput, Post } from "@reactforums/core";
 
@@ -61,6 +61,34 @@ export const ServerRoute = createServerFileRoute(
 
       if (!post) {
         return json({ error: "Failed to create post" }, { status: 500 });
+      }
+
+      try {
+        const thread = await threadService.getThreadById(threadId);
+        const threadDelta = 0;
+        const postDelta = 1;
+
+        if (!thread) {
+          return json(
+            { error: "Failed to increment forum stats" },
+            { status: 500 },
+          );
+        }
+
+        try {
+          await forumService.updateLatestPost(forumId, thread, username);
+          await forumService.incrementStats(forumId, threadDelta, postDelta);
+        } catch (error) {
+          const message =
+            error instanceof Error ? error.message : "Unexpected server error";
+
+          return json({ error: message }, { status: 500 });
+        }
+      } catch (error) {
+        const message =
+          error instanceof Error ? error.message : "Unexpected server error";
+
+        return json({ error: message }, { status: 500 });
       }
 
       return json(post, { status: 201 });
