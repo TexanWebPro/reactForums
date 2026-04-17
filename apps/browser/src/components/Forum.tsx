@@ -7,6 +7,8 @@ import {
 import type { Forum, Thread } from "@reactforums/core";
 import { useQuery } from "@tanstack/react-query";
 import { threadQueries } from "@/features/threads/threads.query";
+import { starRating } from "@/utils/starRating";
+import { ThreadRating } from "./ThreadRating";
 
 export function ForumComponent(forum: Forum) {
   const threadsPerPage = 10;
@@ -48,55 +50,6 @@ export function ForumComponent(forum: Forum) {
           {threads.length ? (
             <>
               {threads.map((thread: Thread, i: number) => {
-                function starRating(rating: number) {
-                  switch (rating) {
-                    case 0:
-                      return <></>;
-                    case 1:
-                      return (
-                        <>
-                          <img src="/images/star.png" alt="star" />
-                        </>
-                      );
-                    case 2:
-                      return (
-                        <>
-                          <img src="/images/star.png" alt="star" />
-                          <img src="/images/star.png" alt="star" />
-                        </>
-                      );
-                    case 3:
-                      return (
-                        <>
-                          <img src="/images/star.png" alt="star" />
-                          <img src="/images/star.png" alt="star" />
-                          <img src="/images/star.png" alt="star" />
-                        </>
-                      );
-                    case 4:
-                      return (
-                        <>
-                          <img src="/images/star.png" alt="star" />
-                          <img src="/images/star.png" alt="star" />
-                          <img src="/images/star.png" alt="star" />
-                          <img src="/images/star.png" alt="star" />
-                        </>
-                      );
-                    case 5:
-                      return (
-                        <>
-                          <img src="/images/star.png" alt="star" />
-                          <img src="/images/star.png" alt="star" />
-                          <img src="/images/star.png" alt="star" />
-                          <img src="/images/star.png" alt="star" />
-                          <img src="/images/star.png" alt="star" />
-                        </>
-                      );
-                    default:
-                      return <></>;
-                  }
-                }
-
                 return (
                   <div key={thread.id}>
                     <div
@@ -138,11 +91,7 @@ export function ForumComponent(forum: Forum) {
                       <span>{thread.replies}</span>
                       <span>{thread.views}</span>
                       <span className="flex flex-row items-center">
-                        {starRating(
-                          Math.floor(
-                            thread.ratingsTotal / thread.ratingsNumber,
-                          ),
-                        )}
+                        <ThreadRating thread={thread} />
                       </span>
                       <span className="flex flex-col">
                         <span>

@@ -5,6 +5,7 @@ import { Button } from "./Button";
 import { postQueries } from "@/features/posts/posts.query";
 import type { Thread } from "@reactforums/core";
 import QuickReply from "./actions/QuickReply";
+import { ThreadRating } from "./ThreadRating";
 
 export function ThreadComponent(props: { thread: Thread }) {
   const { thread } = props;
@@ -19,11 +20,17 @@ export function ThreadComponent(props: { thread: Thread }) {
 
   return (
     <div className="flex flex-col items-end justify-between">
-      <Button
-        text="New Reply"
-        linkTo="/forum/$forumId/thread/reply"
-        params={{ forumId: thread.forumId }}
-      />
+      <span className="flex flex-row items-center gap-4">
+        <span className="flex flex-row items-center justify-between">
+          <p className="mr-2 font-semibold">Thread Rating:</p>
+          <ThreadRating thread={thread} />
+        </span>
+        <Button
+          text="New Reply"
+          linkTo="/forum/$forumId/thread/reply"
+          params={{ forumId: thread.forumId }}
+        />
+      </span>
 
       <span className="bg-sky-600 w-full p-4 py-2 mt-4 font-bold text-stone-50 border-2 border-sky-800 rounded-t-lg flex flex-row items-center justify-start gap-2">
         {thread.subject}
