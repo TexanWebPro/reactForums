@@ -76,7 +76,8 @@ export function ForumComponent(forum: Forum) {
 
                           <span>
                             <Link
-                              to="/"
+                              to="/users/$username"
+                              params={{ username: thread.username }}
                               className="text-sky-700 hover:underline"
                             >
                               {thread.username}
@@ -104,11 +105,23 @@ export function ForumComponent(forum: Forum) {
                           )}
                         </span>
                         <span className="">
-                          <Link to="/" className="text-sky-700 hover:underline">
+                          <Link
+                            to="/forum/$forumId/thread/$threadId/$postId"
+                            className="text-sky-700 hover:underline"
+                            params={{
+                              forumId: forum.id.toString(),
+                              threadId: thread.id.toString(),
+                              postId: thread.lastPosterId?.toString() || "",
+                            }}
+                          >
                             Last Post
                           </Link>
                           :{" "}
-                          <Link to="/" className="text-sky-700 hover:underline">
+                          <Link
+                            to="/users/$username"
+                            className="text-sky-700 hover:underline"
+                            params={{ username: thread.lastPosterUsername! }}
+                          >
                             {thread.lastPosterUsername}
                           </Link>
                         </span>

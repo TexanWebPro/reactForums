@@ -139,7 +139,14 @@ export function Category(props: {
                   ) : (
                     <>
                       <span>
-                        <Link to="/" className="text-sky-700 font-bold">
+                        <Link
+                          to="/forum/$forumId/thread/$threadId"
+                          className="text-sky-700 font-bold"
+                          params={{
+                            forumId: board.id.toString(),
+                            threadId: board.lastPostThreadId!.toString(),
+                          }}
+                        >
                           {board.lastPostThreadSubject}
                         </Link>
                       </span>

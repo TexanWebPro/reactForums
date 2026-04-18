@@ -17,7 +17,10 @@ export function Post(post: Post) {
 
   return (
     <>
-      <div className="flex w-full flex-col border-b-2 border-sky-800">
+      <div
+        className="flex w-full flex-col border-b-2 border-sky-800"
+        id={post.id.toString()}
+      >
         <UserInfoBar
           username={post.username}
           userTitle={String(userInfo.userTitle)}

@@ -1,6 +1,7 @@
 import { userQueries } from "@/features/users/users.query";
 import { parseHtml } from "@/utils/parseHtml";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
 
 export function PostContent(props: {
   createdAt: Date;
@@ -44,7 +45,11 @@ function EditLine(props: { editUserId: number; updatedAt: Date }) {
           {" "}
           (This post was last modified: {new Date(
             updatedAt,
-          ).toDateString()} by {userInfo.username}.)
+          ).toDateString()} by{" "}
+          <Link to="/users/$username" params={{ username: userInfo.username }}>
+            {userInfo.username}
+          </Link>
+          .)
         </>
       ) : (
         <></>
