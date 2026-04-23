@@ -126,7 +126,7 @@ export default function Header() {
               User CP
             </Link>
             <Link
-              to="/"
+              to="/mod-dashboard"
               className="flex flex-row items-center justify-between gap-1"
             >
               <img

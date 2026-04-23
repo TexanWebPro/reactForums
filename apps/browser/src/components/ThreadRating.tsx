@@ -9,6 +9,13 @@ export function ThreadRating(props: { thread: Thread }) {
     thread.ratingsNumber,
   );
 
+  function handleClick() {
+    // when user clicks star, update Thread
+    // ratingsTotal + starValue = new thread.ratingsTotal
+    // ratingsNumber++ = new thread.ratingsNumber
+    // update rf_thread_ratings db table
+  }
+
   return (
     <>
       <ul className="star_rating star_rating_notrated">

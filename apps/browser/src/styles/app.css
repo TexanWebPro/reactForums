@@ -393,7 +393,6 @@ i.justify-align {
   display: inline-block;
   width: 16px;
   height: 16px;
-  /* TODO: make image local */
   background-image: url(/images/folders_sprite.png);
   background-repeat: no-repeat;
 }
