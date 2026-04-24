@@ -15,12 +15,13 @@ import { Route as UserDashboardRouteImport } from './routes/user-dashboard'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as ReportRouteImport } from './routes/report'
-import { Route as ModDashboardRouteImport } from './routes/mod-dashboard'
 import { Route as MessagesRouteImport } from './routes/messages'
 import { Route as MemberlistRouteImport } from './routes/memberlist'
 import { Route as HelpRouteImport } from './routes/help'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ModDashboardIndexRouteImport } from './routes/mod-dashboard/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as ModDashboardAnnouncementsRouteImport } from './routes/mod-dashboard/announcements'
 import { Route as UsersUsernameIndexRouteImport } from './routes/users/$username/index'
 import { Route as ForumForumIdIndexRouteImport } from './routes/forum/$forumId/index'
 import { Route as AdminForumsIndexRouteImport } from './routes/admin/forums/index'
@@ -69,11 +70,6 @@ const ReportRoute = ReportRouteImport.update({
   path: '/report',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ModDashboardRoute = ModDashboardRouteImport.update({
-  id: '/mod-dashboard',
-  path: '/mod-dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const MessagesRoute = MessagesRouteImport.update({
   id: '/messages',
   path: '/messages',
@@ -94,11 +90,22 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ModDashboardIndexRoute = ModDashboardIndexRouteImport.update({
+  id: '/mod-dashboard/',
+  path: '/mod-dashboard/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ModDashboardAnnouncementsRoute =
+  ModDashboardAnnouncementsRouteImport.update({
+    id: '/mod-dashboard/announcements',
+    path: '/mod-dashboard/announcements',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const UsersUsernameIndexRoute = UsersUsernameIndexRouteImport.update({
   id: '/users/$username/',
   path: '/users/$username/',
@@ -245,12 +252,13 @@ export interface FileRoutesByFullPath {
   '/help': typeof HelpRoute
   '/memberlist': typeof MemberlistRoute
   '/messages': typeof MessagesRoute
-  '/mod-dashboard': typeof ModDashboardRoute
   '/report': typeof ReportRoute
   '/search': typeof SearchRoute
   '/team': typeof TeamRoute
   '/user-dashboard': typeof UserDashboardRoute
+  '/mod-dashboard/announcements': typeof ModDashboardAnnouncementsRoute
   '/admin': typeof AdminIndexRoute
+  '/mod-dashboard': typeof ModDashboardIndexRoute
   '/admin/forums/new': typeof AdminForumsNewRoute
   '/users/$username/reputation': typeof UsersUsernameReputationRoute
   '/admin/forums': typeof AdminForumsIndexRoute
@@ -267,12 +275,13 @@ export interface FileRoutesByTo {
   '/help': typeof HelpRoute
   '/memberlist': typeof MemberlistRoute
   '/messages': typeof MessagesRoute
-  '/mod-dashboard': typeof ModDashboardRoute
   '/report': typeof ReportRoute
   '/search': typeof SearchRoute
   '/team': typeof TeamRoute
   '/user-dashboard': typeof UserDashboardRoute
+  '/mod-dashboard/announcements': typeof ModDashboardAnnouncementsRoute
   '/admin': typeof AdminIndexRoute
+  '/mod-dashboard': typeof ModDashboardIndexRoute
   '/admin/forums/new': typeof AdminForumsNewRoute
   '/users/$username/reputation': typeof UsersUsernameReputationRoute
   '/admin/forums': typeof AdminForumsIndexRoute
@@ -290,12 +299,13 @@ export interface FileRoutesById {
   '/help': typeof HelpRoute
   '/memberlist': typeof MemberlistRoute
   '/messages': typeof MessagesRoute
-  '/mod-dashboard': typeof ModDashboardRoute
   '/report': typeof ReportRoute
   '/search': typeof SearchRoute
   '/team': typeof TeamRoute
   '/user-dashboard': typeof UserDashboardRoute
+  '/mod-dashboard/announcements': typeof ModDashboardAnnouncementsRoute
   '/admin/': typeof AdminIndexRoute
+  '/mod-dashboard/': typeof ModDashboardIndexRoute
   '/admin/forums/new': typeof AdminForumsNewRoute
   '/users/$username/reputation': typeof UsersUsernameReputationRoute
   '/admin/forums/': typeof AdminForumsIndexRoute
@@ -314,12 +324,13 @@ export interface FileRouteTypes {
     | '/help'
     | '/memberlist'
     | '/messages'
-    | '/mod-dashboard'
     | '/report'
     | '/search'
     | '/team'
     | '/user-dashboard'
+    | '/mod-dashboard/announcements'
     | '/admin'
+    | '/mod-dashboard'
     | '/admin/forums/new'
     | '/users/$username/reputation'
     | '/admin/forums'
@@ -336,12 +347,13 @@ export interface FileRouteTypes {
     | '/help'
     | '/memberlist'
     | '/messages'
-    | '/mod-dashboard'
     | '/report'
     | '/search'
     | '/team'
     | '/user-dashboard'
+    | '/mod-dashboard/announcements'
     | '/admin'
+    | '/mod-dashboard'
     | '/admin/forums/new'
     | '/users/$username/reputation'
     | '/admin/forums'
@@ -358,12 +370,13 @@ export interface FileRouteTypes {
     | '/help'
     | '/memberlist'
     | '/messages'
-    | '/mod-dashboard'
     | '/report'
     | '/search'
     | '/team'
     | '/user-dashboard'
+    | '/mod-dashboard/announcements'
     | '/admin/'
+    | '/mod-dashboard/'
     | '/admin/forums/new'
     | '/users/$username/reputation'
     | '/admin/forums/'
@@ -381,12 +394,13 @@ export interface RootRouteChildren {
   HelpRoute: typeof HelpRoute
   MemberlistRoute: typeof MemberlistRoute
   MessagesRoute: typeof MessagesRoute
-  ModDashboardRoute: typeof ModDashboardRoute
   ReportRoute: typeof ReportRoute
   SearchRoute: typeof SearchRoute
   TeamRoute: typeof TeamRoute
   UserDashboardRoute: typeof UserDashboardRoute
+  ModDashboardAnnouncementsRoute: typeof ModDashboardAnnouncementsRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  ModDashboardIndexRoute: typeof ModDashboardIndexRoute
   AdminForumsNewRoute: typeof AdminForumsNewRoute
   UsersUsernameReputationRoute: typeof UsersUsernameReputationRoute
   AdminForumsIndexRoute: typeof AdminForumsIndexRoute
@@ -551,13 +565,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReportRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/mod-dashboard': {
-      id: '/mod-dashboard'
-      path: '/mod-dashboard'
-      fullPath: '/mod-dashboard'
-      preLoaderRoute: typeof ModDashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/messages': {
       id: '/messages'
       path: '/messages'
@@ -586,11 +593,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mod-dashboard/': {
+      id: '/mod-dashboard/'
+      path: '/mod-dashboard'
+      fullPath: '/mod-dashboard'
+      preLoaderRoute: typeof ModDashboardIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/': {
       id: '/admin/'
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mod-dashboard/announcements': {
+      id: '/mod-dashboard/announcements'
+      path: '/mod-dashboard/announcements'
+      fullPath: '/mod-dashboard/announcements'
+      preLoaderRoute: typeof ModDashboardAnnouncementsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/users/$username/': {
@@ -795,12 +816,13 @@ const rootRouteChildren: RootRouteChildren = {
   HelpRoute: HelpRoute,
   MemberlistRoute: MemberlistRoute,
   MessagesRoute: MessagesRoute,
-  ModDashboardRoute: ModDashboardRoute,
   ReportRoute: ReportRoute,
   SearchRoute: SearchRoute,
   TeamRoute: TeamRoute,
   UserDashboardRoute: UserDashboardRoute,
+  ModDashboardAnnouncementsRoute: ModDashboardAnnouncementsRoute,
   AdminIndexRoute: AdminIndexRoute,
+  ModDashboardIndexRoute: ModDashboardIndexRoute,
   AdminForumsNewRoute: AdminForumsNewRoute,
   UsersUsernameReputationRoute: UsersUsernameReputationRoute,
   AdminForumsIndexRoute: AdminForumsIndexRoute,

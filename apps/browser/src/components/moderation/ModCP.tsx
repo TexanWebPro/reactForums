@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import Breadcrumbs from "../Breadcrumbs";
 import { ModCPNav } from "./ModCPNav";
+import { formatDateTimeForPostDateTable } from "@reactforums/common/utils/dates";
 
 export function ModCP() {
   return (
@@ -66,7 +67,7 @@ function ModLogLatest() {
           <Link to="/users/$username" params={{ username: "Jeb Bush" }}>
             Jeb Bush
           </Link>
-          <span>{new Date().toISOString()}</span>
+          <span>{formatDateTimeForPostDateTable(new Date())}</span>
           <span>Banned</span>
           <span>Spam</span>
           <span>00-0000-0000</span>

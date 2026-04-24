@@ -25,7 +25,7 @@ export function ModCPNav() {
             </span>
             <span className="flex flex-col items-start justify-between gap-2 px-4 py-2">
               <Link
-                to="/"
+                to="/mod-dashboard/announcements"
                 className="flex flex-row items-start justify-end gap-2"
               >
                 <img

@@ -1,4 +1,4 @@
-import { nanGuard } from "@/lib/numbers";
+import { nanGuard } from "@reactforums/common/utils/numbers";
 import { starRating } from "../utils/starRating";
 import { Thread } from "@reactforums/core";
 
