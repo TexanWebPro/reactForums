@@ -10,7 +10,7 @@ export function ModCPNav() {
         <span className="flex flex-col items-start justify-between gap-2 w-full border-2 border-t-0 border-stone-400 rounded-b-lg">
           <Link
             to="/mod-dashboard"
-            className="flex flex-row items-start justify-end gap-2 px-4 pb-2 pt-4"
+            className="flex flex-row items-center justify-end gap-2 px-4 pb-2 pt-4"
           >
             <img
               src="/images/icons/home.svg"
@@ -26,7 +26,7 @@ export function ModCPNav() {
             <span className="flex flex-col items-start justify-between gap-2 px-4 py-2">
               <Link
                 to="/mod-dashboard/announcements"
-                className="flex flex-row items-start justify-end gap-2"
+                className="flex flex-row items-center justify-end gap-2"
               >
                 <img
                   src="/images/icons/megaphone.svg"
@@ -36,8 +36,8 @@ export function ModCPNav() {
                 Announcements
               </Link>
               <Link
-                to="/"
-                className="flex flex-row items-start justify-end gap-2"
+                to="/mod-dashboard/queue"
+                className="flex flex-row items-center justify-end gap-2"
               >
                 <img
                   src="/images/icons/shield-exclamation.svg"
@@ -48,7 +48,7 @@ export function ModCPNav() {
               </Link>
               <Link
                 to="/messages"
-                className="flex flex-row items-start justify-end gap-2"
+                className="flex flex-row items-center justify-end gap-2"
               >
                 <img
                   src="/images/icons/flag.svg"
@@ -59,7 +59,7 @@ export function ModCPNav() {
               </Link>
               <Link
                 to="/messages"
-                className="flex flex-row items-start justify-end gap-2"
+                className="flex flex-row items-center justify-end gap-2"
               >
                 <img
                   src="/images/icons/document-text.svg"
@@ -78,7 +78,7 @@ export function ModCPNav() {
             <span className="flex flex-col items-start justify-between gap-2 px-4 py-2">
               <Link
                 to="/"
-                className="flex flex-row items-start justify-end gap-2"
+                className="flex flex-row items-center justify-end gap-2"
               >
                 <img
                   src="/images/icons/pencil.svg"
@@ -89,7 +89,7 @@ export function ModCPNav() {
               </Link>
               <Link
                 to="/"
-                className="flex flex-row items-start justify-end gap-2"
+                className="flex flex-row items-center justify-end gap-2"
               >
                 <img
                   src="/images/icons/user.svg"
@@ -100,7 +100,7 @@ export function ModCPNav() {
               </Link>
               <Link
                 to="/"
-                className="flex flex-row items-start justify-end gap-2"
+                className="flex flex-row items-center justify-end gap-2"
               >
                 <img
                   src="/images/icons/exclamation-triangle.svg"
@@ -111,7 +111,7 @@ export function ModCPNav() {
               </Link>
               <Link
                 to="/"
-                className="flex flex-row items-start justify-end gap-2"
+                className="flex flex-row items-center justify-end gap-2"
               >
                 <img
                   src="/images/icons/magnifying-glass.svg"

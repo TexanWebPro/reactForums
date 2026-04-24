@@ -15,7 +15,7 @@ export function AdminSidebarNav() {
       <span className="flex flex-col items-start min-h-screen w-full border-2 border-t-0 border-stone-400 rounded-b-lg">
         <Link
           to="/admin"
-          className="flex flex-row items-start justify-end gap-2 hover:underline px-4 pb-2 pt-4"
+          className="flex flex-row items-center justify-end gap-2 hover:underline px-4 pb-2 pt-4"
         >
           <img
             src="/images/icons/home.svg"
@@ -34,7 +34,7 @@ export function AdminSidebarNav() {
           <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/admin/forums"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -45,7 +45,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -56,7 +56,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -67,7 +67,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -85,7 +85,7 @@ export function AdminSidebarNav() {
           <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -96,7 +96,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -107,7 +107,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -118,7 +118,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -129,7 +129,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -147,7 +147,7 @@ export function AdminSidebarNav() {
           <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -158,7 +158,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -169,7 +169,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -180,7 +180,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -191,7 +191,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -209,7 +209,7 @@ export function AdminSidebarNav() {
           <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -220,7 +220,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -231,7 +231,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -249,7 +249,7 @@ export function AdminSidebarNav() {
           <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -260,7 +260,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -271,7 +271,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -282,7 +282,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -293,7 +293,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -311,7 +311,7 @@ export function AdminSidebarNav() {
           <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -322,7 +322,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -333,7 +333,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -344,7 +344,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -355,7 +355,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -366,7 +366,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -384,7 +384,7 @@ export function AdminSidebarNav() {
           <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -402,7 +402,7 @@ export function AdminSidebarNav() {
           <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -413,7 +413,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -424,7 +424,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -435,7 +435,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -453,7 +453,7 @@ export function AdminSidebarNav() {
           <CollapsibleContent className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -464,7 +464,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -475,7 +475,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -486,7 +486,7 @@ export function AdminSidebarNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2 hover:underline"
+              className="flex flex-row items-center justify-end gap-2 hover:underline"
             >
               <img
                 src="/images/icons/paper-clip.svg"

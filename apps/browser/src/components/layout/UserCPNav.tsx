@@ -9,7 +9,7 @@ export function UserCPNav() {
       <span className="flex flex-col items-start justify-between gap-2 w-full border-2 border-t-0 border-stone-400 rounded-b-lg">
         <Link
           to="/user-dashboard"
-          className="flex flex-row items-start justify-end gap-2 px-4 pb-2 pt-4"
+          className="flex flex-row items-center justify-end gap-2 px-4 pb-2 pt-4"
         >
           <img
             src="/images/icons/home.svg"
@@ -25,7 +25,7 @@ export function UserCPNav() {
           <span className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2"
+              className="flex flex-row items-center justify-end gap-2"
             >
               <img
                 src="/images/icons/envelope.svg"
@@ -36,7 +36,7 @@ export function UserCPNav() {
             </Link>
             <Link
               to="/messages"
-              className="flex flex-row items-start justify-end gap-2"
+              className="flex flex-row items-center justify-end gap-2"
             >
               <img
                 src="/images/icons/inbox.svg"
@@ -55,7 +55,7 @@ export function UserCPNav() {
           <span className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2"
+              className="flex flex-row items-center justify-end gap-2"
             >
               <img
                 src="/images/icons/pencil.svg"
@@ -66,7 +66,7 @@ export function UserCPNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2"
+              className="flex flex-row items-center justify-end gap-2"
             >
               <img
                 src="/images/icons/cog-6-tooth.svg"
@@ -85,7 +85,7 @@ export function UserCPNav() {
           <span className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2"
+              className="flex flex-row items-center justify-end gap-2"
             >
               <img
                 src="/images/icons/user-group.svg"
@@ -96,7 +96,7 @@ export function UserCPNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2"
+              className="flex flex-row items-center justify-end gap-2"
             >
               <img
                 src="/images/icons/user-plus.svg"
@@ -107,7 +107,7 @@ export function UserCPNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2"
+              className="flex flex-row items-center justify-end gap-2"
             >
               <img
                 src="/images/icons/user-minus.svg"
@@ -126,7 +126,7 @@ export function UserCPNav() {
           <span className="flex flex-col items-start justify-between gap-2 px-4 py-2">
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2"
+              className="flex flex-row items-center justify-end gap-2"
             >
               <img
                 src="/images/icons/paper-clip.svg"
@@ -137,7 +137,7 @@ export function UserCPNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2"
+              className="flex flex-row items-center justify-end gap-2"
             >
               <img
                 src="/images/icons/document-text.svg"
@@ -148,7 +148,7 @@ export function UserCPNav() {
             </Link>
             <Link
               to="/"
-              className="flex flex-row items-start justify-end gap-2"
+              className="flex flex-row items-center justify-end gap-2"
             >
               <img
                 src="/images/icons/bell.svg"

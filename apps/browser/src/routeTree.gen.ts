@@ -21,6 +21,7 @@ import { Route as HelpRouteImport } from './routes/help'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ModDashboardIndexRouteImport } from './routes/mod-dashboard/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as ModDashboardQueueRouteImport } from './routes/mod-dashboard/queue'
 import { Route as ModDashboardAnnouncementsRouteImport } from './routes/mod-dashboard/announcements'
 import { Route as UsersUsernameIndexRouteImport } from './routes/users/$username/index'
 import { Route as ForumForumIdIndexRouteImport } from './routes/forum/$forumId/index'
@@ -98,6 +99,11 @@ const ModDashboardIndexRoute = ModDashboardIndexRouteImport.update({
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModDashboardQueueRoute = ModDashboardQueueRouteImport.update({
+  id: '/mod-dashboard/queue',
+  path: '/mod-dashboard/queue',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ModDashboardAnnouncementsRoute =
@@ -257,6 +263,7 @@ export interface FileRoutesByFullPath {
   '/team': typeof TeamRoute
   '/user-dashboard': typeof UserDashboardRoute
   '/mod-dashboard/announcements': typeof ModDashboardAnnouncementsRoute
+  '/mod-dashboard/queue': typeof ModDashboardQueueRoute
   '/admin': typeof AdminIndexRoute
   '/mod-dashboard': typeof ModDashboardIndexRoute
   '/admin/forums/new': typeof AdminForumsNewRoute
@@ -280,6 +287,7 @@ export interface FileRoutesByTo {
   '/team': typeof TeamRoute
   '/user-dashboard': typeof UserDashboardRoute
   '/mod-dashboard/announcements': typeof ModDashboardAnnouncementsRoute
+  '/mod-dashboard/queue': typeof ModDashboardQueueRoute
   '/admin': typeof AdminIndexRoute
   '/mod-dashboard': typeof ModDashboardIndexRoute
   '/admin/forums/new': typeof AdminForumsNewRoute
@@ -304,6 +312,7 @@ export interface FileRoutesById {
   '/team': typeof TeamRoute
   '/user-dashboard': typeof UserDashboardRoute
   '/mod-dashboard/announcements': typeof ModDashboardAnnouncementsRoute
+  '/mod-dashboard/queue': typeof ModDashboardQueueRoute
   '/admin/': typeof AdminIndexRoute
   '/mod-dashboard/': typeof ModDashboardIndexRoute
   '/admin/forums/new': typeof AdminForumsNewRoute
@@ -329,6 +338,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/user-dashboard'
     | '/mod-dashboard/announcements'
+    | '/mod-dashboard/queue'
     | '/admin'
     | '/mod-dashboard'
     | '/admin/forums/new'
@@ -352,6 +362,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/user-dashboard'
     | '/mod-dashboard/announcements'
+    | '/mod-dashboard/queue'
     | '/admin'
     | '/mod-dashboard'
     | '/admin/forums/new'
@@ -375,6 +386,7 @@ export interface FileRouteTypes {
     | '/team'
     | '/user-dashboard'
     | '/mod-dashboard/announcements'
+    | '/mod-dashboard/queue'
     | '/admin/'
     | '/mod-dashboard/'
     | '/admin/forums/new'
@@ -399,6 +411,7 @@ export interface RootRouteChildren {
   TeamRoute: typeof TeamRoute
   UserDashboardRoute: typeof UserDashboardRoute
   ModDashboardAnnouncementsRoute: typeof ModDashboardAnnouncementsRoute
+  ModDashboardQueueRoute: typeof ModDashboardQueueRoute
   AdminIndexRoute: typeof AdminIndexRoute
   ModDashboardIndexRoute: typeof ModDashboardIndexRoute
   AdminForumsNewRoute: typeof AdminForumsNewRoute
@@ -605,6 +618,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mod-dashboard/queue': {
+      id: '/mod-dashboard/queue'
+      path: '/mod-dashboard/queue'
+      fullPath: '/mod-dashboard/queue'
+      preLoaderRoute: typeof ModDashboardQueueRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mod-dashboard/announcements': {
@@ -821,6 +841,7 @@ const rootRouteChildren: RootRouteChildren = {
   TeamRoute: TeamRoute,
   UserDashboardRoute: UserDashboardRoute,
   ModDashboardAnnouncementsRoute: ModDashboardAnnouncementsRoute,
+  ModDashboardQueueRoute: ModDashboardQueueRoute,
   AdminIndexRoute: AdminIndexRoute,
   ModDashboardIndexRoute: ModDashboardIndexRoute,
   AdminForumsNewRoute: AdminForumsNewRoute,
