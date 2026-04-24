@@ -8,6 +8,10 @@ export function formatDateTimeForUserProfile(date: Date) {
   return format(date, "MM-dd-yyyy");
 }
 
+export function formatDateTimeForPostDateTable(date: Date) {
+  return format(date, "MM-dd-yyyy");
+}
+
 export function formatLastPostDateTime(date: Date) {
   return formatDistance(new Date(), date);
 }
